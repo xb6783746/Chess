@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChessGame\ChessEnums\ChessFType.cs" />
+    <Compile Include="ChessGame\ChessInterfaces\IChessFigure.cs" />
     <Compile Include="Game\FigureOnBoard.cs" />
     <Compile Include="Game\Game.cs" />
     <Compile Include="Game\StepInfo.cs" />
@@ -49,7 +51,10 @@
     <Compile Include="Interfaces\IGamer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ChessGame\ChessField\" />
+    <Folder Include="ChessGame\ChessFigures\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

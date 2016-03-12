@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace GameTemplate.ChessGame.ChessInterfaces
 {
-    class IChessFigure :IFigure
+    public interface IChessFigure :IFigure
     {
-        public ChessFType Type { get; }
+        ChessFType Type { get; }
     }
 }

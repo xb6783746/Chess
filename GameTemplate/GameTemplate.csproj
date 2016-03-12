@@ -41,7 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChessGame\ChessEnums\ChessFType.cs" />
+    <Compile Include="ChessGame\ChessField\ChessField.cs" />
     <Compile Include="ChessGame\ChessInterfaces\IChessFigure.cs" />
+    <Compile Include="ChessGame\ChessInterfaces\IChessFigureFactory.cs" />
     <Compile Include="Game\FigureOnBoard.cs" />
     <Compile Include="Game\Game.cs" />
     <Compile Include="Game\StepInfo.cs" />
@@ -49,10 +51,10 @@
     <Compile Include="Interfaces\IFigure.cs" />
     <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Interfaces\IGamer.cs" />
+    <Compile Include="Interfaces\IReadOnlyField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ChessGame\ChessField\" />
     <Folder Include="ChessGame\ChessFigures\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

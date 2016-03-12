@@ -55,9 +55,9 @@ namespace GameTemplate.Game
         /// <summary>
         /// Игровое поле
         /// </summary>
-        public IField<T> Field
+        public IReadOnlyField<T> Field
         {
-            get { return field; }
+            get { return field.GetReadOnlyField(); }
         }
 
         /// <summary>
@@ -84,10 +84,12 @@ namespace GameTemplate.Game
         protected virtual void NextStep(IGamer<T> gamer)
         {
             CurrentColor = gamer.Color;
-
-            StepInfo step = gamer.MakeStep();
-
-            field.MakeStep(step);
+            StepInfo step;
+            do
+            {
+                step = gamer.MakeStep();
+            } 
+            while (!field.MakeStep(step));
 
             Change();
         }

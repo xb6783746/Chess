@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameTemplate", "GameTemplat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientAPI", "ClientAPI\ClientAPI.csproj", "{60C609FD-BD7F-4B8E-9028-91052BC34FD4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessClient", "ChessClient\ChessClient.csproj", "{0B6A719B-560F-4858-BA20-177FE46C3DB2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{60C609FD-BD7F-4B8E-9028-91052BC34FD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60C609FD-BD7F-4B8E-9028-91052BC34FD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60C609FD-BD7F-4B8E-9028-91052BC34FD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B6A719B-560F-4858-BA20-177FE46C3DB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B6A719B-560F-4858-BA20-177FE46C3DB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B6A719B-560F-4858-BA20-177FE46C3DB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B6A719B-560F-4858-BA20-177FE46C3DB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -44,12 +44,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\GameScreenController.cs" />
+    <Compile Include="Controllers\LogInScreenController.cs" />
+    <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\MainScreenController.cs" />
+    <Compile Include="Controllers\WaitScreenController.cs" />
+    <Compile Include="Enums\ClientState.cs" />
+    <Compile Include="Interfaces\IClientFacade.cs" />
+    <Compile Include="Interfaces\IMainForm.cs" />
+    <Compile Include="Interfaces\IServerFacade.cs" />
+    <Compile Include="Interfaces\ISwitch.cs" />
     <Compile Include="MainForm\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Network\Messanger.cs" />
+    <Compile Include="Network\SocketListener.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -74,11 +86,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Enums\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Network\" />
+    <ProjectReference Include="..\ClientAPI\ClientAPI.csproj">
+      <Project>{60c609fd-bd7f-4b8e-9028-91052bc34fd4}</Project>
+      <Name>ClientAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameTemplate\GameTemplate.csproj">
+      <Project>{c5b11426-c04f-4882-8640-031fd9461faa}</Project>
+      <Name>GameTemplate</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -14,7 +14,6 @@ namespace ChessClient.Controllers
         {
             throw new NotImplementedException();
         }
-
         public void Disable()
         {
             throw new NotImplementedException();
@@ -24,7 +23,6 @@ namespace ChessClient.Controllers
         {
             throw new NotImplementedException();
         }
-
         public void Message(string msg)
         {
             throw new NotImplementedException();

@@ -1,5 +1,8 @@
 ﻿using ChessClient.Interfaces;
 using ChessClient.Interfaces.IControllers;
+using GameTemplate.ChessGame.ChessInterfaces;
+using GameTemplate.Game;
+using GameTemplate.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +17,6 @@ namespace ChessClient.Controllers
         {
             throw new NotImplementedException();
         }
-
         public void Disable()
         {
             throw new NotImplementedException();
@@ -24,17 +26,14 @@ namespace ChessClient.Controllers
         {
             throw new NotImplementedException();
         }
-
         public void StartGame()
         {
             throw new NotImplementedException();
         }
-
-        public void Step(GameTemplate.Interfaces.IField<GameTemplate.ChessGame.ChessInterfaces.IChessFigure> f, GameTemplate.Game.StepInfo step)
+        public void Step(IField<IChessFigure> f, StepInfo step)
         {
             throw new NotImplementedException();
         }
-
         public void GameOver(bool win)
         {
             throw new NotImplementedException();

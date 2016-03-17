@@ -21,27 +21,22 @@ namespace ChessClient.Network
         {
             throw new NotImplementedException();
         }
-
         public void StartGameWith(string gamer)
         {
             throw new NotImplementedException();
         }
-
         public void MakeStep(StepInfo step)
         {
             throw new NotImplementedException();
         }
-
         public void SendMessage(string msg)
         {
             throw new NotImplementedException();
         }
-
         public void Surrender()
         {
             throw new NotImplementedException();
         }
-
         public void Accept()
         {
             throw new NotImplementedException();

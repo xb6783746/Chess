@@ -9,18 +9,14 @@ using System.Threading.Tasks;
 
 namespace ClientAPI
 {
-    public interface IGamerScreen :IMessenger
+    public interface IGameScreen :IMessenger
     {
         event Action<StepInfo> Step;
 
         void StartGame();
-
         void UpdateField(IField<IChessFigure> f);
-
         void SetRender(IRender r);
-
         void Message(string msg);
-
         void GameOver(bool win);
     }
 }

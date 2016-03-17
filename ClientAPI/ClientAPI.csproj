@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IGamerScreen.cs" />
+    <Compile Include="IGameScreen.cs" />
     <Compile Include="ILoginScreen.cs" />
     <Compile Include="IMainScreen.cs" />
     <Compile Include="IMessenger.cs" />

@@ -12,11 +12,8 @@ namespace ChessClient.Interfaces.IControllers
     interface IGameScreenController
     {
         void Message(string msg);
-
         void StartGame();
-
         void Step(IField<IChessFigure> f, StepInfo step);
-
         void GameOver(bool win);
     }
 }

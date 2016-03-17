@@ -10,16 +10,12 @@ namespace ChessClient.Interfaces
 {
     public interface IServerFacade
     {
-        void LogIn(IPAddress ip, int port, string nick);
-
-        void GetAllGamers();
-
-        void RandomGame();
-        void GameWith(string nick);
-        void WatchFor(string nick);
-
+        void LogIn(IPAddress ip);
+        void StartRandomGame();
+        void StartGameWith(string gamer);
         void MakeStep(StepInfo step);
-
-        void SendMessage(string message);
+        void SendMessage(string msg);
+        void Surrender();
+        void Accept();
     }
 }

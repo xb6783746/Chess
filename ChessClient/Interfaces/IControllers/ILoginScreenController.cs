@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClientAPI
+namespace ChessClient.Interfaces.IControllers
 {
-    public interface ILoginScreen
+    interface ILoginScreenController
     {
-        event Action<IPAddress, int> LogIn;
-
         void Fail(string message);
     }
 }

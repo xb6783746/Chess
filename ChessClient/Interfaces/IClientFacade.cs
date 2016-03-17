@@ -1,6 +1,7 @@
 ﻿using GameTemplate.Game;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,18 +10,15 @@ namespace ChessClient.Interfaces
 {
     public interface IClientFacade
     {
-        void Connect(bool isConnected, string nick);
+        void LoginResult(bool result, string message);
+        void Message(string msg);
+        void Disconnected();
+        void StartGame(Color color);
+        void Challenge(string from);
 
-        void SetGamerList(List<string> gamers);
+        void UpdateField(IChessField field, StepInfo step);
 
-        void StartGame();
-        void Update(StepInfo step, bool turn);
-       // void Update(IField<IChessFigure> field);
-        void GameOver(bool win);        
-        void Surrendered();
-
-        void StartWatch();
-
-        void NewMessage(string message);
+        void GameOver(bool win);
+        void Waiting();
     }
 }

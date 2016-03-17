@@ -13,8 +13,6 @@ namespace ClientAPI
         event Action<string> WatchForGamer;
         event Action<string> ChangeNick;
 
-        event Action UpdateGamerList;
-
-        void SetGamerList(List<string> gamers);
+        bool Challenge();
     }
 }

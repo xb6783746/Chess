@@ -10,11 +10,15 @@ namespace ClientAPI
     public interface IGamerScreen :IMessenger
     {
         event Action<StepInfo> Step;
-        event Action Lose;
 
-        void UpdateField(StepInfo info);
-        void SetRender(IRender render);
+        void StartGame();
 
-        void GameOver(bool win, string msg);
+        void UpdateField(IChessField f);
+
+        void SetRender(IRender r);
+
+        void Message(string msg);
+
+        void GameOver(bool win);
     }
 }

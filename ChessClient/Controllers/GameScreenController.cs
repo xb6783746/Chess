@@ -1,4 +1,5 @@
 ﻿using ChessClient.Interfaces;
+using ChessClient.Interfaces.IControllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ChessClient.Controllers
 {
-    class GameScreenController : ISwitch
+    class GameScreenController : ISwitch, IGameScreenController
     {
         public void Enable()
         {

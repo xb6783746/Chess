@@ -21,7 +21,7 @@ namespace GameTemplate.Interfaces
         /// <summary>
         /// Игровое поле
         /// </summary>
-        IField<T> Field { get; }
+        IReadOnlyField<T> Field { get; }
 
         /// <summary>
         /// Событие изменения состояния игры

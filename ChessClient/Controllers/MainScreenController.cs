@@ -19,5 +19,15 @@ namespace ChessClient.Controllers
         {
             throw new NotImplementedException();
         }
+
+        public void Challenge(string from)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Message(string msg)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

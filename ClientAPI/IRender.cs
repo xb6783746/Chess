@@ -1,4 +1,6 @@
-﻿using GameTemplate.Game;
+﻿using GameTemplate.ChessGame.ChessInterfaces;
+using GameTemplate.Game;
+using GameTemplate.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -10,6 +12,6 @@ namespace ClientAPI
 {
     public interface IRender
     {
-        void UpdateField(Bitmap bitmap, StepInfo step);
+        void UpdateField(Bitmap bitmap, IField<IChessFigure> field);
     }
 }

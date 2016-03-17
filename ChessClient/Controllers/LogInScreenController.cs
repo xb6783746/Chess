@@ -19,5 +19,10 @@ namespace ChessClient.Controllers
         {
             throw new NotImplementedException();
         }
+
+        public void Fail(string message)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

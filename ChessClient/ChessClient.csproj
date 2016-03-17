@@ -46,12 +46,16 @@
   <ItemGroup>
     <Compile Include="Controllers\GameScreenController.cs" />
     <Compile Include="Controllers\LogInScreenController.cs" />
-    <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Facade\ClientFacade.cs" />
     <Compile Include="Controllers\MainScreenController.cs" />
     <Compile Include="Controllers\ScreenManager.cs" />
     <Compile Include="Controllers\WaitScreenController.cs" />
     <Compile Include="Enums\ClientState.cs" />
     <Compile Include="Enums\ScreenType.cs" />
+    <Compile Include="Facade\States\GameFacadeState.cs" />
+    <Compile Include="Facade\States\LogInFacadeState.cs" />
+    <Compile Include="Facade\States\MainFacadeState.cs" />
+    <Compile Include="Facade\States\WaitFacadeState.cs" />
     <Compile Include="Interfaces\IClientFacade.cs" />
     <Compile Include="Interfaces\IControllers\IGameScreenController.cs" />
     <Compile Include="Interfaces\IControllers\ILoginScreenController.cs" />

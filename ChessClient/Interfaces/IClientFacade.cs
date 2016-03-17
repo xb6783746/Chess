@@ -1,4 +1,6 @@
-﻿using GameTemplate.Game;
+﻿using GameTemplate.ChessGame.ChessInterfaces;
+using GameTemplate.Game;
+using GameTemplate.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -16,7 +18,7 @@ namespace ChessClient.Interfaces
         void StartGame(Color color);
         void Challenge(string from);
 
-        void UpdateField(IChessField field, StepInfo step);
+        void UpdateField(IField<IChessFigure> field, StepInfo step);
 
         void GameOver(bool win);
         void Waiting();

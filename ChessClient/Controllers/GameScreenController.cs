@@ -19,5 +19,25 @@ namespace ChessClient.Controllers
         {
             throw new NotImplementedException();
         }
+
+        public void Message(string msg)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StartGame()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Step(GameTemplate.Interfaces.IField<GameTemplate.ChessGame.ChessInterfaces.IChessFigure> f, GameTemplate.Game.StepInfo step)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GameOver(bool win)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

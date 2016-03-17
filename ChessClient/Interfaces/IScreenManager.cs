@@ -12,8 +12,8 @@ namespace ChessClient.Interfaces
     {
         void Switch(ScreenType screen);
 
-        public IGameScreenController GameController {get;}
-        public ILoginScreenController LoginController { get; }
-        public IMainScreenController MainController { get; }
+        IGameScreenController GameController {get;}
+        ILoginScreenController LoginController { get; }
+        IMainScreenController MainController { get; }
     }
 }

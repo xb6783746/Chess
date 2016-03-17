@@ -1,4 +1,6 @@
-﻿using GameTemplate.Game;
+﻿using GameTemplate.ChessGame.ChessInterfaces;
+using GameTemplate.Game;
+using GameTemplate.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +15,7 @@ namespace ClientAPI
 
         void StartGame();
 
-        void UpdateField(IChessField f);
+        void UpdateField(IField<IChessFigure> f);
 
         void SetRender(IRender r);
 

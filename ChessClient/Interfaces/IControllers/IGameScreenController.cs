@@ -1,4 +1,7 @@
-﻿using System;
+﻿using GameTemplate.ChessGame.ChessInterfaces;
+using GameTemplate.Game;
+using GameTemplate.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +15,7 @@ namespace ChessClient.Interfaces.IControllers
 
         void StartGame();
 
-        void Step(IChessField f, StepInfo step);
+        void Step(IField<IChessFigure> f, StepInfo step);
 
         void GameOver(bool win);
     }

@@ -63,8 +63,10 @@
     <Compile Include="Interfaces\IControllers\IMainScreenController.cs" />
     <Compile Include="Interfaces\IFacadeState.cs" />
     <Compile Include="Interfaces\IMainForm.cs" />
+    <Compile Include="Interfaces\IParser.cs" />
     <Compile Include="Interfaces\IScreenManager.cs" />
     <Compile Include="Interfaces\IServerFacade.cs" />
+    <Compile Include="Interfaces\ISocketListener.cs" />
     <Compile Include="Interfaces\ISwitch.cs" />
     <Compile Include="MainForm\MainForm.cs">
       <SubType>Form</SubType>
@@ -110,6 +112,10 @@
     <ProjectReference Include="..\GameTemplate\GameTemplate.csproj">
       <Project>{c5b11426-c04f-4882-8640-031fd9461faa}</Project>
       <Name>GameTemplate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Network\Network.csproj">
+      <Project>{f16bf67b-f1ce-4425-8122-a11a27cc287a}</Project>
+      <Name>Network</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

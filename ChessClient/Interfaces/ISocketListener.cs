@@ -16,6 +16,8 @@ namespace ChessClient.Interfaces
 
         bool IsRunning { get; }
 
+        void SetParser(IParser parser);
+
 
     }
 }

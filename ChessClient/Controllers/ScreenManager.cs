@@ -13,6 +13,9 @@ namespace ChessClient.Controllers
         public ScreenManager(IMainForm mainForm, IServerFacade facade)
         {
             Init(mainForm, facade);
+
+            current = screens[ScreenType.LogIn];
+            current.Enable();
         }
 
         private Dictionary<ScreenType, ISwitch> screens;

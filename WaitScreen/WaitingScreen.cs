@@ -11,6 +11,13 @@ namespace WaitScreen
     [Screen]
     public class WaitScreen : UserControl, IWaitingScreen
     {
+
+        public WaitScreen()
+        {
+
+            InitializeComponent();
+        }
+
         private Button cancelButton;
 
         private void InitializeComponent()

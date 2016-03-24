@@ -41,10 +41,10 @@ namespace ChessClient.Controllers
 
         protected override void LoadScreen()
         {
-            gameScreen = null;
+            //gameScreen = null;
 
-            gameScreen.Send += Send;
-            gameScreen.Step += Step;
+            //gameScreen.Send += Send;
+            //gameScreen.Step += Step;
         }
 
         private void Send(string msg)

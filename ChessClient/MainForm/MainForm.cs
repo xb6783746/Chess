@@ -18,15 +18,22 @@ namespace ChessClient
             InitializeComponent();
         }
 
+        private UserControl control;
+
         public UserControl Screen
         {
             get
             {
-                throw new NotImplementedException();
+               return control;
             }
             set
             {
-                throw new NotImplementedException();
+                Controls.Remove(control);
+
+                control = value;
+                control.Location = new Point(10, 10);
+                flowLayoutPanel1.Controls.Add(control);
+
             }
         }
     }

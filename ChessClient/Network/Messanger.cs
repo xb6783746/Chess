@@ -14,17 +14,19 @@ namespace ChessClient.Network
 {
     class Messanger : IServerFacade, IParser
     {
-        public Messanger(IClientFacade clientFacade, ISocketListener socketListener)
-        {
-            this.clientFacade = clientFacade;
-            this.socketListener = socketListener;
-
+        public Messanger()
+        {        
             formatter = new BinaryFormatter();
         }
 
         public void LogIn(IPAddress ip, int port, string message)
         {
             throw new NotImplementedException();
+        }
+        public void Init(IClientFacade clientFacade, ISocketListener socketListener)
+        {
+            this.clientFacade = clientFacade;
+            this.socketListener = socketListener;
         }
 
         private IClientFacade clientFacade;

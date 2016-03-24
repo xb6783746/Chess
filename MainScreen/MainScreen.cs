@@ -10,6 +10,11 @@ namespace MainScreen
 {
     public class MainScreen :UserControl, IMainScreen
     {
+        public MainScreen()
+        {
+            InitializeComponent();
+        }
+
         private TextBox chatWindow;
         private TextBox messageBox;
         private Button sendButton;

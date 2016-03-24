@@ -9,11 +9,10 @@ using System.Threading.Tasks;
 
 namespace ChessClient.Network
 {
-    class SocketListener : ISocketListener
+    public class SocketListener : ISocketListener
     {
-        public SocketListener(IParser parser, IClientFacade clientFacade)
-        {
-            this.parser = parser;
+        public SocketListener(IClientFacade clientFacade)
+        {           
             this.clientFacade = clientFacade;
 
             this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -73,6 +72,12 @@ namespace ChessClient.Network
         {
             get;
             private set;
+        }
+
+
+        public void SetParser(IParser parser)
+        {
+            this.parser = parser;
         }
     }
 }

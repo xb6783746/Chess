@@ -29,13 +29,13 @@ namespace ChessClient.Controllers
 
         protected override void LoadScreen()
         {
-            mainScreen = null;
+            //mainScreen = null;
 
-            mainScreen.ChangeNick += ChangeNick;
-            mainScreen.GameWith += GameWith;
-            mainScreen.RandomGame += RandomGame;
-            mainScreen.Send += Send;
-            mainScreen.WatchForGamer += Watch;
+            //mainScreen.ChangeNick += ChangeNick;
+            //mainScreen.GameWith += GameWith;
+            //mainScreen.RandomGame += RandomGame;
+            //mainScreen.Send += Send;
+            //mainScreen.WatchForGamer += Watch;
         }
 
         private void ChangeNick(string nick)

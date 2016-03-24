@@ -12,6 +12,11 @@ namespace LogInScreen
     [Screen]
     public class LogInScreen :UserControl, ILoginScreen
     {
+        public LogInScreen()
+        {
+            InitializeComponent();
+        }
+
         private Button button1;
         private MaskedTextBox maskedTextBox1;
         private Label label1;
@@ -146,7 +151,7 @@ namespace LogInScreen
 
         public UserControl GetScreen()
         {
-            throw new NotImplementedException();
+            return this;
         }
     }
 }

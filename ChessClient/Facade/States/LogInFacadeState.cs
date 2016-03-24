@@ -24,7 +24,14 @@ namespace ChessClient.Facade.States
 
         public void LoginResult(bool result, string message)
         {
-            throw new NotImplementedException();
+            if (result)
+            {
+                Switch(Enums.ClientState.Online);
+            }
+            else
+            {
+                manager.LoginController.Fail(message);
+            }
         }
         public void Message(string msg)
         {

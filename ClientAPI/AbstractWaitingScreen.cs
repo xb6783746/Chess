@@ -7,13 +7,13 @@ using System.Windows.Forms;
 
 namespace ClientAPI
 {
-    //public interface IWaitingScreen
-    //{
-    //    event Action Close;
-    //}
-
-    public abstract class AbstractWaitingScreen : UserControl
+    public interface IWaitingScreen: IScreen
     {
-        public abstract event Action Close;
+        event Action Close;
     }
+
+    //public abstract class AbstractWaitingScreen : UserControl
+    //{
+    //    public abstract event Action Close;
+    //}
 }

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 namespace LogInScreen
 {
     [Screen]
-    public class LogInScreen :AbstractLoginScreen
+    public class LogInScreen :UserControl, ILoginScreen
     {
         private Button button1;
         private MaskedTextBox maskedTextBox1;
@@ -24,7 +24,7 @@ namespace LogInScreen
         private Label label4;
         private TextBox textBox1;
 
-        public override void Fail(string message)
+        public void Fail(string message)
         {
             Message(message);
         }
@@ -136,12 +136,17 @@ namespace LogInScreen
         }
 
 
-        public override void Receive(string message)
+        public void Receive(string message)
         {
             throw new NotImplementedException();
         }
 
-        public override event Action<IPAddress, int, string> LogIn = (x, y, z) => { };
-        public override event Action<string> Send = (x) => { };
+        public event Action<IPAddress, int, string> LogIn = (x, y, z) => { };
+        public event Action<string> Send = (x) => { };
+
+        public UserControl GetScreen()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

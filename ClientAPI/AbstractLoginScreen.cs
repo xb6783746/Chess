@@ -8,21 +8,21 @@ using System.Windows.Forms;
 
 namespace ClientAPI
 {
-    //public interface ILoginScreen
-    //{
-    //    event Action<IPAddress, int, string> LogIn;
-
-    //    void Fail(string message);
-    //}
-
-    public abstract class AbstractLoginScreen : UserControl, IMessenger
+    public interface ILoginScreen : IScreen
     {
-        public abstract event Action<IPAddress, int, string> LogIn;
+        event Action<IPAddress, int, string> LogIn;
 
-        public abstract void Fail(string message);
-
-        public abstract event Action<string> Send;
-
-        public abstract void Receive(string message);
+        void Fail(string message);
     }
+
+    //public abstract class AbstractLoginScreen : UserControl, IMessenger
+    //{
+    //    public abstract event Action<IPAddress, int, string> LogIn;
+
+    //    public abstract void Fail(string message);
+
+    //    public abstract event Action<string> Send;
+
+    //    public abstract void Receive(string message);
+    //}
 }

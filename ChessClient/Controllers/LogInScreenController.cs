@@ -16,7 +16,7 @@ namespace ChessClient.Controllers
         {
         }
 
-        private AbstractLoginScreen loginScreen;
+        private ILoginScreen loginScreen;
 
         public void Fail(string message)
         {

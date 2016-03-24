@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogInScreen", "LogInScreen\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaitScreen", "WaitScreen\WaitScreen.csproj", "{C4E7BE94-E599-4C4A-A8E3-C6C660227315}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainScreen", "MainScreen\MainScreen.csproj", "{E6C2C295-E37B-457B-A3EC-ECCE5B89F8D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{C4E7BE94-E599-4C4A-A8E3-C6C660227315}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4E7BE94-E599-4C4A-A8E3-C6C660227315}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4E7BE94-E599-4C4A-A8E3-C6C660227315}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6C2C295-E37B-457B-A3EC-ECCE5B89F8D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6C2C295-E37B-457B-A3EC-ECCE5B89F8D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6C2C295-E37B-457B-A3EC-ECCE5B89F8D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6C2C295-E37B-457B-A3EC-ECCE5B89F8D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

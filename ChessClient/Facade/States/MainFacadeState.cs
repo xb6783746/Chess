@@ -27,19 +27,21 @@ namespace ChessClient.Facade.States
         }
         public void Message(string msg)
         {
-            throw new NotImplementedException();
+            manager.MainController.Message(msg);
         }
         public void Disconnected()
         {
-            throw new NotImplementedException();
+            Switch(Enums.ClientState.Offline);
         }
         public void StartGame(System.Drawing.Color color)
         {
-            throw new NotImplementedException();
+            manager.GameController.StartGame(color);
+
+            Switch(Enums.ClientState.InGame);
         }
         public void Challenge(string from)
         {
-            throw new NotImplementedException();
+            manager.MainController.Challenge(from);
         }
         public void UpdateField(IField<IChessFigure> field, StepInfo step)
         {
@@ -51,7 +53,7 @@ namespace ChessClient.Facade.States
         }
         public void Waiting()
         {
-            throw new NotImplementedException();
+            Switch(Enums.ClientState.Waiting);
         }
     }
 }

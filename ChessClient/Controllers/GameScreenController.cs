@@ -6,6 +6,7 @@ using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,13 +20,13 @@ namespace ChessClient.Controllers
         {              
         }
 
-        private AbstractGameScreen gameScreen;
+        private IGameScreen gameScreen;
 
         public void Message(string msg)
         {
             gameScreen.Message(msg);
         }
-        public void StartGame()
+        public void StartGame(Color color)
         {
             gameScreen.StartGame();
         }

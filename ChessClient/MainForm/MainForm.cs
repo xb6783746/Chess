@@ -16,24 +16,42 @@ namespace ChessClient
         public MainForm()
         {
             InitializeComponent();
+
+            clearAction = () => flowLayoutPanel1.Controls.Clear();
+            addAction = () => flowLayoutPanel1.Controls.Add(control);
         }
 
         private UserControl control;
+        private Action clearAction;
+        private Action addAction;
 
         public UserControl Screen
         {
             get
             {
-               return control;
+                return control;
             }
             set
             {
-                Controls.Remove(control);
+
+                IfInvoke(flowLayoutPanel1, clearAction);
 
                 control = value;
-                control.Location = new Point(10, 10);
-                flowLayoutPanel1.Controls.Add(control);
 
+                IfInvoke(flowLayoutPanel1, addAction);
+
+            }
+        }
+
+        private void IfInvoke(FlowLayoutPanel control, Action action)
+        {
+            if (control.InvokeRequired)
+            {
+                control.Invoke(action);
+            }
+            else
+            {
+                action();
             }
         }
     }

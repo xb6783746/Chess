@@ -73,6 +73,8 @@ namespace ChessClient.Controllers
         private void Switch(ClientState state)
         {
             current = repo[state];
+            current.Enable();
+          
         }
     }
 }

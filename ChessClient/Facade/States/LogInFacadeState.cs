@@ -61,5 +61,11 @@ namespace ChessClient.Facade.States
         {
             throw new NotImplementedException();
         }
+
+
+        public void Enable()
+        {
+            manager.Switch(Enums.ScreenType.LogIn);
+        }
     }
 }

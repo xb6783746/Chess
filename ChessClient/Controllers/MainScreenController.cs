@@ -3,7 +3,9 @@ using ChessClient.Interfaces.IControllers;
 using ClientAPI;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,13 +31,27 @@ namespace ChessClient.Controllers
 
         protected override void LoadScreen()
         {
-            //mainScreen = null;
+            string path = AppDomain.CurrentDomain.BaseDirectory + "/Screens";
+            string[] files = Directory.GetFiles(path, "*.dll");
+            foreach (var item in files)
+            {
+                var assembly = Assembly.LoadFile(item);
 
-            //mainScreen.ChangeNick += ChangeNick;
-            //mainScreen.GameWith += GameWith;
-            //mainScreen.RandomGame += RandomGame;
-            //mainScreen.Send += Send;
-            //mainScreen.WatchForGamer += Watch;
+                var screen = assembly.GetTypes().FirstOrDefault((x) => x.GetInterfaces().Contains(typeof(IMainScreen)));
+
+                if (screen != null)
+                {
+                    mainScreen = Activator.CreateInstance(screen) as IMainScreen;
+                    this.screen = mainScreen.GetScreen();
+                }
+            }
+
+
+            mainScreen.ChangeNick += ChangeNick;
+            mainScreen.GameWith += GameWith;
+            mainScreen.RandomGame += RandomGame;
+            mainScreen.Send += Send;
+            mainScreen.WatchForGamer += Watch;
         }
 
         private void ChangeNick(string nick)

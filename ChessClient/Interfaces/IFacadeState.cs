@@ -10,5 +10,7 @@ namespace ChessClient.Interfaces
     interface IFacadeState :IClientFacade
     {
         event Action<ClientState> Switch;
+
+        void Enable();
     }
 }

@@ -58,7 +58,7 @@ namespace LogInScreen
             // ipTextBox
             // 
             this.ipTextBox.Location = new System.Drawing.Point(33, 42);
-            this.ipTextBox.Mask = "000:000:000:000";
+            this.ipTextBox.Mask = "000.000.000.000";
             this.ipTextBox.Name = "ipTextBox";
             this.ipTextBox.Size = new System.Drawing.Size(91, 20);
             this.ipTextBox.TabIndex = 1;
@@ -125,7 +125,7 @@ namespace LogInScreen
             IPAddress ip;
             int port;
 
-            if (IPAddress.TryParse(ipTextBox.Text, out ip) && int.TryParse(portTextBox.Text, out port))
+            if (IPAddress.TryParse(ipTextBox.Text.Replace(',','.'), out ip) && int.TryParse(portTextBox.Text, out port))
             {
                 LogIn(ip, port, nickTextBox.Text);
             }

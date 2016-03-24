@@ -13,12 +13,17 @@ namespace ChessClient.Network
 {
     class ServerImitation :IServerFacade, IParser
     {
-        public ServerImitation(IClientFacade clientFacade)
+        public ServerImitation()
         {
-            this.clientFacade = clientFacade;
+            
         }
 
         private IClientFacade clientFacade;
+
+        public void Init(IClientFacade clientFacade)
+        {
+            this.clientFacade = clientFacade;
+        }
 
         public void LogIn(IPAddress ip, int port, string nick)
         {

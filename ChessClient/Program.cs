@@ -21,13 +21,13 @@ namespace ChessClient
             Application.SetCompatibleTextRenderingDefault(false);
 
             var mainForm = new MainForm();
-            var serverFacade = new Messanger();               
+            var serverFacade = new ServerImitation();               
             var screenManager = new ScreenManager(mainForm,  serverFacade);
             var clientFacade = new ClientFacade(screenManager);
            
             var socketListener = new SocketListener(clientFacade);
 
-            serverFacade.Init(clientFacade, socketListener);
+            serverFacade.Init(clientFacade);
             socketListener.SetParser(serverFacade);
                      
             Application.Run(mainForm);

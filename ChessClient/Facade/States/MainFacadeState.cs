@@ -55,5 +55,11 @@ namespace ChessClient.Facade.States
         {
             Switch(Enums.ClientState.Waiting);
         }
+
+
+        public void Enable()
+        {
+            manager.Switch(Enums.ScreenType.Main);
+        }
     }
 }

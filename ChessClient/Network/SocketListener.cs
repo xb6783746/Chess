@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,19 +11,68 @@ namespace ChessClient.Network
 {
     class SocketListener : ISocketListener
     {
+        public SocketListener(IParser parser, IClientFacade clientFacade)
+        {
+            this.parser = parser;
+            this.clientFacade = clientFacade;
+
+            this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        }
+
+        private IParser parser;
+        private IClientFacade clientFacade;
+        private Socket socket;
+
+        private int packetLenght = 1024;
+
         public void Connect(IPAddress id, int port)
         {
-            throw new NotImplementedException();
+            try
+            {
+                socket.Connect(new IPEndPoint(id, port));
+
+                IsRunning = true;
+                new Task(Listen).Start();
+            }
+            catch
+            {
+                clientFacade.LoginResult(false, "Установить соединение не удалось");
+            }
         }
 
         public void Stop()
         {
-            throw new NotImplementedException();
+            socket.Close();
         }
 
         public void Send(byte[] arr)
         {
-            throw new NotImplementedException();
+            socket.Send(arr);
+        }
+
+        private void Listen()
+        {
+            try
+            {
+                byte[] buffer = new byte[packetLenght];
+                while (true)
+                {
+                    socket.Receive(buffer);
+
+                    parser.Parse(buffer);
+                }
+            }
+            catch
+            {
+                IsRunning = false;
+            }
+        }
+
+
+        public bool IsRunning
+        {
+            get;
+            private set;
         }
     }
 }

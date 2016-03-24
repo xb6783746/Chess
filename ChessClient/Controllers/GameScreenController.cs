@@ -1,5 +1,6 @@
 ﻿using ChessClient.Interfaces;
 using ChessClient.Interfaces.IControllers;
+using ClientAPI;
 using GameTemplate.ChessGame.ChessInterfaces;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
@@ -11,32 +12,47 @@ using System.Threading.Tasks;
 
 namespace ChessClient.Controllers
 {
-    class GameScreenController : ISwitch, IGameScreenController
+    class GameScreenController : BasicController, ISwitch, IGameScreenController
     {
-        public void Enable()
-        {
-            throw new NotImplementedException();
+
+        public GameScreenController(IMainForm form, IServerFacade facade):base(form, facade)
+        {              
         }
-        public void Disable()
-        {
-            throw new NotImplementedException();
-        }
+
+        private IGameScreen gameScreen;
 
         public void Message(string msg)
         {
-            throw new NotImplementedException();
+            gameScreen.Message(msg);
         }
         public void StartGame()
         {
-            throw new NotImplementedException();
+            gameScreen.StartGame();
         }
         public void Step(IField<IChessFigure> f, StepInfo step)
         {
-            throw new NotImplementedException();
+            gameScreen.UpdateField(f);
         }
         public void GameOver(bool win)
         {
-            throw new NotImplementedException();
+            gameScreen.GameOver(win);
+        }
+
+        protected override void LoadScreen()
+        {
+            gameScreen = null;
+
+            gameScreen.Send += Send;
+            gameScreen.Step += Step;
+        }
+
+        private void Send(string msg)
+        {
+            facade.SendMessage(msg);
+        }
+        private void Step(StepInfo step)
+        {
+            facade.MakeStep(step);
         }
     }
 }

@@ -1,28 +1,39 @@
 ﻿using ChessClient.Interfaces;
 using ChessClient.Interfaces.IControllers;
+using ClientAPI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ChessClient.Controllers
 {
-    class LogInScreenController : ISwitch, ILoginScreenController
+    class LogInScreenController : BasicController, ISwitch, ILoginScreenController
     {
-        public void Enable()
+        public LogInScreenController(IMainForm form, IServerFacade facade) :base(form, facade)
         {
-            throw new NotImplementedException();
         }
 
-        public void Disable()
-        {
-            throw new NotImplementedException();
-        }
+        ILoginScreen loginScreen;
 
         public void Fail(string message)
         {
-            throw new NotImplementedException();
+            loginScreen.Fail(message);
+        }
+
+        protected override void LoadScreen()
+        {
+            loginScreen = null;
+
+            loginScreen.LogIn += facade.LogIn;
+          
+        }
+
+        private void LogIn(IPAddress ip, int port, string nick)
+        {
+            facade.LogIn(ip, port, nick);
         }
     }
 }

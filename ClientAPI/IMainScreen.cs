@@ -13,6 +13,6 @@ namespace ClientAPI
         event Action<string> WatchForGamer;
         event Action<string> ChangeNick;
 
-        bool Challenge();
+        bool Challenge(string from);
     }
 }

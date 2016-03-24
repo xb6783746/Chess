@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\BasicController.cs" />
     <Compile Include="Controllers\GameScreenController.cs" />
     <Compile Include="Controllers\LogInScreenController.cs" />
     <Compile Include="Facade\ClientFacade.cs" />

@@ -10,29 +10,29 @@ namespace ChessClient.Controllers
 {
     class ScreenManager :IScreenManager
     {
-        public ScreenManager()
+        public ScreenManager(IMainForm mainForm, IServerFacade facade)
         {
-            Init();
+            Init(mainForm, facade);
         }
 
         private Dictionary<ScreenType, ISwitch> screens;
         private ISwitch current;
 
-        private void Init()
+        private void Init(IMainForm mainForm, IServerFacade facade)
         {
             screens = new Dictionary<ScreenType, ISwitch>();
 
-            var game = new GameScreenController();          
+            var game = new GameScreenController(mainForm, facade);          
             screens.Add(ScreenType.Game, game);
             this.GameController = game;
 
-            var main = new MainScreenController();
+            var main = new MainScreenController(mainForm, facade);
             screens.Add(ScreenType.Main, main);
             this.MainController = main;
 
 
-            var login = new LogInScreenController();
-            screens.Add(ScreenType.LogIn, new LogInScreenController());
+            var login = new LogInScreenController(mainForm, facade);
+            screens.Add(ScreenType.LogIn, login);
             this.LoginController = login;
 
             var wait = new WaitScreenController();

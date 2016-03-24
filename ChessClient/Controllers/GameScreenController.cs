@@ -19,7 +19,7 @@ namespace ChessClient.Controllers
         {              
         }
 
-        private IGameScreen gameScreen;
+        private AbstractGameScreen gameScreen;
 
         public void Message(string msg)
         {

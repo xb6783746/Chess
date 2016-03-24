@@ -25,7 +25,7 @@ namespace ChessClient.Controllers
         }
 
 
-        private IMainScreen mainScreen;
+        private AbstractMainScreen mainScreen;
 
         protected override void LoadScreen()
         {

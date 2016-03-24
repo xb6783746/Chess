@@ -12,7 +12,7 @@ namespace ChessClient.Network
     class Messanger :IServerFacade
     {
 
-        public void LogIn(IPAddress ip)
+        public void LogIn(IPAddress ip, int port, string message)
         {
             throw new NotImplementedException();
         }
@@ -38,6 +38,14 @@ namespace ChessClient.Network
             throw new NotImplementedException();
         }
         public void Accept()
+        {
+            throw new NotImplementedException();
+        }
+        public void ChangeNick(string nick)
+        {
+            throw new NotImplementedException();
+        }
+        public void WatchFor(string gamer)
         {
             throw new NotImplementedException();
         }

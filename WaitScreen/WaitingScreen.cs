@@ -9,10 +9,9 @@ using System.Windows.Forms;
 namespace WaitScreen
 {
     [Screen]
-    public class WaitingScreen :UserControl, IWaitingScreen
+    public class WaitScreen : AbstractWaitingScreen
     {
         private Button cancelButton;
-        public event Action Close;
 
         private void InitializeComponent()
         {
@@ -42,5 +41,7 @@ namespace WaitScreen
         {
             Close();
         }
+
+        public override event Action Close;
     }
 }

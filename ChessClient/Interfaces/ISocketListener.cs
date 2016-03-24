@@ -15,5 +15,7 @@ namespace ChessClient.Interfaces
         void Send(byte[] arr);
 
         bool IsRunning { get; }
+
+
     }
 }

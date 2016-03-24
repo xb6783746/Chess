@@ -31,21 +31,10 @@ namespace ChessClient.Controllers
 
         protected override void LoadScreen()
         {
-            string path = AppDomain.CurrentDomain.BaseDirectory + "/Screens";
-            string[] files = Directory.GetFiles(path, "*.dll");
-            foreach (var item in files)
-            {
-                var assembly = Assembly.LoadFile(item);
+            var screen = GetScreenType("/Screens", typeof(IMainScreen));
 
-                var screen = assembly.GetTypes().FirstOrDefault((x) => x.GetInterfaces().Contains(typeof(IMainScreen)));
-
-                if (screen != null)
-                {
-                    mainScreen = Activator.CreateInstance(screen) as IMainScreen;
-                    this.screen = mainScreen.GetScreen();
-                }
-            }
-
+            mainScreen = Activator.CreateInstance(screen) as IMainScreen;
+            this.screen = mainScreen.GetScreen();
 
             mainScreen.ChangeNick += ChangeNick;
             mainScreen.GameWith += GameWith;

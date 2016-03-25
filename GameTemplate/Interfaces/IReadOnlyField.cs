@@ -1,4 +1,5 @@
-﻿using GameTemplate.Game;
+﻿using GameTemplate.ChessGame.ChessInterfaces;
+using GameTemplate.Game;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,19 +9,19 @@ using System.Threading.Tasks;
 
 namespace GameTemplate.Interfaces
 {
-    public interface IReadOnlyField<T> where T:IFigure
+    public interface IReadOnlyField
     {
-        T this[Point location] { get; }
+        IChessFigure this[Point location] { get; }
 
         /// <summary>
         /// Получить все фигуры, находящиеся на доске
         /// </summary>
-        IReadOnlyList<FigureOnBoard<T>> GetFiguresOnBoard();
+        IReadOnlyList<FigureOnBoard> GetFiguresOnBoard();
 
         /// <summary>
         /// Получить все вышедшие из игры фигуры
         /// </summary>
-        IReadOnlyDictionary<T, int> GetDiedFigures();
+        IReadOnlyDictionary<IChessFigure, int> GetDiedFigures();
 
         /// <summary>
         /// Завершена ли игра

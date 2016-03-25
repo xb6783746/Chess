@@ -12,7 +12,7 @@ namespace GameTemplate.Interfaces
     /// Интерфейс класса игрового поля
     /// </summary>
     /// <typeparam name="T">Интерфейс фигур на доске</typeparam>
-    public interface IField<T> :IReadOnlyField<T> where T : IFigure
+    public interface IField :IReadOnlyField
     {
 
         /// <summary>
@@ -28,6 +28,6 @@ namespace GameTemplate.Interfaces
         /// <param name="step">Информация о ходе</param>
         bool MakeStep(StepInfo step);
 
-        IReadOnlyField<T> GetReadOnlyField();
+        IReadOnlyField GetReadOnlyField();
     }
 }

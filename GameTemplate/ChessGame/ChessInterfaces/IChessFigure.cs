@@ -9,8 +9,25 @@ using System.Threading.Tasks;
 
 namespace GameTemplate.ChessGame.ChessInterfaces
 {
-    public interface IChessFigure :IFigure
+    public interface IChessFigure
     {
         ChessFType Type { get; }
+
+        /// <summary>
+        /// Цвет фигуры
+        /// </summary>
+        Color Color { get; }
+
+        /// <summary>
+        /// Может ли фигура сходить из клетки с координатами from в клетку с координатами to
+        /// </summary>
+        bool Step(Point from, Point to);
+
+        /// <summary>
+        /// Возвращает все клетки, доступные для хода из клетки с координатами location
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        List<Point> GetAllCells(Point location);
     }
 }

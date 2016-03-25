@@ -11,7 +11,7 @@ namespace GameTemplate.Interfaces
     /// Интерфейс класса игры
     /// </summary>
     /// <typeparam name="T">Интерфейс фигур на доске</typeparam>
-    public interface IGame<T> where T: IFigure
+    public interface IGame
     {
         /// <summary>
         /// Цвет игрока, который ходил в данный момент
@@ -21,7 +21,7 @@ namespace GameTemplate.Interfaces
         /// <summary>
         /// Игровое поле
         /// </summary>
-        IReadOnlyField<T> Field { get; }
+        IReadOnlyField Field { get; }
 
         /// <summary>
         /// Событие изменения состояния игры

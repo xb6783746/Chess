@@ -12,11 +12,11 @@ namespace GameTemplate.Game
     /// Простейшая реализация интерфейса IGame
     /// </summary>
     /// <typeparam name="T">Интерфейс фигур на доске</typeparam>
-    class SimpleGame<T> :IGame<T> where T: IFigure
+    class SimpleGame :IGame
     {
-        public SimpleGame(IGamer<T> first, IGamer<T> second, IField<T> field)
+        public SimpleGame(IGamer first, IGamer second, IField field)
         {
-            gamerQueue = new Queue<IGamer<T>>();
+            gamerQueue = new Queue<IGamer>();
 
             gamerQueue.Enqueue(first);
             gamerQueue.Enqueue(second);
@@ -33,11 +33,11 @@ namespace GameTemplate.Game
         /// <summary>
         /// Очередь из игроков
         /// </summary>
-        protected Queue<IGamer<T>> gamerQueue;
+        protected Queue<IGamer> gamerQueue;
         /// <summary>
         /// Игровое поле
         /// </summary>
-        protected IField<T> field;
+        protected IField field;
         /// <summary>
         /// Маркер ошибок
         /// </summary>
@@ -55,7 +55,7 @@ namespace GameTemplate.Game
         /// <summary>
         /// Игровое поле
         /// </summary>
-        public IReadOnlyField<T> Field
+        public IReadOnlyField Field
         {
             get { return field.GetReadOnlyField(); }
         }
@@ -65,7 +65,7 @@ namespace GameTemplate.Game
         /// </summary>
         protected virtual void StartGame()
         {
-            IGamer<T> current;
+            IGamer current;
             while (!field.IsGameOver && ok)
             {
                 current = gamerQueue.Dequeue();
@@ -81,7 +81,7 @@ namespace GameTemplate.Game
         /// Обработка хода игрока
         /// </summary>
         /// <param name="gamer">Игрок, ход которого обрабатывается</param>
-        protected virtual void NextStep(IGamer<T> gamer)
+        protected virtual void NextStep(IGamer gamer)
         {
             CurrentColor = gamer.Color;
             StepInfo step;

@@ -12,14 +12,14 @@ namespace GameTemplate.Interfaces
     /// Интерфейс класса игрока
     /// </summary>
     /// <typeparam name="T">Интерфейс фигур на доске</typeparam>
-    public interface IGamer<T> where T : IFigure
+    public interface IGamer
     {
         /// <summary>
         /// Инициализирует экземпляр игрока
         /// </summary>
         /// <param name="game">Экземпляр игры</param>
         /// <param name="color">Цвет игрока</param>
-        void Init(IGame<T> game, Color color);
+        void Init(IGame game, Color color);
 
         /// <summary>
         /// Сделать ход

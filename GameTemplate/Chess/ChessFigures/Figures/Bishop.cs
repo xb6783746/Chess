@@ -32,7 +32,7 @@ namespace GameTemplate.ChessGame.ChessFigures
         }
 
 
-        public bool Step(Point from, Point to, IField field)
+        public bool Step(Point from, Point to, IReadOnlyField field)
         {
             return GetCells(from, field).Contains(to);
         }
@@ -64,7 +64,7 @@ namespace GameTemplate.ChessGame.ChessFigures
             return temp;
         }
 
-        public List<Point> GetCells(Point location, IField field)
+        public List<Point> GetCells(Point location, IReadOnlyField field)
         {
             List<Point> cells = GetAllCells(location);
             Point temp;

@@ -53,6 +53,7 @@
     <Compile Include="Chess\ChessInterfaces\IChessFigureFactory.cs" />
     <Compile Include="Game\FigureOnBoard.cs" />
     <Compile Include="Game\Game.cs" />
+    <Compile Include="Game\SimpleGamer.cs" />
     <Compile Include="Game\StepInfo.cs" />
     <Compile Include="Interfaces\IField.cs" />
     <Compile Include="Interfaces\IGame.cs" />

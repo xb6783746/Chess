@@ -21,7 +21,7 @@ namespace GameTemplate.ChessGame.ChessInterfaces
         /// <summary>
         /// Может ли фигура сходить из клетки с координатами from в клетку с координатами to
         /// </summary>
-        bool Step(Point from, Point to);
+        bool Step(Point from, Point to, IField field);
 
         /// <summary>
         /// Возвращает все клетки, доступные для хода из клетки с координатами location
@@ -29,5 +29,8 @@ namespace GameTemplate.ChessGame.ChessInterfaces
         /// <param name="location"></param>
         /// <returns></returns>
         List<Point> GetAllCells(Point location);
+
+        List<Point> GetCells(Point location, IField field);
+
     }
 }

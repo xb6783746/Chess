@@ -64,7 +64,7 @@ namespace GameTemplate.ChessGame.ChessField
             IChessFigure attacker = this[from];
             IChessFigure attacked = this[to];
 
-            if (attacker.Step(from, to) && (attacked == null || attacker.Color != attacked.Color))
+            if (attacker.Step(from, to, this) && (attacked == null || attacker.Color != attacked.Color))
             {
                 this[to] = attacker;
 

@@ -6,28 +6,30 @@ using System.Threading.Tasks;
 using GameTemplate.ChessGame.ChessInterfaces;
 using GameTemplate.ChessGame.ChessEnums;
 using System.Drawing;
+using GameTemplate.Interfaces;
 
 namespace GameTemplate.ChessGame.ChessFigures
 {
     /// <summary>
-    /// Класс коня
+    /// Класс Ферзя
     /// </summary>
-    class Knight : IChessFigure
+    class Queen : IChessFigure
     {
         private Color color;
         public ChessFType Type
         {
-            get { return ChessFType.Knight; }
+            get { return ChessFType.Queen; }
         }
         public Color Color
         {
             get { return color; }
         }
-        public Knight(Color color)
+        public Queen(Color color)
         {
             this.color = color;
         }
-        public bool Step(Point from, Point to, Interfaces.IField<IChessFigure> field)
+
+        public bool Step(Point from, Point to, IField field)
         {
             return GetCells(from, field).Contains(to);
         }
@@ -36,33 +38,36 @@ namespace GameTemplate.ChessGame.ChessFigures
         {
             List<Point> cells = new List<Point>();
 
-            cells.AddRange(Cells(location, 2, 1));
-            cells.AddRange(Cells(location, 1, 2));
-            cells.AddRange(Cells(location, -1, 2));
-            cells.AddRange(Cells(location, -2, 1));
+            cells.AddRange(Cells(location, 0, 1));
+            cells.AddRange(Cells(location, 1, 0));
+            cells.AddRange(Cells(location, 0, -1));
+            cells.AddRange(Cells(location, -1, 0));
+
+            cells.AddRange(Cells(location, 1, 1));
+            cells.AddRange(Cells(location, -1, 1));
+            cells.AddRange(Cells(location, -1, -1));
+            cells.AddRange(Cells(location, 1, -1));
 
             return cells;
         }
-        private List<Point> Cells(Point start, int stepX, int shift) /// ????
+        private List<Point> Cells(Point start, int stepX, int stepY)
         {
             List<Point> temp = new List<Point>();
-            if (start.X + stepX < 8)
-            {
-                if (start.Y + shift < 8)
-                {
-                    temp.Add(new Point(start.X + stepX, start.Y + shift));
-                }
+            start.X += stepX;
+            start.Y += stepY;
 
-                if (start.Y - shift >= 0)
-                {
-                    temp.Add(new Point(start.X + stepX, start.Y - shift));
-                }
+            while (start.X < 8 && start.X >= 0 && start.Y < 8 && start.Y >= 0)
+            {
+                start.X += stepX;
+                start.Y += stepY;
+
+                temp.Add(start);
             }
 
             return temp;
         }
 
-        public List<Point> GetCells(Point location, Interfaces.IField<IChessFigure> field)
+        public List<Point> GetCells(Point location, IField field)
         {
             List<Point> cells = GetAllCells(location);
             Point temp;

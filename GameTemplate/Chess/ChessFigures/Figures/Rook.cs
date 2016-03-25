@@ -7,14 +7,13 @@ using GameTemplate.ChessGame.ChessInterfaces;
 using GameTemplate.ChessGame.ChessEnums;
 using System.Drawing;
 using GameTemplate.Interfaces;
-using GameTemplate.Game;
 
 namespace GameTemplate.ChessGame.ChessFigures
 {
     /// <summary>
-    /// Класс Слона
+    /// Класс Ладьи
     /// </summary>
-    class Bishop : IChessFigure
+    class Rook : IChessFigure
     {
         private Color color;
         public Color Color
@@ -24,29 +23,29 @@ namespace GameTemplate.ChessGame.ChessFigures
 
         public ChessFType Type
         {
-            get { return ChessFType.Bishop; }
+            get { return ChessFType.Rook; }
         }
-        public Bishop(Color color)
+        public Rook(Color color)
         {
             this.color = color;
         }
 
-
-        public bool Step(Point from, Point to, IField<IChessFigure> field)
+        public bool Step(Point from, Point to, IField field)
         {
             return GetCells(from, field).Contains(to);
         }
+
         public List<Point> GetAllCells(Point location)
         {
             List<Point> cells = new List<Point>();
-            cells.AddRange(Cells(location, 1, 1));
-            cells.AddRange(Cells(location, -1, 1));
-            cells.AddRange(Cells(location, -1, -1));
-            cells.AddRange(Cells(location, 1, -1));
+
+            cells.AddRange(Cells(location, 0, 1));
+            cells.AddRange(Cells(location, 1, 0));
+            cells.AddRange(Cells(location, 0, -1));
+            cells.AddRange(Cells(location, -1, 0));
 
             return cells;
         }
-
         private List<Point> Cells(Point start, int stepX, int stepY)
         {
             List<Point> temp = new List<Point>();
@@ -63,8 +62,7 @@ namespace GameTemplate.ChessGame.ChessFigures
 
             return temp;
         }
-
-        public List<Point> GetCells(Point location, IField<IChessFigure> field)
+        public List<Point> GetCells(Point location, IField field)
         {
             List<Point> cells = GetAllCells(location);
             Point temp;
@@ -79,5 +77,6 @@ namespace GameTemplate.ChessGame.ChessFigures
 
             return cells;
         }
+
     }
 }

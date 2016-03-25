@@ -6,42 +6,39 @@ using System.Threading.Tasks;
 using GameTemplate.ChessGame.ChessInterfaces;
 using GameTemplate.ChessGame.ChessEnums;
 using System.Drawing;
+using GameTemplate.Interfaces;
+using GameTemplate.Game;
 
 namespace GameTemplate.ChessGame.ChessFigures
 {
     /// <summary>
-    /// Класс Ферзя
+    /// Класс Слона
     /// </summary>
-    class Queen : IChessFigure
+    class Bishop : IChessFigure
     {
         private Color color;
-        public ChessFType Type
-        {
-            get { return ChessFType.Queen; }
-        }
         public Color Color
         {
             get { return color; }
         }
-        public Queen(Color color)
+
+        public ChessFType Type
+        {
+            get { return ChessFType.Bishop; }
+        }
+        public Bishop(Color color)
         {
             this.color = color;
         }
 
-        public bool Step(Point from, Point to, Interfaces.IField<IChessFigure> field)
+
+        public bool Step(Point from, Point to, IField field)
         {
             return GetCells(from, field).Contains(to);
         }
-
         public List<Point> GetAllCells(Point location)
         {
             List<Point> cells = new List<Point>();
-
-            cells.AddRange(Cells(location, 0, 1));
-            cells.AddRange(Cells(location, 1, 0));
-            cells.AddRange(Cells(location, 0, -1));
-            cells.AddRange(Cells(location, -1, 0));
-
             cells.AddRange(Cells(location, 1, 1));
             cells.AddRange(Cells(location, -1, 1));
             cells.AddRange(Cells(location, -1, -1));
@@ -49,6 +46,7 @@ namespace GameTemplate.ChessGame.ChessFigures
 
             return cells;
         }
+
         private List<Point> Cells(Point start, int stepX, int stepY)
         {
             List<Point> temp = new List<Point>();
@@ -66,7 +64,7 @@ namespace GameTemplate.ChessGame.ChessFigures
             return temp;
         }
 
-        public List<Point> GetCells(Point location, Interfaces.IField<IChessFigure> field)
+        public List<Point> GetCells(Point location, IField field)
         {
             List<Point> cells = GetAllCells(location);
             Point temp;

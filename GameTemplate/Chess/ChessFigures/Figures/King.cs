@@ -6,30 +6,30 @@ using System.Threading.Tasks;
 using GameTemplate.ChessGame.ChessInterfaces;
 using GameTemplate.ChessGame.ChessEnums;
 using System.Drawing;
+using GameTemplate.Interfaces;
 
 namespace GameTemplate.ChessGame.ChessFigures
 {
     /// <summary>
-    /// Класс пешки
+    /// Класс Короля    
     /// </summary>
-    class Pawn : IChessFigure
+    class King : IChessFigure
     {
         private Color color;
+        public ChessFType Type
+        {
+            get { return ChessFType.King; }
+        }
         public Color Color
         {
             get { return color; }
         }
-        public ChessFType Type
-        {
-            get { return ChessFType.Pawn; }
-        }
-        public Pawn(Color color)
+        public King(Color color)
         {
             this.color = color;
         }
 
-
-        public bool Step(Point from, Point to, Interfaces.IField<IChessFigure> field)
+        public bool Step(Point from, Point to, IField field)
         {
             return GetCells(from, field).Contains(to);
         }
@@ -37,14 +37,40 @@ namespace GameTemplate.ChessGame.ChessFigures
         public List<Point> GetAllCells(Point location)
         {
             List<Point> cells = new List<Point>();
+            if (location.X - 1 >= 0)
+            {
+                cells.Add(new Point(location.X - 1, location.Y));
+            }
 
             if (location.X + 1 < 8)
+            {
                 cells.Add(new Point(location.X + 1, location.Y));
-
+            }
+            cells.AddRange(Cells(location, 1));
+            cells.AddRange(Cells(location, -1));
             return cells;
         }
 
-        public List<Point> GetCells(Point location, Interfaces.IField<IChessFigure> field)
+        private List<Point> Cells(Point start, int stepY)
+        {
+            List<Point> temp = new List<Point>();
+            if (start.Y + stepY < 0 || start.Y + stepY > 7)
+            {
+                return temp;
+            }
+
+            for (int i = -1; i < 2; i += 2)
+            {
+                if (start.X + i >= 0 && start.X + i < 8)
+                {
+                    temp.Add(new Point(start.X + i, start.Y + stepY));
+                }
+            }
+
+            return temp;
+        }
+
+        public List<Point> GetCells(Point location, IField field)
         {
             List<Point> cells = GetAllCells(location);
             Point temp;
@@ -57,18 +83,7 @@ namespace GameTemplate.ChessGame.ChessFigures
                 }
             }
 
-            Cell(ref cells, location, field, -1);
-            Cell(ref cells, location, field, 1);
-
             return cells;
-        }
-        private void Cell(ref List<Point> cells, Point location, Interfaces.IField<IChessFigure> field, int stepX)
-        {
-            Point temp = new Point(location.X + stepX, location.Y + 1);
-            if (temp.X >= 0 && temp.Y < 8 && field[temp].Color != color)
-            {
-                cells.Add(temp);
-            }
         }
     }
 }

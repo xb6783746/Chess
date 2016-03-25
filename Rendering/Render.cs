@@ -41,17 +41,17 @@ namespace Rendering
                 throw new DataLoadException();
             }
         }
-        public void UpdateField(Bitmap bitmap, IField field)
+        public void UpdateField(Bitmap bitmap, IReadOnlyField field)
         {
             blockSize = bitmap.Size.Height / 8 - 0.1f;
             using (Graphics g = Graphics.FromImage(bitmap))
             {
                 g.Clear(Color.White);
                 DrawGrid(g);
-                DrawFigures(field);
+                DrawFigures(field, g);
             }
         }
-        private void DrawFigures(IField field)
+        private void DrawFigures(IReadOnlyField field, Graphics g)
         {
             for (int i = 0; i < 8; i++)
             {

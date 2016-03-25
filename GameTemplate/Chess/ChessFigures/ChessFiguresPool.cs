@@ -18,6 +18,8 @@ namespace GameTemplate.ChessGame.ChessFigures
         public ChessFiguresPool()
         {
             pool = new Dictionary<ChessFType, List<IChessFigure>>();
+
+            Init();
         }
 
 

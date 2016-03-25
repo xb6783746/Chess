@@ -44,7 +44,7 @@ namespace ChessClient.Facade.States
         {
             manager.MainController.Challenge(from);
         }
-        public void UpdateField(IField field, StepInfo step)
+        public void UpdateField(IReadOnlyField field, StepInfo step)
         {
             manager.GameController.Step(field, step);
         }

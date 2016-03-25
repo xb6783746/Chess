@@ -50,7 +50,7 @@ namespace ChessClient.Facade.States
         {
             throw new NotImplementedException();
         }
-        public void UpdateField(IField field, StepInfo step)
+        public void UpdateField(IReadOnlyField field, StepInfo step)
         {
             throw new NotImplementedException();
         }

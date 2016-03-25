@@ -1,8 +1,9 @@
-﻿using ChessClient.Interfaces;
-using ChessClient.ServerImitation;
+﻿using ChessClient.Imitation;
+using ChessClient.Interfaces;
 using GameTemplate.ChessGame.ChessField;
 using GameTemplate.ChessGame.ChessFigures;
 using GameTemplate.Game;
+using GameTemplate.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -25,7 +26,7 @@ namespace ChessClient.Network
 
         private IClientFacade clientFacade;
 
-        private SimpleGame game;
+        private IGame game;
 
         private SimpleGamer autoGamer;
         private GamerImitation gamer;
@@ -54,15 +55,16 @@ namespace ChessClient.Network
         {
             Task.Run(() =>
             {
-                clientFacade.Waiting();
+                //clientFacade.Waiting();
 
-                game = new SimpleGame(autoGamer, gamer, new ChessField(new ChessFiguresPool()));
+                //game = InitGame(gamer, autoGamer);
 
-               // game.Change += () => clientFacade.UpdateField(game.Field);
+                //game.Change += () => clientFacade.UpdateField(game.Field, new StepInfo(new Point(), new Point()));
+                //game.GameOver += (x) => clientFacade.GameOver(x == gamer.Color);
 
-                Thread.Sleep(3000);
+                //Thread.Sleep(3000);
 
-                clientFacade.StartGame(Color.White);
+                //clientFacade.StartGame(Color.White);
             });
         }
 
@@ -76,27 +78,28 @@ namespace ChessClient.Network
         }
         public void MakeStep(StepInfo step)
         {
-            clientFacade.Message("В данный момент это невозможно");
+            gamer.NewStep(step);
         }
-
         public void SendMessage(string msg)
         {
             clientFacade.Message(String.Format("Вы отправили \"{0}\"", msg));
         }
-
         public void Surrender()
         {
             clientFacade.GameOver(false);
         }
-
         public void Accept()
         {
-            
+            clientFacade.Message("В данный момент это невозможно");
         }
-
         public void Parse(byte[] message)
         {
             throw new NotImplementedException();
+        }
+
+        private IGame InitGame(IGamer first, IGamer second)
+        {
+            return new SimpleGame(first, second, new ChessField(new ChessFiguresPool()));
         }
     }
 }

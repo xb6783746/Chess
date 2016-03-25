@@ -12,6 +12,6 @@ namespace ClientAPI
 {
     public interface IRender
     {
-        void UpdateField(Bitmap bitmap, IField field);
+        void UpdateField(Bitmap bitmap, IReadOnlyField field);
     }
 }

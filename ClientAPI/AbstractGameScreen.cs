@@ -15,7 +15,7 @@ namespace ClientAPI
         event Action<StepInfo> Step;
 
         void StartGame();
-        void UpdateField(IField f);
+        void UpdateField(IReadOnlyField f);
         void SetRender(IRender r);
         void Message(string msg);
         void GameOver(bool win);

@@ -8,8 +8,6 @@ using GameTemplate.ChessGame.ChessEnums;
 using GameTemplate.Interfaces;
 using System.Drawing;
 using GameTemplate.ChessGame.ChessInterfaces;
-using Rendering.Properties;
-using Rendering.Exceptions;
 
 namespace Rendering
 {
@@ -24,18 +22,18 @@ namespace Rendering
             {
                 figurePictures = new Dictionary<Type, Image>()
                 {
-                    { new Type(ChessFType.King, Color.White), Resources.KingWhite },
-                    { new Type(ChessFType.Queen, Color.White), Resources.QueenWhite },
-                    { new Type(ChessFType.Rook, Color.White), Resources.RookWhite },
-                    { new Type(ChessFType.Bishop, Color.White), Resources.BishopWhite },
-                    { new Type(ChessFType.Knight, Color.White), Resources.KnightWhite },
-                    { new Type(ChessFType.Pawn, Color.White), Resources.PawnWhite },
-                    { new Type(ChessFType.King, Color.Black), Resources.KingBlack },
-                    { new Type(ChessFType.Queen, Color.Black), Resources.QueenBlack },
-                    { new Type(ChessFType.Rook, Color.Black), Resources.RookBlack },
-                    { new Type(ChessFType.Bishop, Color.Black), Resources.BishopBlack },
-                    { new Type(ChessFType.Knight, Color.Black), Resources.KnightBlack },
-                    { new Type(ChessFType.Pawn, Color.Black), Resources.PawnBlack },
+                    { new Type(ChessFType.King, Color.White), Image.FromFile(@"ChessFigures\KingWhite.png") },
+                    { new Type(ChessFType.Queen, Color.White), Image.FromFile(@"ChessFigures\QueenWhite.png") },
+                    { new Type(ChessFType.Rook, Color.White), Image.FromFile(@"ChessFigures\RookWhite.png") },
+                    { new Type(ChessFType.Bishop, Color.White), Image.FromFile(@"ChessFigures\BishopWhite.png") },
+                    { new Type(ChessFType.Knight, Color.White), Image.FromFile(@"ChessFigures\KnightWhite.png") },
+                    { new Type(ChessFType.Pawn, Color.White), Image.FromFile(@"ChessFigures\PawnWhite.png") },
+                    { new Type(ChessFType.King, Color.Black), Image.FromFile(@"ChessFigures\KingBlack.png") },
+                    { new Type(ChessFType.Queen, Color.Black), Image.FromFile(@"ChessFigures\QueenBlack.png") },
+                    { new Type(ChessFType.Rook, Color.Black), Image.FromFile(@"ChessFigures\RookBlack.png") },
+                    { new Type(ChessFType.Bishop, Color.Black), Image.FromFile(@"ChessFigures\BishopBlack.png") },
+                    { new Type(ChessFType.Knight, Color.Black), Image.FromFile(@"ChessFigures\KnightBlack.png") },
+                    { new Type(ChessFType.Pawn, Color.Black), Image.FromFile(@"ChessFigures\PawnBlack.png") },
                 };
             }
             catch
@@ -43,17 +41,17 @@ namespace Rendering
                 throw new DataLoadException();
             }
         }
-        public void UpdateField(Bitmap bitmap, IField field)
+        public void UpdateField(Bitmap bitmap, IReadOnlyField field)
         {
             blockSize = bitmap.Size.Height / 8 - 0.1f;
             using (Graphics g = Graphics.FromImage(bitmap))
             {
                 g.Clear(Color.White);
                 DrawGrid(g);
-                DrawFigures(g, field);
+                DrawFigures(field, g);
             }
         }
-        private void DrawFigures(Graphics g,IField field)
+        private void DrawFigures(IReadOnlyField field, Graphics g)
         {
             for (int i = 0; i < 8; i++)
             {

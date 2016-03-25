@@ -30,7 +30,7 @@ namespace ChessClient.Controllers
         {
             gameScreen.StartGame();
         }
-        public void Step(IField f, StepInfo step)
+        public void Step(IReadOnlyField f, StepInfo step)
         {
             gameScreen.UpdateField(f);
         }

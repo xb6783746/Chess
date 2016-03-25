@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ChessClient.ServerImitation
+namespace ChessClient.Imitation
 {
     class GamerImitation :IGamer
     {

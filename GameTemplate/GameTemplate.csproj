@@ -42,7 +42,13 @@
   <ItemGroup>
     <Compile Include="ChessGame\ChessEnums\ChessFType.cs" />
     <Compile Include="ChessGame\ChessField\ChessField.cs" />
+    <Compile Include="ChessGame\ChessFigures\Figures\Bishop.cs" />
     <Compile Include="ChessGame\ChessFigures\ChessFiguresPool.cs" />
+    <Compile Include="ChessGame\ChessFigures\Figures\King.cs" />
+    <Compile Include="ChessGame\ChessFigures\Figures\Knight.cs" />
+    <Compile Include="ChessGame\ChessFigures\Figures\Pawn.cs" />
+    <Compile Include="ChessGame\ChessFigures\Figures\Queen.cs" />
+    <Compile Include="ChessGame\ChessFigures\Figures\Rook.cs" />
     <Compile Include="ChessGame\ChessInterfaces\IChessFigure.cs" />
     <Compile Include="ChessGame\ChessInterfaces\IChessFigureFactory.cs" />
     <Compile Include="Game\FigureOnBoard.cs" />

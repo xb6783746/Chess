@@ -52,9 +52,9 @@
     <Compile Include="ScreenAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GameTemplate\GameTemplate.csproj">
+    <ProjectReference Include="..\GameTemplate\ChessCore.csproj">
       <Project>{c5b11426-c04f-4882-8640-031fd9461faa}</Project>
-      <Name>GameTemplate</Name>
+      <Name>ChessCore</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -113,9 +113,9 @@
       <Project>{60c609fd-bd7f-4b8e-9028-91052bc34fd4}</Project>
       <Name>ClientAPI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GameTemplate\GameTemplate.csproj">
+    <ProjectReference Include="..\GameTemplate\ChessCore.csproj">
       <Project>{c5b11426-c04f-4882-8640-031fd9461faa}</Project>
-      <Name>GameTemplate</Name>
+      <Name>ChessCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\Network\Network.csproj">
       <Project>{f16bf67b-f1ce-4425-8122-a11a27cc287a}</Project>

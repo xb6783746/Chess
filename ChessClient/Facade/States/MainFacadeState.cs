@@ -43,7 +43,7 @@ namespace ChessClient.Facade.States
         {
             manager.MainController.Challenge(from);
         }
-        public void UpdateField(IField<IChessFigure> field, StepInfo step)
+        public void UpdateField(IField field, StepInfo step)
         {
             throw new NotImplementedException();
         }

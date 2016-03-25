@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameTemplate", "GameTemplate\GameTemplate.csproj", "{C5B11426-C04F-4882-8640-031FD9461FAA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessCore", "GameTemplate\ChessCore.csproj", "{C5B11426-C04F-4882-8640-031FD9461FAA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientAPI", "ClientAPI\ClientAPI.csproj", "{60C609FD-BD7F-4B8E-9028-91052BC34FD4}"
 EndProject

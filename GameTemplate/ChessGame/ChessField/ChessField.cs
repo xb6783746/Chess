@@ -14,7 +14,7 @@ namespace GameTemplate.ChessGame.ChessField
     /// <summary>
     /// Поле для шахмат
     /// </summary>
-    public class ChessField :IField<IChessFigure>
+    public class ChessField :IField
     {
 
         public ChessField(IChessFigureFactory factory)
@@ -37,9 +37,9 @@ namespace GameTemplate.ChessGame.ChessField
             private set { field[location.X, location.Y] = value; }
         }
 
-        public IReadOnlyList<FigureOnBoard<IChessFigure>> GetFiguresOnBoard()
+        public IReadOnlyList<FigureOnBoard> GetFiguresOnBoard()
         {
-            List<FigureOnBoard<IChessFigure>> res = new List<FigureOnBoard<IChessFigure>>();
+            List<FigureOnBoard> res = new List<FigureOnBoard>();
 
             for (int i = 0; i < field.GetLength(0); i++)
             {
@@ -47,7 +47,7 @@ namespace GameTemplate.ChessGame.ChessField
                 {
                     if (field[i, k] != null)
                     {
-                        res.Add(new FigureOnBoard<IChessFigure>(field[i, k], new Point(i, k)));
+                        res.Add(new FigureOnBoard(field[i, k], new Point(i, k)));
                     }
                 }
             }
@@ -133,7 +133,7 @@ namespace GameTemplate.ChessGame.ChessField
         }
 
 
-        public IReadOnlyField<IChessFigure> GetReadOnlyField()
+        public IReadOnlyField GetReadOnlyField()
         {
             return this;
         }

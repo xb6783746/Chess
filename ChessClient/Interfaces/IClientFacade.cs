@@ -18,7 +18,7 @@ namespace ChessClient.Interfaces
         void StartGame(Color color);
         void Challenge(string from);
 
-        void UpdateField(IField<IChessFigure> field, StepInfo step);
+        void UpdateField(IField field, StepInfo step);
 
         void GameOver(bool win);
         void Waiting();

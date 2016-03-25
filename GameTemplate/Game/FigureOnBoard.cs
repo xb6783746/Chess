@@ -1,4 +1,5 @@
-﻿using GameTemplate.Interfaces;
+﻿using GameTemplate.ChessGame.ChessInterfaces;
+using GameTemplate.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,21 +13,21 @@ namespace GameTemplate.Game
     /// Представление фигуры в контексте игрового поля
     /// </summary>
     /// <typeparam name="T">Интерфейс фигур на доске</typeparam>
-    public struct FigureOnBoard<T> where T : IFigure
+    public struct FigureOnBoard
     {
-        public FigureOnBoard(T figure, Point location)
+        public FigureOnBoard(IChessFigure figure, Point location)
         {
             this._figure = figure;
             this._location = location;
         }
 
-        private T _figure;      
+        private IChessFigure _figure;      
         private Point _location;
 
         /// <summary>
         /// Экземпляр фигуры
         /// </summary>
-        public T Figure { get { return _figure; } }
+        public IChessFigure Figure { get { return _figure; } }
 
         /// <summary>
         /// Координата фигуры

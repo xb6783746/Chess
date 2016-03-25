@@ -49,7 +49,6 @@
     <Compile Include="Game\Game.cs" />
     <Compile Include="Game\StepInfo.cs" />
     <Compile Include="Interfaces\IField.cs" />
-    <Compile Include="Interfaces\IFigure.cs" />
     <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Interfaces\IGamer.cs" />
     <Compile Include="Interfaces\IReadOnlyField.cs" />

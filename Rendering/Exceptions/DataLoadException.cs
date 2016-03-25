@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rendering
+namespace Rendering.Exceptions
 {
     [Serializable]
     internal class DataLoadException : ApplicationException

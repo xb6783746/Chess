@@ -46,9 +46,57 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataLoadException.cs" />
+    <Compile Include="Exceptions\DataLoadException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Include="Render.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="ChessFigures\BishopBlack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ChessFigures\BishopWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ChessFigures\KingBlack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ChessFigures\KingWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ChessFigures\KnightBlack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ChessFigures\KnightWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ChessFigures\PawnBlack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ChessFigures\PawnWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ChessFigures\QueenBlack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ChessFigures\QueenWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ChessFigures\RookBlack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ChessFigures\RookWhite.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

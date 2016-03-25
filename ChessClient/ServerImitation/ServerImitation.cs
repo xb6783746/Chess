@@ -1,4 +1,7 @@
 ﻿using ChessClient.Interfaces;
+using ChessClient.ServerImitation;
+using GameTemplate.ChessGame.ChessField;
+using GameTemplate.ChessGame.ChessFigures;
 using GameTemplate.Game;
 using System;
 using System.Collections.Generic;
@@ -15,10 +18,17 @@ namespace ChessClient.Network
     {
         public ServerImitation()
         {
+            autoGamer = new SimpleGamer();
+            gamer = new GamerImitation();
             
         }
 
         private IClientFacade clientFacade;
+
+        private SimpleGame game;
+
+        private SimpleGamer autoGamer;
+        private GamerImitation gamer;
 
         public void Init(IClientFacade clientFacade)
         {
@@ -46,7 +56,11 @@ namespace ChessClient.Network
             {
                 clientFacade.Waiting();
 
-                Thread.Sleep(5000);
+                game = new SimpleGame(autoGamer, gamer, new ChessField(new ChessFiguresPool()));
+
+               // game.Change += () => clientFacade.UpdateField(game.Field);
+
+                Thread.Sleep(3000);
 
                 clientFacade.StartGame(Color.White);
             });

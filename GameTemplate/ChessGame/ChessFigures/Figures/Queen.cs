@@ -10,7 +10,7 @@ using System.Drawing;
 namespace GameTemplate.ChessGame.ChessFigures
 {
     /// <summary>
-    /// Класс королевы
+    /// Класс Ферзя
     /// </summary>
     class Queen : IChessFigure
     {

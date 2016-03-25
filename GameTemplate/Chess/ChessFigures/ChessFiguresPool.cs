@@ -25,7 +25,13 @@ namespace GameTemplate.ChessGame.ChessFigures
 
         private void Init()
         {
-            
+            pool.Add(ChessFType.Bishop, new List<IChessFigure>() {new Bishop(Color.Black), new Bishop(Color.White) });
+            pool.Add(ChessFType.King, new List<IChessFigure>() { new King(Color.Black), new King(Color.White) });
+            pool.Add(ChessFType.Knight, new List<IChessFigure>() { new Knight(Color.Black), new Knight(Color.White) });
+            pool.Add(ChessFType.Pawn, new List<IChessFigure>() { new Pawn(Color.Black), new Pawn(Color.White) });
+            pool.Add(ChessFType.Queen, new List<IChessFigure>() { new Queen(Color.Black), new Queen(Color.White) });
+            pool.Add(ChessFType.Rook, new List<IChessFigure>() { new Rook(Color.Black), new Rook(Color.White) });
+
         }
 
         public IChessFigure GetFigure(ChessFType type, Color color)

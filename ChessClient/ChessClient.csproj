@@ -78,7 +78,8 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Network\Messanger.cs" />
-    <Compile Include="Network\ServerImitation.cs" />
+    <Compile Include="ServerImitation\GamerImitation.cs" />
+    <Compile Include="ServerImitation\ServerImitation.cs" />
     <Compile Include="Network\SocketListener.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

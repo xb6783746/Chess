@@ -12,7 +12,7 @@ namespace GameTemplate.Game
     /// Простейшая реализация интерфейса IGame
     /// </summary>
     /// <typeparam name="T">Интерфейс фигур на доске</typeparam>
-    class SimpleGame :IGame
+    public class SimpleGame :IGame
     {
         public SimpleGame(IGamer first, IGamer second, IField field)
         {

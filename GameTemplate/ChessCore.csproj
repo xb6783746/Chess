@@ -45,9 +45,9 @@
     <Compile Include="ChessGame\ChessFigures\ChessFiguresPool.cs" />
     <Compile Include="ChessGame\ChessInterfaces\IChessFigure.cs" />
     <Compile Include="ChessGame\ChessInterfaces\IChessFigureFactory.cs" />
-    <Compile Include="Game\FigureOnBoard.cs" />
-    <Compile Include="Game\Game.cs" />
-    <Compile Include="Game\StepInfo.cs" />
+    <Compile Include="Interfaces\Game\FigureOnBoard.cs" />
+    <Compile Include="Interfaces\Game\Game.cs" />
+    <Compile Include="Interfaces\Game\StepInfo.cs" />
     <Compile Include="Interfaces\IField.cs" />
     <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Interfaces\IGamer.cs" />

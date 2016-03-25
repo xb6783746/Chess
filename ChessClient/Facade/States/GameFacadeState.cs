@@ -29,31 +29,32 @@ namespace ChessClient.Facade.States
         }
         public void Message(string msg)
         {
-            throw new NotImplementedException();
+            manager.GameController.Message(msg);
         }
         public void Disconnected()
         {
-            throw new NotImplementedException();
+            Switch(ClientState.Offline);
         }
         public void StartGame(Color color)
         {
-            throw new NotImplementedException();
+            manager.GameController.StartGame(color);
+            Switch(ClientState.InGame);
         }
         public void Challenge(string from)
         {
-            throw new NotImplementedException();
+            manager.MainController.Challenge(from);
         }
         public void UpdateField(IField field, StepInfo step)
         {
-            throw new NotImplementedException();
+            manager.GameController.Step(field, step);
         }
         public void GameOver(bool win)
         {
-            throw new NotImplementedException();
+            manager.GameController.GameOver(win);
         }
         public void Waiting()
         {
-            throw new NotImplementedException();
+            Switch(ClientState.Waiting);
         }
 
 

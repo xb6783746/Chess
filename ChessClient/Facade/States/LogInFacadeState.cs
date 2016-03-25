@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ChessClient.Enums;
 
 namespace ChessClient.Facade.States
 {
@@ -20,13 +21,13 @@ namespace ChessClient.Facade.States
 
         private IScreenManager manager;
 
-        public event Action<Enums.ClientState> Switch;
+        public event Action<ClientState> Switch;
 
         public void LoginResult(bool result, string message)
         {
             if (result)
             {
-                Switch(Enums.ClientState.Online);
+                Switch(ClientState.Online);
             }
             else
             {
@@ -39,7 +40,7 @@ namespace ChessClient.Facade.States
         }
         public void Disconnected()
         {
-            throw new NotImplementedException();
+            Switch(ClientState.Offline);
         }
         public void StartGame(Color color)
         {

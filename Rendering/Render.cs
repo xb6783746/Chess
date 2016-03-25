@@ -13,15 +13,11 @@ namespace Rendering
 {
     public class Render : IRender
     {
-        private Graphics g;
-        private Bitmap screen;
         private Dictionary<Type, Image> figurePictures;
         private float blockSize;
 
         public Render(int wh, int ht)
         {
-            screen = new Bitmap(wh, ht);
-            blockSize = screen.Size.Height / 8 - 0.1f;
             try
             {
                 figurePictures = new Dictionary<Type, Image>()
@@ -44,12 +40,19 @@ namespace Rendering
             {
                 throw new DataLoadException();
             }
-            g = Graphics.FromImage(screen);
         }
         public void UpdateField(Bitmap bitmap, IField field)
         {
-            g.Clear(Color.White);
-            DrawGrid();
+            blockSize = bitmap.Size.Height / 8 - 0.1f;
+            using (Graphics g = Graphics.FromImage(bitmap))
+            {
+                g.Clear(Color.White);
+                DrawGrid(g);
+                DrawFigures(field);
+            }
+        }
+        private void DrawFigures(IField field)
+        {
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
@@ -59,7 +62,7 @@ namespace Rendering
                 }
             }
         }
-        private void DrawGrid()
+        private void DrawGrid(Graphics g)
         {
             for (int i = 0; i < 8; i++)
             {
@@ -74,8 +77,9 @@ namespace Rendering
     public struct Type
     {
         private ChessFType chessType;
-        public ChessFType ChessType { get { return chessType; } }
         private Color color;
+
+        public ChessFType ChessType { get { return chessType; } }
         public Color Color { get { return color; } }
         public Type(ChessFType chessType, Color color)
         {

@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.GameBox = new System.Windows.Forms.PictureBox();
             this.messageBox = new System.Windows.Forms.TextBox();
             this.chatWindow = new System.Windows.Forms.TextBox();
             this.sendButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.ConcedeButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -53,17 +53,18 @@
             this.label18 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GameBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // GameBox
             // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.pictureBox1.Location = new System.Drawing.Point(41, 16);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(600, 600);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.GameBox.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.GameBox.Location = new System.Drawing.Point(41, 16);
+            this.GameBox.Name = "GameBox";
+            this.GameBox.Size = new System.Drawing.Size(600, 600);
+            this.GameBox.TabIndex = 0;
+            this.GameBox.TabStop = false;
+            this.GameBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.GameBox_Click);
             // 
             // messageBox
             // 
@@ -90,16 +91,18 @@
             this.sendButton.TabIndex = 5;
             this.sendButton.Text = "Отправить";
             this.sendButton.UseVisualStyleBackColor = true;
+            this.sendButton.Click += new System.EventHandler(this.sendButton_Click);
             // 
-            // button1
+            // ConcedeButton
             // 
-            this.button1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(761, 16);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(88, 34);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Cдастся";
-            this.button1.UseVisualStyleBackColor = true;
+            this.ConcedeButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ConcedeButton.Location = new System.Drawing.Point(761, 16);
+            this.ConcedeButton.Name = "ConcedeButton";
+            this.ConcedeButton.Size = new System.Drawing.Size(88, 34);
+            this.ConcedeButton.TabIndex = 6;
+            this.ConcedeButton.Text = "Cдастся";
+            this.ConcedeButton.UseVisualStyleBackColor = true;
+            this.ConcedeButton.Click += new System.EventHandler(this.Concede_Click);
             // 
             // label1
             // 
@@ -323,14 +326,14 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.ConcedeButton);
             this.Controls.Add(this.sendButton);
             this.Controls.Add(this.messageBox);
             this.Controls.Add(this.chatWindow);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.GameBox);
             this.Name = "GameScreen";
             this.Size = new System.Drawing.Size(974, 653);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GameBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -338,11 +341,11 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox GameBox;
         private System.Windows.Forms.TextBox messageBox;
         private System.Windows.Forms.TextBox chatWindow;
         private System.Windows.Forms.Button sendButton;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button ConcedeButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

@@ -3,6 +3,7 @@ using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,11 +14,11 @@ namespace ClientAPI
     public interface IGameScreen : IMessenger, IScreen
     {
         event Action<StepInfo> Step;
+        event Action Concede;
 
-        void StartGame();
+        void StartGame(Color color);
         void UpdateField(IReadOnlyField f);
         void SetRender(IRender r);
-        void Message(string msg);
         void GameOver(bool win);
     }
 

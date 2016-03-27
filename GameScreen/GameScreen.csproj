@@ -30,6 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ClientAPI">
+      <HintPath>..\ClientAPI\bin\Debug\ClientAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="GameTemplate">
+      <HintPath>..\ClientAPI\bin\Debug\GameTemplate.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />

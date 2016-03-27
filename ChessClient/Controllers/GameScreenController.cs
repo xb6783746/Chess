@@ -28,7 +28,7 @@ namespace ChessClient.Controllers
         }
         public void StartGame(Color color)
         {
-            gameScreen.StartGame();
+            gameScreen.StartGame(color);
         }
         public void Step(IReadOnlyField f, StepInfo step)
         {

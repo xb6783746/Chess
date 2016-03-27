@@ -44,6 +44,7 @@
     <Compile Include="Chat\ChatManager.cs" />
     <Compile Include="Chat\ChatRoom.cs" />
     <Compile Include="Clients\Client.cs" />
+    <Compile Include="IdManager\IDManager.cs" />
     <Compile Include="Interfaces\IChatManager.cs" />
     <Compile Include="Interfaces\IClient.cs" />
     <Compile Include="Interfaces\IClientFacade.cs" />

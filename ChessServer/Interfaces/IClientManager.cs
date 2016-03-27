@@ -10,5 +10,8 @@ namespace ChessServer.Interfaces
     {
         int Registration();
         void Disconnect(int id);
+
+        event Action<IClient> Connected;
+        event Action<IClient> Disconnected;
     }
 }

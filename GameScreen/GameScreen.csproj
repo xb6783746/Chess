@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7D01CD0E-563B-4C14-9AD3-3D1D8B881E79}</ProjectGuid>
+    <ProjectGuid>{3FFA346C-78B3-4D3D-BB55-66B587485256}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rendering</RootNamespace>
-    <AssemblyName>Rendering</AssemblyName>
+    <RootNamespace>GameScreen</RootNamespace>
+    <AssemblyName>GameScreen</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,15 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ClientAPI">
-      <HintPath>..\ClientAPI\bin\Debug\ClientAPI.dll</HintPath>
-    </Reference>
-    <Reference Include="GameTemplate">
-      <HintPath>..\ClientAPI\bin\Debug\GameTemplate.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,57 +41,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\DataLoadException.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
+    <Compile Include="GameScreen.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Render.cs" />
+    <Compile Include="GameScreen.Designer.cs">
+      <DependentUpon>GameScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    <EmbeddedResource Include="GameScreen.resx">
+      <DependentUpon>GameScreen.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <None Include="ChessFigures\BishopBlack.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ChessFigures\BishopWhite.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ChessFigures\KingBlack.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ChessFigures\KingWhite.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ChessFigures\KnightBlack.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ChessFigures\KnightWhite.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ChessFigures\PawnBlack.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ChessFigures\PawnWhite.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ChessFigures\QueenBlack.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ChessFigures\QueenWhite.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ChessFigures\RookBlack.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ChessFigures\RookWhite.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

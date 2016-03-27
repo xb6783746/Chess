@@ -41,8 +41,10 @@ namespace ChessServer.Chat
         {
             if (Contains(id))
             {
+
                 var tmp = clients.Where((x) => x.Id != id);
 
+                mesg = clients.First((x) => x.Id == id).Nick + ": " + mesg;
                 foreach (var client in tmp)
                 {
                     client.Send(mesg);

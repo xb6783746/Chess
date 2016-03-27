@@ -22,6 +22,7 @@ namespace ChessClient.Network
         public void LogIn(IPAddress ip, int port, string message)
         {
             socketListener.Connect(ip, port);
+            ChangeNick(message);
         }
         public void Init(IClientFacade clientFacade, ISocketListener socketListener)
         {
@@ -64,7 +65,9 @@ namespace ChessClient.Network
         }
         public void ChangeNick(string nick)
         {
-            throw new NotImplementedException();
+            Message m = new Message("ChangeNick", nick);
+
+            SendMessage(m);
         }
         public void WatchFor(string gamer)
         {

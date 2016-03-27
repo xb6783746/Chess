@@ -8,6 +8,7 @@ namespace ChessServer.Interfaces
 {
     interface IClientFacade
     {
-        void SendMessage(string msg, int id);
+        void Message(string msg, int id);
+        void LoginResult(bool result, string message, int id);
     }
 }

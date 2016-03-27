@@ -32,13 +32,14 @@ namespace ChessClient.Controllers
             loginScreen = Activator.CreateInstance(screen) as ILoginScreen;
             this.screen = loginScreen.GetScreen();
 
-            loginScreen.LogIn += facade.LogIn;
+            loginScreen.LogIn += LogIn;
           
         }
 
         private void LogIn(IPAddress ip, int port, string nick)
         {
             facade.LogIn(ip, port, nick);
+
         }
     }
 }

@@ -53,12 +53,13 @@ namespace ChessClient.Network
         {
             try
             {
+                int len;
                 byte[] buffer = new byte[packetLenght];
                 while (true)
                 {
-                    socket.Receive(buffer);
+                    len = socket.Receive(buffer);
 
-                    parser.Parse(buffer);
+                    parser.Parse(buffer.Take(len).ToArray());
                 }
             }
             catch

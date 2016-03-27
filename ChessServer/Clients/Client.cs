@@ -30,7 +30,13 @@ namespace ChessServer.Clients
 
         public void Send(string mesg)
         {
-            clientFacade.SendMessage(mesg, this.Id);
+            clientFacade.Message(mesg, this.Id);
+        }
+
+
+        public void LoginResult(bool result, string message)
+        {
+            clientFacade.LoginResult(result, message, this.Id);
         }
     }
 }

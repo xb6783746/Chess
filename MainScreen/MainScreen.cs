@@ -41,7 +41,8 @@ namespace MainScreen
 
         public void Receive(string message)
         {
-            chatWindow.Text += message + Environment.NewLine;
+            chatWindow.Invoke(new Action(() => { chatWindow.Text += message + Environment.NewLine; }));
+            //chatWindow.Text += message + Environment.NewLine;
         }
 
         public event Action RandomGame = () => { };

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -31,17 +32,19 @@ namespace ChessServer
                 get { return socket; }
             }
         }
-        public SocketServer(IParser parser, IClientManager clientManager)
+        public SocketServer(IClientManager clientManager, IIDManager idManager)
         {
-            this.parser = parser;
+            //this.parser = parser;
             this.clientManager = clientManager;
+            this.idManager = idManager;
 
-            socket = new Socket(SocketType.Stream, ProtocolType.IPv4);
+            socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             clients = new List<Client>();
         }
 
-        private IParser parser;
+        //private IParser parser;
         private IClientManager clientManager;
+        private IIDManager idManager;
         private Socket socket;
 
         private List<Client> clients;
@@ -50,6 +53,7 @@ namespace ChessServer
 
         private int max = 10;
         private int packetLenght = 1024;
+        private int port = 8888;
 
         public void Start()
         {
@@ -60,6 +64,7 @@ namespace ChessServer
         {
             throw new NotImplementedException();
         }
+        public event Action<byte[], int> Receive = (x, y) => { };
 
         public void Send(byte[] msg, int id)
         {
@@ -74,6 +79,7 @@ namespace ChessServer
 
         private void Accept()
         {
+            socket.Bind(new IPEndPoint(IPAddress.Any, port));
             socket.Listen(max);
             int id;
 
@@ -82,13 +88,14 @@ namespace ChessServer
                 try
                 {
                     var client = socket.Accept();
-
-                    id = clientManager.Registration();
-
+                    id = idManager.GetId();
                     lock (lck)
                     {
                         clients.Add(new Client(client, id));
                     }
+
+                    clientManager.Registration(id);
+
 
                     ThreadPool.QueueUserWorkItem((x) => Listen(id, client));
                 }
@@ -111,7 +118,7 @@ namespace ChessServer
                 {
                     len = socket.Receive(arr);
 
-                    parser.Parse(arr.Take(len).ToArray(), id);
+                    Receive(arr.Take(len).ToArray(), id);
                 }
                 catch
                 {

@@ -9,8 +9,9 @@ namespace ChessServer.Interfaces
     interface IClient
     {
         int Id { get; }
-        string Nick { get; }
+        string Nick { get; set; }
 
         void Send(string mesg);
+        void LoginResult(bool result, string message);
     }
 }

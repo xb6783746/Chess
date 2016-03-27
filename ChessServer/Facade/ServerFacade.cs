@@ -22,5 +22,11 @@ namespace ChessServer.Facade
         {
             chatManager.Message(message, id);
         }
+
+
+        public void ChangeNick(string nick, int id)
+        {
+            clientManager.ChangeNick(nick, id);
+        }
     }
 }

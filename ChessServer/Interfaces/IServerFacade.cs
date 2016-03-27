@@ -9,5 +9,6 @@ namespace ChessServer.Interfaces
     interface IServerFacade
     {
         void Message(string message, int id);
+        void ChangeNick(string nick, int id);
     }
 }

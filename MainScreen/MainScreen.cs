@@ -180,7 +180,7 @@ namespace MainScreen
 
         private void sendButton_Click(object sender, EventArgs e)
         {
-            Receive(messageBox.Text);
+            Receive("Вы: " + messageBox.Text);
 
             Send(messageBox.Text);
 

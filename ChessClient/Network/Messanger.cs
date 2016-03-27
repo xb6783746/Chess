@@ -21,7 +21,7 @@ namespace ChessClient.Network
 
         public void LogIn(IPAddress ip, int port, string message)
         {
-            throw new NotImplementedException();
+            socketListener.Connect(ip, port);
         }
         public void Init(IClientFacade clientFacade, ISocketListener socketListener)
         {
@@ -50,7 +50,9 @@ namespace ChessClient.Network
         }
         public void SendMessage(string msg)
         {
-            throw new NotImplementedException();
+            Message m = new Message("Message", msg);
+
+            SendMessage(m);
         }
         public void Surrender()
         {
@@ -73,19 +75,23 @@ namespace ChessClient.Network
         {
             lock(lck)
             {
-                var stream = new MemoryStream(message);
-                Message mesg = formatter.Deserialize(stream) as Message;
+                using (var stream = new MemoryStream(message))
+                {
+                    Message mesg = formatter.Deserialize(stream) as Message;
 
-                clientFacade.GetType().GetMethod(mesg.Method).Invoke(clientFacade, mesg.Arguments);
+                    clientFacade.GetType().GetMethod(mesg.Method).Invoke(clientFacade, mesg.Arguments);
+                }
             }
         }
 
         private void SendMessage(Message mesg)
         {
-            MemoryStream stream = new MemoryStream();
-            formatter.Serialize(stream, mesg);
+            using (MemoryStream stream = new MemoryStream())
+            {
+                formatter.Serialize(stream, mesg);
 
-            socketListener.Send(stream.GetBuffer());
+                socketListener.Send(stream.GetBuffer());
+            }
         }
     }
 }

@@ -18,6 +18,7 @@ namespace ChessServer.Chat
 
             mainRoom = new ChatRoom();
             rooms = new List<ChatRoom>();
+            clients = new List<IClient>();
 
             rooms.Add(mainRoom);
         }
@@ -27,8 +28,28 @@ namespace ChessServer.Chat
         private ChatRoom mainRoom;
         private List<ChatRoom> rooms;
 
+        private List<IClient> clients;
+
         public void Message(string message, int id)
         {
+            if (message[0] == '/')
+            {
+                string[] tmp = message.Substring(1).Split(' ');
+
+                string nick = tmp[0];
+                string mesg = message.Substring(2 + nick.Length);
+
+                var clientTo = clients.FirstOrDefault((x) => x.Nick == nick);
+                var clientFrom = clients.FirstOrDefault((x) => x.Id == id);
+
+                if (clientTo != null && clientFrom != null)
+                {
+                    clientTo.Send("/" + clientFrom.Nick + " " + mesg);
+                }
+
+                return;
+            }
+
             var room = rooms.FirstOrDefault((x) => x.Contains(id));
 
             if (room != null)
@@ -40,6 +61,7 @@ namespace ChessServer.Chat
         private void NewClient(IClient client)
         {
             mainRoom.Add(client);
+            clients.Add(client);
         }
         private void Disconnected(IClient client)
         {

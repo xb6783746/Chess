@@ -32,6 +32,10 @@ namespace ChessServer.Chat
             }
         }
 
+        public List<IClient> GetClients()
+        {
+            return clients;
+        }
         public bool Contains(int id)
         {
             return clients.Exists((x) => x.Id == id);

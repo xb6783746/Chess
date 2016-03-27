@@ -24,7 +24,7 @@ namespace ChessClient.Controllers
 
         public void Message(string msg)
         {
-            gameScreen.Message(msg);
+            gameScreen.Receive(msg);
         }
         public void StartGame(Color color)
         {

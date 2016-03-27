@@ -32,5 +32,6 @@ namespace GameTemplate.Game
         /// Координата фигуры
         /// </summary>
         public Point Location { get { return _location; } }
+
     }
 }

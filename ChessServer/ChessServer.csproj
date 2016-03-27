@@ -44,6 +44,8 @@
     <Compile Include="Chat\ChatManager.cs" />
     <Compile Include="Chat\ChatRoom.cs" />
     <Compile Include="Clients\Client.cs" />
+    <Compile Include="Facade\ClientFacade.cs" />
+    <Compile Include="Facade\ServerFacade.cs" />
     <Compile Include="IdManager\IDManager.cs" />
     <Compile Include="Interfaces\IChatManager.cs" />
     <Compile Include="Interfaces\IClient.cs" />
@@ -59,6 +61,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Network\Network.csproj">
+      <Project>{f16bf67b-f1ce-4425-8122-a11a27cc287a}</Project>
+      <Name>Network</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

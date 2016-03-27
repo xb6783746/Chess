@@ -70,7 +70,14 @@ namespace Rendering
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    g.DrawRectangle(Pens.Black, blockSize * i, blockSize * j, blockSize, blockSize);
+                    if ((i % 2 != 0 && j % 2 == 0) || (i % 2 == 0 && j % 2 != 0))
+                    {
+                        g.FillRectangle(Brushes.LightGray, i * blockSize, j * blockSize, blockSize, blockSize);
+                    }
+                    else
+                    {
+                        g.FillRectangle(Brushes.White, i * blockSize, j * blockSize, blockSize, blockSize);
+                    }
                 }
             }
         }

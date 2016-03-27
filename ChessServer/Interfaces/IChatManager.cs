@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace ChessServer.Interfaces
 {
-    interface IClient
+    interface IChatManager
     {
-        int Id { get; }
-        string Nick { get; }
-
-        void Send(string mesg);
+        void Message(string message, int id);
     }
 }

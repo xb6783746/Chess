@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chat\ChatManager.cs" />
+    <Compile Include="Chat\ChatRoom.cs" />
+    <Compile Include="Interfaces\IChatManager.cs" />
     <Compile Include="Interfaces\IClient.cs" />
     <Compile Include="Interfaces\IClientFacade.cs" />
     <Compile Include="Interfaces\IClientManager.cs" />

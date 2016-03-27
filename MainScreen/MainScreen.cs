@@ -15,12 +15,8 @@ namespace MainScreen
         {
             InitializeComponent();
 
-            window = new ModalWindow();
-            window.Location = new System.Drawing.Point
-                (
-                    this.Width / 2 - window.Width / 2,
-                    this.Height / 2 - window.Height / 2
-                );
+            window.Select += UserSelect;
+            window.Cancel += Cancel;
         }
 
         private TextBox chatWindow;
@@ -54,6 +50,8 @@ namespace MainScreen
         public event Action<string> ChangeNick = (x) => { };
         public event Action<string> Send = (x) => { };
 
+        private event Action<string> selectedEvent;
+
         public UserControl GetScreen()
         {
             return this;
@@ -69,6 +67,7 @@ namespace MainScreen
             this.watchForButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.window = new tmp.ModalWindow();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -157,10 +156,21 @@ namespace MainScreen
             this.listBox1.Size = new System.Drawing.Size(331, 238);
             this.listBox1.TabIndex = 7;
             // 
-            // MainScreen1
+            // window
             // 
+            this.window.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.window.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.window.Location = new System.Drawing.Point(26, 27);
+            this.window.Name = "window";
+            this.window.Size = new System.Drawing.Size(437, 377);
+            this.window.TabIndex = 8;
+            this.window.Visible = false;
+            // 
+            // MainScreen
+            // 
+            this.Controls.Add(this.window);
             this.Controls.Add(this.panel1);
-            this.Name = "MainScreen1";
+            this.Name = "MainScreen";
             this.Size = new System.Drawing.Size(517, 468);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -187,64 +197,38 @@ namespace MainScreen
 
         private void gameWithButton_Click(object sender, EventArgs e)
         {
-            Task.Run(
-                () =>
-                {
-                    string user = GetUser();
+            selectedEvent = GameWith;
 
-                    if (user != "")
-                    {
-                        GameWith(user);
-                    }
-                });
+            window.Visible = true;
+            panel1.Enabled = false;
         }
-
-        private void ShowWindow()
-        {
-                 
-            Invoke(new Action(() =>
-                {
-                    panel1.Enabled = false;
-                    Controls.Add(window);
-                    Controls.SetChildIndex(window, 0);
-                }));
-        }
-        private void CloseWindow()
-        {
-            Invoke(new Action(() =>
-           {
-               Controls.Remove(window);
-               panel1.Enabled = true;
-           }));
-        }
-
-        private string GetUser()
-        {
-            ShowWindow();
-            window.WaitHandle.WaitOne();
-
-            CloseWindow();
-
-            return window.Result;
-        }
-
         private void watchForButton_Click(object sender, EventArgs e)
         {
-            Task.Run(
-               () =>
-               {
-                   string user = GetUser();
+            selectedEvent = WatchForGamer;
 
-                   if (user != "")
-                   {
-                       WatchForGamer(user);
-                   }
-               });
+            window.Visible = true;
+            panel1.Enabled = false;
         }
-
         private void startRandomGameButton_Click(object sender, EventArgs e)
         {
             RandomGame();
+        }
+
+        private void UserSelect(string user)
+        {
+            if (selectedEvent != null)
+            {
+                selectedEvent(user);
+            }
+
+            selectedEvent = null;
+            panel1.Enabled = true;
+        }
+        private void Cancel()
+        {
+            selectedEvent = null;
+
+            panel1.Enabled = true;
         }
     }
 }

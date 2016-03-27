@@ -16,20 +16,10 @@ namespace tmp
         public ModalWindow()
         {
             InitializeComponent();
-
-            WaitHandle = new EventWaitHandle(false, EventResetMode.AutoReset);
         }
-
-        public EventWaitHandle WaitHandle
-        {
-            get; private set;
-        }
-        public string Result { get; private set; }
 
         public void Activate(List<string> users)
         {
-            Result = "";
-
             userBox.Items.Clear();
 
             foreach(var item in users)
@@ -42,26 +32,20 @@ namespace tmp
 
         private void acceptButton_Click(object sender, EventArgs e)
         {
-            Result = inputBox.Text;
-
-            WaitHandle.Set();
+            Select(inputBox.Text);
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            Result = "";
-
-            WaitHandle.Set();
-        }
-
-        private void textBox1_Click(object sender, EventArgs e)
-        {
-            
+            Cancel();
         }
 
         private void userBox_SelectedValueChanged(object sender, EventArgs e)
         {
             inputBox.Text = userBox.SelectedItem as string;
         }
+
+        public event Action<string> Select;
+        public event Action Cancel;
     }
 }

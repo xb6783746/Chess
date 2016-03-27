@@ -61,7 +61,12 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\GameTemplate\ChessCore.csproj">
+      <Project>{c5b11426-c04f-4882-8640-031fd9461faa}</Project>
+      <Name>ChessCore</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <None Include="ChessFigures\BishopBlack.png" />
   </ItemGroup>

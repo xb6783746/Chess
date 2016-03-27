@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Chat\ChatManager.cs" />
     <Compile Include="Chat\ChatRoom.cs" />
+    <Compile Include="ClientManager\ClientManager.cs" />
     <Compile Include="Clients\Client.cs" />
     <Compile Include="Facade\ClientFacade.cs" />
     <Compile Include="Facade\ServerFacade.cs" />

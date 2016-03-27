@@ -44,6 +44,11 @@
     <Compile Include="MainScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="MainScreen.Designer.cs" />
+    <Compile Include="ModalWindow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ModalWindow.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -53,9 +58,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MainScreen.resx">
-      <DependentUpon>MainScreen.cs</DependentUpon>
-    </EmbeddedResource>
+    <EmbeddedResource Include="MainScreen.resx" />
+    <EmbeddedResource Include="ModalWindow.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

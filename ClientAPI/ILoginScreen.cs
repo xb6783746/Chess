@@ -10,7 +10,7 @@ namespace ClientAPI
 {
     public interface ILoginScreen : IScreen
     {
-        event Action<IPAddress, int, string> LogIn;
+        event Action<string> LogIn;
 
         void Fail(string message);
     }

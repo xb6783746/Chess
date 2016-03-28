@@ -1,4 +1,5 @@
 ﻿using ChessServer.Interfaces;
+using Network;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace ChessServer.Facade
         private IChatManager chatManager;
         private IClientManager clientManager;
 
-        public void Message(string message, int id)
+        public void Message(ChatMessage message, int id)
         {
             chatManager.Message(message, id);
         }

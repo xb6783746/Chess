@@ -56,6 +56,10 @@
       <Project>{c5b11426-c04f-4882-8640-031fd9461faa}</Project>
       <Name>ChessCore</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Network\Network.csproj">
+      <Project>{f16bf67b-f1ce-4425-8122-a11a27cc287a}</Project>
+      <Name>Network</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

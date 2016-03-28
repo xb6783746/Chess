@@ -1,4 +1,5 @@
 ﻿using ChessServer.Interfaces;
+using Network;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace ChessServer.Clients
             set;
         }
 
-        public void Send(string mesg)
+        public void Send(ChatMessage mesg)
         {
             clientFacade.Message(mesg, this.Id);
         }

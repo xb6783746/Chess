@@ -15,6 +15,8 @@ namespace ClientAPI
         event Action<string> ChangeNick;
 
         bool Challenge(string from);
+
+        string Nick { get; set; }
     }
 
     //public abstract class AbstractMainScreen : UserControl, IMessenger

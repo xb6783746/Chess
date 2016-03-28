@@ -1,6 +1,7 @@
 ﻿using GameTemplate.ChessGame.ChessInterfaces;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
+using Network;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,7 +14,7 @@ namespace ChessClient.Interfaces
     public interface IClientFacade
     {
         void LoginResult(bool result, string message);
-        void Message(string msg);
+        void Message(ChatMessage msg);
         void Disconnected();
         void StartGame(Color color);
         void Challenge(string from);

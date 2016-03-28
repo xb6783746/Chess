@@ -30,7 +30,7 @@ namespace ChessServer.Facade
 
             server.Receive += Parse;
         }
-        public void Message(string msg, int id)
+        public void Message(ChatMessage msg, int id)
         {
             var message = new Message("Message", msg);
 

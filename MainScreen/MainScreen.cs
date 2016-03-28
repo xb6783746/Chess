@@ -1,4 +1,5 @@
 ﻿using ClientAPI;
+using Network;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -39,22 +40,35 @@ namespace MainScreen
 
         }
 
-        public void Receive(string message)
+        public void Receive(ChatMessage message)
         {
             chatWindow.Invoke(new Action(
                 () =>
                 {
                     int len = chatWindow.Text.Length;
-                    chatWindow.Text += message + Environment.NewLine;
+                    chatWindow.Text += message.Message + Environment.NewLine;
 
-                    chatWindow.Select(len, message.Length);
+                    chatWindow.Select(len, message.Message.Length);
 
-                    if (message[0] == '/')
+                    Color color = Color.Black;
+
+                    switch (message.Type)
                     {
-                        chatWindow.SelectionColor = Color.Purple;
+                        case ChatMessageType.Private:
+                            color = Color.Purple;
+                            break;
+                        case ChatMessageType.Public:
+                            color = Color.Black;
+                            break;
+                        case ChatMessageType.System:
+                            color = Color.Red;
+                            break;
                     }
-                    
+
+                    chatWindow.SelectionColor = color;
+
                 }));
+
             //chatWindow.Text += message + Environment.NewLine;
         }
 
@@ -62,7 +76,7 @@ namespace MainScreen
         public event Action<string> GameWith = (x) => { };
         public event Action<string> WatchForGamer = (x) => { };
         public event Action<string> ChangeNick = (x) => { };
-        public event Action<string> Send = (x) => { };
+        public event Action<ChatMessage> Send = (x) => { };
 
         private event Action<string> selectedEvent;
 
@@ -193,25 +207,26 @@ namespace MainScreen
 
         private void sendButton_Click(object sender, EventArgs e)
         {
-            string tmp;
+            ChatMessage mesg;
+
             if (messageBox.Text[0] == '/')
             {
-                tmp = "-> " + messageBox.Text + Environment.NewLine;
+                messageBox.Text = messageBox.Text.Substring(1);
 
-                int len = chatWindow.Text.Length;
-                chatWindow.Text += tmp;
+                string to = messageBox.Text.Split(' ')[0];
+                string text = messageBox.Text.Substring(to.Length + 1);
 
-                chatWindow.Select(len, tmp.Length);
-                chatWindow.SelectionColor = Color.Purple;
+                mesg = new ChatMessage(Nick, to, ChatMessageType.Private, text);              
             }
             else
             {
-                Receive("Вы: " + messageBox.Text);
+                mesg = new ChatMessage(Nick, "", ChatMessageType.Public, messageBox.Text);
             }
 
-            Send(messageBox.Text);
+            Send(mesg);
 
-            messageBox.Text = "";
+            mesg.From = "Вы";
+            Receive(mesg);
         }
 
         private void messageBox_KeyDown(object sender, KeyEventArgs e)
@@ -256,6 +271,13 @@ namespace MainScreen
             selectedEvent = null;
 
             panel1.Enabled = true;
+        }
+
+
+        public string Nick
+        {
+            get;
+            set;
         }
     }
 }

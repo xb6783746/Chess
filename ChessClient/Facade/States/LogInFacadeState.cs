@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ChessClient.Enums;
+using Network;
 
 namespace ChessClient.Facade.States
 {
@@ -34,7 +35,7 @@ namespace ChessClient.Facade.States
                 manager.LoginController.Fail(message);
             }
         }
-        public void Message(string msg)
+        public void Message(ChatMessage msg)
         {
             throw new NotImplementedException();
         }

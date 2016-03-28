@@ -1,6 +1,7 @@
 ﻿using GameTemplate.ChessGame.ChessInterfaces;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
+using Network;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,7 +13,7 @@ namespace ChessClient.Interfaces.IControllers
 {
     interface IGameScreenController
     {
-        void Message(string msg);
+        void Message(ChatMessage msg);
         void StartGame(Color color);
         void Step(IReadOnlyField f, StepInfo step);
         void GameOver(bool win);

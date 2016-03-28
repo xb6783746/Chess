@@ -1,4 +1,5 @@
 ﻿using GameTemplate.Game;
+using Network;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace ChessClient.Interfaces
         void StartGameWith(string gamer);
         void WatchFor(string gamer);
         void MakeStep(StepInfo step);
-        void SendMessage(string msg);
+        void SendMessage(ChatMessage msg);
         void Surrender();
         void Accept();
 

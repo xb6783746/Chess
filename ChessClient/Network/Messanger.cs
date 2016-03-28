@@ -49,7 +49,7 @@ namespace ChessClient.Network
         {
             throw new NotImplementedException();
         }
-        public void SendMessage(string msg)
+        public void SendMessage(ChatMessage msg)
         {
             Message m = new Message("Message", msg);
 

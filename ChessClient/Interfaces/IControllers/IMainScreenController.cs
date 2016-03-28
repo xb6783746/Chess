@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Network;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,6 @@ namespace ChessClient.Interfaces.IControllers
     interface IMainScreenController
     {
         void Challenge(string from);
-        void Message(string msg);
+        void Message(ChatMessage msg);
     }
 }

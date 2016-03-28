@@ -3,6 +3,7 @@ using ChessClient.Interfaces;
 using GameTemplate.ChessGame.ChessInterfaces;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
+using Network;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -27,7 +28,7 @@ namespace ChessClient.Facade.States
         {
             throw new NotImplementedException();
         }
-        public void Message(string msg)
+        public void Message(ChatMessage msg)
         {
             manager.GameController.Message(msg);
         }

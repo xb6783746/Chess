@@ -1,4 +1,5 @@
 ﻿using ChessServer.Interfaces;
+using Network;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,21 +31,19 @@ namespace ChessServer.Chat
 
         private List<IClient> clients;
 
-        public void Message(string message, int id)
+        public void Message(ChatMessage message, int id)
         {
-            if (message[0] == '/')
+            if (message.Type == ChatMessageType.Private)
             {
-                string[] tmp = message.Substring(1).Split(' ');
 
-                string nick = tmp[0];
-                string mesg = message.Substring(2 + nick.Length);
-
-                var clientTo = clients.FirstOrDefault((x) => x.Nick == nick);
+                var clientTo = clients.FirstOrDefault((x) => x.Nick == message.To);
                 var clientFrom = clients.FirstOrDefault((x) => x.Id == id);
+
+                message.From = clientFrom.Nick;
 
                 if (clientTo != null && clientFrom != null)
                 {
-                    clientTo.Send("/" + clientFrom.Nick + " " + mesg);
+                    clientTo.Send(message);
                 }
 
                 return;

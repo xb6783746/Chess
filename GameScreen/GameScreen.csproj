@@ -60,6 +60,12 @@
       <DependentUpon>GameScreen.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Network\Network.csproj">
+      <Project>{f16bf67b-f1ce-4425-8122-a11a27cc287a}</Project>
+      <Name>Network</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

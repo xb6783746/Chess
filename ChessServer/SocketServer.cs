@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ChessServer
 {
-    class SocketServer :IServer
+    class SocketServer : IServer
     {
         struct Client
         {
@@ -101,7 +101,7 @@ namespace ChessServer
                 }
                 catch
                 {
-                    
+
                     throw;
                 }
             }
@@ -112,19 +112,22 @@ namespace ChessServer
             byte[] arr = new byte[packetLenght];
             int len;
 
-            while (true)
+            try
             {
-                try
+                while (true)
                 {
                     len = socket.Receive(arr);
 
                     Receive(arr.Take(len).ToArray(), id);
                 }
-                catch
-                {
-                    clientManager.Disconnect(id);
-                }
             }
+            catch
+            {
+                clientManager.Disconnect(id);
+
+                idManager.Delete(id);
+            }
+
         }
     }
 }

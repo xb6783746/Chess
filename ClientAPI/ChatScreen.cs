@@ -42,6 +42,10 @@ namespace ClientAPI
         void chatWindow_DrawItem(object sender, DrawItemEventArgs e)
         {
             e.DrawBackground();
+            if(e.Index < 0)
+            {
+                return;
+            }
 
             var tmp = messages[e.Index];
             Brush brush = brushes[tmp.Type];
@@ -93,9 +97,9 @@ namespace ClientAPI
            
                     self = m.Copy();
                     self.From = "Вы";
-
-                    
+                   
                 }
+                messageBox.Text = "";
 
                 Receive(self);
 

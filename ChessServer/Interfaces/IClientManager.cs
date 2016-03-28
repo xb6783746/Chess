@@ -8,7 +8,7 @@ namespace ChessServer.Interfaces
 {
     interface IClientManager
     {
-        int Registration(int id);
+        void Registration(int id);
         void Disconnect(int id);
 
         void ChangeNick(string nick, int id);

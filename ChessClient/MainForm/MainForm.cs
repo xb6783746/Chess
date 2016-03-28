@@ -37,9 +37,12 @@ namespace ChessClient
                 IfInvoke(clearAction);
 
                 control = value;
-                Position(control);
+                if (control != null)
+                {
+                    Position(control);
 
-                IfInvoke(addAction);
+                    IfInvoke(addAction);
+                }
 
             }
         }

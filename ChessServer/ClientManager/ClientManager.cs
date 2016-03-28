@@ -11,32 +11,38 @@ namespace ChessServer.Managers
 {
     class ClientManager : IClientManager
     {
-        //private IDManager idManager;
-        private Dictionary<int, IClient> clients;
-        private IClientFacade clientFacade;
 
         public ClientManager(IClientFacade clientFacade)
         {
-            //this.idManager = idManager;
             clients = new Dictionary<int, IClient>();
             this.clientFacade = clientFacade;
         }
 
-        public int Registration(int id)
+        private Dictionary<int, IClient> clients;
+        private IClientFacade clientFacade;
+        private object lck = new object();
+
+        public void Registration(int id)
         {
-            //int id = idManager.GetId();
             IClient client = new Client(id, clientFacade);
-            clients.Add(id, client);
+            lock (lck)
+            {
+                clients.Add(id, client);
+            }
 
             client.LoginResult(true, "");
-            Connected(client);
 
-            return id;
+            Connected(client);
         }
 
         public void Disconnect(int id)
-        {
+        {           
             Disconnected(clients[id]);
+
+            lock (lck)
+            {
+                clients.Remove(id);
+            }
         }
 
         public event Action<IClient> Connected = (x) => { };

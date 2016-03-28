@@ -1,6 +1,8 @@
 ﻿using ClientAPI;
+using Network;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,8 +20,6 @@ namespace MainScreen
             window.Select += UserSelect;
             window.Cancel += Cancel;
         }
-
-        private TextBox chatWindow;
         private TextBox messageBox;
         private Button startRandomGameButton;
         private Button gameWithButton;
@@ -27,6 +27,7 @@ namespace MainScreen
         private Button sendButton;
         private Panel panel1;
         private ListBox listBox1;
+        private RichTextBox chatWindow;
         private ModalWindow window;
 
         public bool Challenge(string from)
@@ -39,16 +40,43 @@ namespace MainScreen
 
         }
 
-        public void Receive(string message)
+        public void Receive(ChatMessage message)
         {
-            chatWindow.Text += message + Environment.NewLine;
+            chatWindow.Invoke(new Action(
+                () =>
+                {
+                    int len = chatWindow.Text.Length;
+                    chatWindow.Text += message.Message + Environment.NewLine;
+
+                    chatWindow.Select(len, message.Message.Length);
+
+                    Color color = Color.Black;
+
+                    switch (message.Type)
+                    {
+                        case ChatMessageType.Private:
+                            color = Color.Purple;
+                            break;
+                        case ChatMessageType.Public:
+                            color = Color.Black;
+                            break;
+                        case ChatMessageType.System:
+                            color = Color.Red;
+                            break;
+                    }
+
+                    chatWindow.SelectionColor = color;
+
+                }));
+
+            //chatWindow.Text += message + Environment.NewLine;
         }
 
         public event Action RandomGame = () => { };
         public event Action<string> GameWith = (x) => { };
         public event Action<string> WatchForGamer = (x) => { };
         public event Action<string> ChangeNick = (x) => { };
-        public event Action<string> Send = (x) => { };
+        public event Action<ChatMessage> Send = (x) => { };
 
         private event Action<string> selectedEvent;
 
@@ -59,7 +87,6 @@ namespace MainScreen
 
         private void InitializeComponent()
         {
-            this.chatWindow = new System.Windows.Forms.TextBox();
             this.messageBox = new System.Windows.Forms.TextBox();
             this.sendButton = new System.Windows.Forms.Button();
             this.startRandomGameButton = new System.Windows.Forms.Button();
@@ -68,19 +95,9 @@ namespace MainScreen
             this.panel1 = new System.Windows.Forms.Panel();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.window = new tmp.ModalWindow();
+            this.chatWindow = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // chatWindow
-            // 
-            this.chatWindow.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.chatWindow.Location = new System.Drawing.Point(16, 264);
-            this.chatWindow.Multiline = true;
-            this.chatWindow.Name = "chatWindow";
-            this.chatWindow.ReadOnly = true;
-            this.chatWindow.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.chatWindow.Size = new System.Drawing.Size(331, 158);
-            this.chatWindow.TabIndex = 0;
             // 
             // messageBox
             // 
@@ -136,9 +153,9 @@ namespace MainScreen
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.chatWindow);
             this.panel1.Controls.Add(this.listBox1);
             this.panel1.Controls.Add(this.watchForButton);
-            this.panel1.Controls.Add(this.chatWindow);
             this.panel1.Controls.Add(this.gameWithButton);
             this.panel1.Controls.Add(this.messageBox);
             this.panel1.Controls.Add(this.sendButton);
@@ -166,6 +183,16 @@ namespace MainScreen
             this.window.TabIndex = 8;
             this.window.Visible = false;
             // 
+            // chatWindow
+            // 
+            this.chatWindow.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.chatWindow.Location = new System.Drawing.Point(16, 257);
+            this.chatWindow.Name = "chatWindow";
+            this.chatWindow.ReadOnly = true;
+            this.chatWindow.Size = new System.Drawing.Size(331, 164);
+            this.chatWindow.TabIndex = 8;
+            this.chatWindow.Text = "";
+            // 
             // MainScreen
             // 
             this.Controls.Add(this.window);
@@ -180,11 +207,26 @@ namespace MainScreen
 
         private void sendButton_Click(object sender, EventArgs e)
         {
-            Receive("Вы: " + messageBox.Text);
+            ChatMessage mesg;
 
-            Send(messageBox.Text);
+            if (messageBox.Text[0] == '/')
+            {
+                messageBox.Text = messageBox.Text.Substring(1);
 
-            messageBox.Text = "";
+                string to = messageBox.Text.Split(' ')[0];
+                string text = messageBox.Text.Substring(to.Length + 1);
+
+                mesg = new ChatMessage(Nick, to, ChatMessageType.Private, text);              
+            }
+            else
+            {
+                mesg = new ChatMessage(Nick, "", ChatMessageType.Public, messageBox.Text);
+            }
+
+            Send(mesg);
+
+            mesg.From = "Вы";
+            Receive(mesg);
         }
 
         private void messageBox_KeyDown(object sender, KeyEventArgs e)
@@ -229,6 +271,13 @@ namespace MainScreen
             selectedEvent = null;
 
             panel1.Enabled = true;
+        }
+
+
+        public string Nick
+        {
+            get;
+            set;
         }
     }
 }

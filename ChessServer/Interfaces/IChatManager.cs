@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Network;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace ChessServer.Interfaces
 {
     interface IChatManager
     {
-        void Message(string message, int id);
+        void Message(ChatMessage message, int id);
     }
 }

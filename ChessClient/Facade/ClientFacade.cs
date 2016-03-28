@@ -4,6 +4,7 @@ using ChessClient.Interfaces;
 using GameTemplate.ChessGame.ChessInterfaces;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
+using Network;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -41,7 +42,7 @@ namespace ChessClient.Controllers
         {
             current.LoginResult(result, message);
         }
-        public void Message(string msg)
+        public void Message(ChatMessage msg)
         {
             current.Message(msg);
         }

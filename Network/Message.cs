@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Network
 {
+    [Serializable]
     public class Message
     {
         public Message(string method, params object[] args)

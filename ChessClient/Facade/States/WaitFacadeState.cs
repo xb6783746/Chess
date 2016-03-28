@@ -2,6 +2,7 @@
 using GameTemplate.ChessGame.ChessInterfaces;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
+using Network;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace ChessClient.Facade.States
         {
             throw new NotImplementedException();
         }
-        public void Message(string msg)
+        public void Message(ChatMessage msg)
         {
             throw new NotImplementedException();
         }

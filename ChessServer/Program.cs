@@ -1,4 +1,8 @@
-﻿using System;
+﻿using ChessServer.Chat;
+using ChessServer.Facade;
+using ChessServer.IdManager;
+using ChessServer.Managers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +14,18 @@ namespace ChessServer
     {
         static void Main(string[] args)
         {
+            var idManager = new IDManager();
+            var clientFacade = new ClientFacade();
+            var clientManager = new ClientManager(clientFacade);
+            var server = new SocketServer(clientManager, idManager);
+            var chatManager = new ChatManager(clientManager);
+
+            var serverFacade = new ServerFacade(chatManager, clientManager);
+
+            clientFacade.Init(server, serverFacade);
+
+            server.Start();
+           
         }
     }
 }

@@ -11,6 +11,7 @@ using ClientAPI;
 using GameTemplate;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
+using Network;
 
 namespace GameScreen
 {
@@ -36,7 +37,7 @@ namespace GameScreen
 
         private void sendButton_Click(object sender, EventArgs e)
         {
-            Send(messageBox.Text);
+            //Send(messageBox.Text);
             messageBox.Text = "";
         }
 
@@ -88,9 +89,9 @@ namespace GameScreen
             GameBox.Image = picture;
         }
 
-        public void Receive(string message)
+        public void Receive(ChatMessage message)
         {
-            chatWindow.Text += message + Environment.NewLine;
+            chatWindow.Text += message.Text + Environment.NewLine;
         }
 
         public UserControl GetScreen()
@@ -99,7 +100,7 @@ namespace GameScreen
         }
 
 
-        public event Action<string> Send;
+        public event Action<ChatMessage> Send;
         public event Action<StepInfo> Step;
         public event Action Concede;
     }

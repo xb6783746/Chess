@@ -12,5 +12,7 @@ namespace ChessServer.Interfaces
         void Stop();
 
         void Send(byte[] msg, int id);
+
+        event Action<byte[], int> Receive;
     }
 }

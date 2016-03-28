@@ -14,11 +14,13 @@ namespace ChessClient.Controllers
 {
     class LogInScreenController : BasicController, ISwitch, ILoginScreenController
     {
-        public LogInScreenController(IMainForm form, IServerFacade facade) :base(form, facade)
+        public LogInScreenController(IMainForm form, IServerFacade facade)
+            : base(form, facade)
         {
         }
 
         private ILoginScreen loginScreen;
+        private string config = "config.txt";
 
         public void Fail(string message)
         {
@@ -32,13 +34,36 @@ namespace ChessClient.Controllers
             loginScreen = Activator.CreateInstance(screen) as ILoginScreen;
             this.screen = loginScreen.GetScreen();
 
-            loginScreen.LogIn += facade.LogIn;
-          
+            loginScreen.LogIn += LogIn;
+
         }
 
-        private void LogIn(IPAddress ip, int port, string nick)
+        private void LogIn(string nick)
         {
-            facade.LogIn(ip, port, nick);
+            try
+            {
+                IPAddress ip;
+                int port;
+
+                LoadConfig(out ip, out port);
+
+                facade.LogIn(ip, port, nick);
+            }
+            catch
+            {
+                loginScreen.Fail("Ошибка при загрузке конфигурационного файла");
+            }
+
+        }
+
+        private void LoadConfig(out IPAddress ip, out int port)
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory + config;
+            using (StreamReader read = new StreamReader(path))
+            {
+                ip = IPAddress.Parse(read.ReadLine());
+                port = int.Parse(read.ReadLine());
+            }
         }
     }
 }

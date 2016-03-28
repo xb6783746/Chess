@@ -4,6 +4,7 @@ using ClientAPI;
 using GameTemplate.ChessGame.ChessInterfaces;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
+using Network;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -22,9 +23,9 @@ namespace ChessClient.Controllers
 
         private IGameScreen gameScreen;
 
-        public void Message(string msg)
+        public void Message(ChatMessage msg)
         {
-            gameScreen.Message(msg);
+            gameScreen.Receive(msg);
         }
         public void StartGame(Color color)
         {
@@ -47,7 +48,7 @@ namespace ChessClient.Controllers
             //gameScreen.Step += Step;
         }
 
-        private void Send(string msg)
+        private void Send(ChatMessage msg)
         {
             facade.SendMessage(msg);
         }

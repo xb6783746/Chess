@@ -1,6 +1,7 @@
 ﻿using ChessClient.Interfaces;
 using ChessClient.Interfaces.IControllers;
 using ClientAPI;
+using Network;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,7 +22,7 @@ namespace ChessClient.Controllers
         {
             mainScreen.Challenge(from);
         }
-        public void Message(string msg)
+        public void Message(ChatMessage msg)
         {
             mainScreen.Receive(msg);
         }
@@ -55,7 +56,7 @@ namespace ChessClient.Controllers
         {
             facade.StartRandomGame();
         }
-        private void Send(string message)
+        private void Send(ChatMessage message)
         {
             facade.SendMessage(message);
         }

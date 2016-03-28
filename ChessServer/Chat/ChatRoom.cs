@@ -1,4 +1,5 @@
 ﻿using ChessServer.Interfaces;
+using Network;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,16 +33,22 @@ namespace ChessServer.Chat
             }
         }
 
+        public List<IClient> GetClients()
+        {
+            return clients;
+        }
         public bool Contains(int id)
         {
             return clients.Exists((x) => x.Id == id);
         }
 
-        public void Send(string mesg, int id)
+        public void Send(ChatMessage mesg, int id)
         {
             if (Contains(id))
             {
+
                 var tmp = clients.Where((x) => x.Id != id);
+                mesg.From = clients.First((x) => x.Id == id).Nick;
 
                 foreach (var client in tmp)
                 {

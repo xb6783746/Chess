@@ -4,6 +4,7 @@ using GameTemplate.ChessGame.ChessField;
 using GameTemplate.ChessGame.ChessFigures;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
+using Network;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -48,7 +49,7 @@ namespace ChessClient.Network
 
         public void ChangeNick(string nick)
         {
-            clientFacade.Message("В данный момент это невозможно");
+            //clientFacade.Message("В данный момент это невозможно");
         }
 
         public void StartRandomGame()
@@ -70,19 +71,19 @@ namespace ChessClient.Network
 
         public void StartGameWith(string gamer)
         {
-            clientFacade.Message("В данный момент это невозможно");
+           // clientFacade.Message("В данный момент это невозможно");
         }
         public void WatchFor(string gamer)
         {
-            clientFacade.Message("В данный момент это невозможно");
+            //clientFacade.Message("В данный момент это невозможно");
         }
         public void MakeStep(StepInfo step)
         {
             gamer.NewStep(step);
         }
-        public void SendMessage(string msg)
+        public void SendMessage(ChatMessage msg)
         {
-            clientFacade.Message(String.Format("Вы отправили \"{0}\"", msg));
+            clientFacade.Message(msg);
         }
         public void Surrender()
         {
@@ -90,7 +91,7 @@ namespace ChessClient.Network
         }
         public void Accept()
         {
-            clientFacade.Message("В данный момент это невозможно");
+            //clientFacade.Message("В данный момент это невозможно");
         }
         public void Parse(byte[] message)
         {

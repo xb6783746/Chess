@@ -19,15 +19,15 @@ namespace MainScreen
 
             window.Select += UserSelect;
             window.Cancel += Cancel;
+
+            chatScreen.Send += (x) => Send(x);
         }
-        private TextBox messageBox;
         private Button startRandomGameButton;
         private Button gameWithButton;
         private Button watchForButton;
-        private Button sendButton;
         private Panel panel1;
         private ListBox listBox1;
-        private RichTextBox chatWindow;
+        private ChatScreen chatScreen;
         private ModalWindow window;
 
         public bool Challenge(string from)
@@ -42,34 +42,7 @@ namespace MainScreen
 
         public void Receive(ChatMessage message)
         {
-            chatWindow.Invoke(new Action(
-                () =>
-                {
-                    int len = chatWindow.Text.Length;
-                    chatWindow.Text += message.Message + Environment.NewLine;
-
-                    chatWindow.Select(len, message.Message.Length);
-
-                    Color color = Color.Black;
-
-                    switch (message.Type)
-                    {
-                        case ChatMessageType.Private:
-                            color = Color.Purple;
-                            break;
-                        case ChatMessageType.Public:
-                            color = Color.Black;
-                            break;
-                        case ChatMessageType.System:
-                            color = Color.Red;
-                            break;
-                    }
-
-                    chatWindow.SelectionColor = color;
-
-                }));
-
-            //chatWindow.Text += message + Environment.NewLine;
+            chatScreen.Receive(message);
         }
 
         public event Action RandomGame = () => { };
@@ -87,36 +60,15 @@ namespace MainScreen
 
         private void InitializeComponent()
         {
-            this.messageBox = new System.Windows.Forms.TextBox();
-            this.sendButton = new System.Windows.Forms.Button();
             this.startRandomGameButton = new System.Windows.Forms.Button();
             this.gameWithButton = new System.Windows.Forms.Button();
             this.watchForButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.window = new tmp.ModalWindow();
-            this.chatWindow = new System.Windows.Forms.RichTextBox();
+            this.chatScreen = new ClientAPI.ChatScreen();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // messageBox
-            // 
-            this.messageBox.Location = new System.Drawing.Point(16, 427);
-            this.messageBox.Name = "messageBox";
-            this.messageBox.Size = new System.Drawing.Size(331, 20);
-            this.messageBox.TabIndex = 1;
-            this.messageBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.messageBox_KeyDown);
-            // 
-            // sendButton
-            // 
-            this.sendButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.sendButton.Location = new System.Drawing.Point(353, 427);
-            this.sendButton.Name = "sendButton";
-            this.sendButton.Size = new System.Drawing.Size(73, 21);
-            this.sendButton.TabIndex = 2;
-            this.sendButton.Text = "Отправить";
-            this.sendButton.UseVisualStyleBackColor = true;
-            this.sendButton.Click += new System.EventHandler(this.sendButton_Click);
             // 
             // startRandomGameButton
             // 
@@ -153,12 +105,10 @@ namespace MainScreen
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.chatWindow);
+            this.panel1.Controls.Add(this.chatScreen);
             this.panel1.Controls.Add(this.listBox1);
             this.panel1.Controls.Add(this.watchForButton);
             this.panel1.Controls.Add(this.gameWithButton);
-            this.panel1.Controls.Add(this.messageBox);
-            this.panel1.Controls.Add(this.sendButton);
             this.panel1.Controls.Add(this.startRandomGameButton);
             this.panel1.Location = new System.Drawing.Point(0, 3);
             this.panel1.Name = "panel1";
@@ -170,7 +120,7 @@ namespace MainScreen
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(16, 13);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(331, 238);
+            this.listBox1.Size = new System.Drawing.Size(299, 186);
             this.listBox1.TabIndex = 7;
             // 
             // window
@@ -183,59 +133,55 @@ namespace MainScreen
             this.window.TabIndex = 8;
             this.window.Visible = false;
             // 
-            // chatWindow
+            // chatScreen1
             // 
-            this.chatWindow.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.chatWindow.Location = new System.Drawing.Point(16, 257);
-            this.chatWindow.Name = "chatWindow";
-            this.chatWindow.ReadOnly = true;
-            this.chatWindow.Size = new System.Drawing.Size(331, 164);
-            this.chatWindow.TabIndex = 8;
-            this.chatWindow.Text = "";
+            this.chatScreen.Location = new System.Drawing.Point(16, 205);
+            this.chatScreen.Name = "chatScreen1";
+            this.chatScreen.Size = new System.Drawing.Size(299, 248);
+            this.chatScreen.TabIndex = 8;
             // 
             // MainScreen
             // 
-            this.Controls.Add(this.window);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.window);
             this.Name = "MainScreen";
             this.Size = new System.Drawing.Size(517, 468);
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
-        private void sendButton_Click(object sender, EventArgs e)
-        {
-            ChatMessage mesg;
+        //private void sendButton_Click(object sender, EventArgs e)
+        //{
+        //    ChatMessage mesg;
 
-            if (messageBox.Text[0] == '/')
-            {
-                messageBox.Text = messageBox.Text.Substring(1);
+        //    if (messageBox.Text[0] == '/')
+        //    {
+        //        messageBox.Text = messageBox.Text.Substring(1);
 
-                string to = messageBox.Text.Split(' ')[0];
-                string text = messageBox.Text.Substring(to.Length + 1);
+        //        string to = messageBox.Text.Split(' ')[0];
+        //        string text = messageBox.Text.Substring(to.Length + 1);
 
-                mesg = new ChatMessage(Nick, to, ChatMessageType.Private, text);              
-            }
-            else
-            {
-                mesg = new ChatMessage(Nick, "", ChatMessageType.Public, messageBox.Text);
-            }
+        //        mesg = new ChatMessage(Nick, to, ChatMessageType.Private, text);              
+        //    }
+        //    else
+        //    {
+        //        mesg = new ChatMessage(Nick, "", ChatMessageType.Public, messageBox.Text);
+        //    }
 
-            Send(mesg);
+        //    Send(mesg);
 
-            mesg.From = "Вы";
-            Receive(mesg);
-        }
+        //    mesg.From = "Вы";
+        //    Receive(mesg);
+        //}
 
-        private void messageBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                sendButton.PerformClick();
-            }
-        }
+        //private void messageBox_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (e.KeyCode == Keys.Enter)
+        //    {
+        //        sendButton.PerformClick();
+        //    }
+        //}
 
         private void gameWithButton_Click(object sender, EventArgs e)
         {

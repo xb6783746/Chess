@@ -34,7 +34,7 @@ namespace LogInScreen
             // 
             // logInButton
             // 
-            this.logInButton.Location = new System.Drawing.Point(42, 122);
+            this.logInButton.Location = new System.Drawing.Point(3, 65);
             this.logInButton.Name = "logInButton";
             this.logInButton.Size = new System.Drawing.Size(170, 59);
             this.logInButton.TabIndex = 0;
@@ -44,7 +44,7 @@ namespace LogInScreen
             // 
             // nickTextBox
             // 
-            this.nickTextBox.Location = new System.Drawing.Point(42, 75);
+            this.nickTextBox.Location = new System.Drawing.Point(3, 18);
             this.nickTextBox.Name = "nickTextBox";
             this.nickTextBox.Size = new System.Drawing.Size(170, 20);
             this.nickTextBox.TabIndex = 2;
@@ -52,7 +52,7 @@ namespace LogInScreen
             // nickLabel
             // 
             this.nickLabel.AutoSize = true;
-            this.nickLabel.Location = new System.Drawing.Point(39, 59);
+            this.nickLabel.Location = new System.Drawing.Point(0, 2);
             this.nickLabel.Name = "nickLabel";
             this.nickLabel.Size = new System.Drawing.Size(27, 13);
             this.nickLabel.TabIndex = 4;
@@ -64,7 +64,7 @@ namespace LogInScreen
             this.Controls.Add(this.nickTextBox);
             this.Controls.Add(this.logInButton);
             this.Name = "LogInScreen";
-            this.Size = new System.Drawing.Size(246, 240);
+            this.Size = new System.Drawing.Size(177, 125);
             this.ResumeLayout(false);
             this.PerformLayout();
 

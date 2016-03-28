@@ -37,14 +37,27 @@ namespace ChessServer.Chat
             {
 
                 var clientTo = clients.FirstOrDefault((x) => x.Nick == message.To);
-                var clientFrom = clients.FirstOrDefault((x) => x.Id == id);
+                var clientFrom = clients.FirstOrDefault((x) => x.Id == id);               
 
-                message.From = clientFrom.Nick;
-
-                if (clientTo != null && clientFrom != null)
+                if (clientFrom != null)
                 {
-                    clientTo.Send(message);
+                    message.From = clientFrom.Nick;
+
+                    if (clientTo == null)
+                    {
+                        clientFrom.Send(
+                            new ChatMessage(
+                                "System", 
+                                clientFrom.Nick, 
+                                ChatMessageType.System,
+                                "Игрока с таким ником не существует"));
+                    }
+                    else
+                    {
+                        clientTo.Send(message);
+                    }
                 }
+  
 
                 return;
             }

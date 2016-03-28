@@ -17,8 +17,8 @@ namespace ChessClient
         {
             InitializeComponent();
 
-            clearAction = () => flowLayoutPanel1.Controls.Clear();
-            addAction = () => flowLayoutPanel1.Controls.Add(control);
+            clearAction = () => Controls.Clear();
+            addAction = () => Controls.Add(control);
         }
 
         private UserControl control;
@@ -34,27 +34,34 @@ namespace ChessClient
             set
             {
 
-                IfInvoke(flowLayoutPanel1, clearAction);
+                IfInvoke(clearAction);
 
                 control = value;
+                Position(control);
 
-                IfInvoke(flowLayoutPanel1, addAction);
+                IfInvoke(addAction);
 
             }
         }
 
-        private void IfInvoke(FlowLayoutPanel control, Action action)
+        private void IfInvoke(Action action)
         {
-            if (control.InvokeRequired)
+            if (InvokeRequired)
             {
-                control.Invoke(action);
+                Invoke(action);
             }
             else
             {
                 action();
             }
         }
-
+        private void Position(Control control)
+        {
+            control.Location = new Point(
+                Width/2 - control.Width/2,
+                Height / 2 - control.Height / 2
+                );
+        }
         
     }
 }

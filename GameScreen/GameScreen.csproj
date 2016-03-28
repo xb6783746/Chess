@@ -30,12 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ClientAPI">
-      <HintPath>..\ClientAPI\bin\Debug\ClientAPI.dll</HintPath>
-    </Reference>
-    <Reference Include="GameTemplate">
-      <HintPath>..\ClientAPI\bin\Debug\GameTemplate.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -61,6 +55,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClientAPI\ClientAPI.csproj">
+      <Project>{60c609fd-bd7f-4b8e-9028-91052bc34fd4}</Project>
+      <Name>ClientAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameTemplate\ChessCore.csproj">
+      <Project>{c5b11426-c04f-4882-8640-031fd9461faa}</Project>
+      <Name>ChessCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Network\Network.csproj">
       <Project>{f16bf67b-f1ce-4425-8122-a11a27cc287a}</Project>
       <Name>Network</Name>

@@ -41,6 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChatScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ChatScreen.Designer.cs">
+      <DependentUpon>ChatScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="IGameScreen.cs" />
     <Compile Include="ILoginScreen.cs" />
     <Compile Include="IMainScreen.cs" />
@@ -60,6 +66,11 @@
       <Project>{f16bf67b-f1ce-4425-8122-a11a27cc287a}</Project>
       <Name>Network</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ChatScreen.resx">
+      <DependentUpon>ChatScreen.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

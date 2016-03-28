@@ -30,5 +30,10 @@ namespace Network
         public string Text { get; set; }
 
         public string Message { get { return From + ": " + Text; } }
+
+        public ChatMessage Copy()
+        {
+            return this.MemberwiseClone() as ChatMessage;
+        }
     }
 }

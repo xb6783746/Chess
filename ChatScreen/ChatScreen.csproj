@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ClientAPI">
-      <HintPath>..\ClientAPI\bin\Debug\ClientAPI.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -44,18 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChatScreen.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ChatScreen.Designer.cs">
-      <DependentUpon>ChatScreen.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ChatScreen.resx">
-      <DependentUpon>ChatScreen.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\ClientAPI\ClientAPI.csproj">
+      <Project>{60c609fd-bd7f-4b8e-9028-91052bc34fd4}</Project>
+      <Name>ClientAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Network\Network.csproj">
+      <Project>{f16bf67b-f1ce-4425-8122-a11a27cc287a}</Project>
+      <Name>Network</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

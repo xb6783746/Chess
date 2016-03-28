@@ -1,4 +1,4 @@
-﻿namespace ChatScreen
+﻿namespace ClientAPI
 {
     partial class ChatScreen
     {
@@ -30,7 +30,7 @@
         {
             this.sendButton = new System.Windows.Forms.Button();
             this.messageBox = new System.Windows.Forms.TextBox();
-            this.chatWindow = new System.Windows.Forms.TextBox();
+            this.chatWindow = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // sendButton
@@ -45,29 +45,27 @@
             // 
             // messageBox
             // 
-            this.messageBox.Location = new System.Drawing.Point(3, 226);
+            this.messageBox.Location = new System.Drawing.Point(0, 226);
             this.messageBox.Name = "messageBox";
-            this.messageBox.Size = new System.Drawing.Size(214, 20);
+            this.messageBox.Size = new System.Drawing.Size(217, 20);
             this.messageBox.TabIndex = 7;
             this.messageBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.messageBox_KeyDown);
             // 
             // chatWindow
             // 
-            this.chatWindow.Location = new System.Drawing.Point(3, 3);
-            this.chatWindow.Multiline = true;
+            this.chatWindow.FormattingEnabled = true;
+            this.chatWindow.Location = new System.Drawing.Point(0, 0);
             this.chatWindow.Name = "chatWindow";
-            this.chatWindow.ReadOnly = true;
-            this.chatWindow.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.chatWindow.Size = new System.Drawing.Size(293, 217);
-            this.chatWindow.TabIndex = 6;
+            this.chatWindow.Size = new System.Drawing.Size(296, 225);
+            this.chatWindow.TabIndex = 9;
             // 
             // ChatScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.chatWindow);
             this.Controls.Add(this.sendButton);
             this.Controls.Add(this.messageBox);
-            this.Controls.Add(this.chatWindow);
             this.Name = "ChatScreen";
             this.Size = new System.Drawing.Size(301, 253);
             this.ResumeLayout(false);
@@ -79,6 +77,6 @@
 
         private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.TextBox messageBox;
-        private System.Windows.Forms.TextBox chatWindow;
+        private System.Windows.Forms.ListBox chatWindow;
     }
 }

@@ -1,5 +1,4 @@
 ﻿using GameTemplate.ChessGame.ChessEnums;
-using GameTemplate.ChessGame.ChessInterfaces;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using System;
@@ -16,7 +15,6 @@ namespace GameTemplate.ChessGame.ChessField
     /// </summary>
     public class ChessField :IField
     {
-
         public ChessField(IChessFigureFactory factory)
         {
             this.factory = factory;
@@ -35,6 +33,11 @@ namespace GameTemplate.ChessGame.ChessField
         {
             get { return field[location.X, location.Y]; }
             private set { field[location.X, location.Y] = value; }
+        }
+        public bool IsGameOver
+        {
+            get;
+            private set;
         }
 
         public IReadOnlyList<FigureOnBoard> GetFiguresOnBoard()
@@ -58,7 +61,6 @@ namespace GameTemplate.ChessGame.ChessField
         {
             return diedFigures;
         }
-
         public bool MakeStep(Point from, Point to)
         {
             IChessFigure attacker = this[from];
@@ -88,11 +90,9 @@ namespace GameTemplate.ChessGame.ChessField
         {
            return MakeStep(step.From, step.To);
         }
-
-        public bool IsGameOver
+        public IReadOnlyField GetReadOnlyField()
         {
-            get;
-            private set;
+            return this;
         }
 
         public event Action<Color> GameOver;
@@ -120,7 +120,6 @@ namespace GameTemplate.ChessGame.ChessField
             field[4, 0] = factory.GetFigure(ChessFType.King, Color.Black);
             field[4, 7] = factory.GetFigure(ChessFType.King, Color.White);
         }
-
         private void Died(IChessFigure died)
         {
 
@@ -130,12 +129,6 @@ namespace GameTemplate.ChessGame.ChessField
             }
 
             diedFigures[died]++;
-        }
-
-
-        public IReadOnlyField GetReadOnlyField()
-        {
-            return this;
         }
     }
 }

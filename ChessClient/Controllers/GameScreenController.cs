@@ -1,7 +1,6 @@
 ﻿using ChessClient.Interfaces;
 using ChessClient.Interfaces.IControllers;
 using ClientAPI;
-using GameTemplate.ChessGame.ChessInterfaces;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using Network;

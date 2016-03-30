@@ -21,13 +21,11 @@ namespace GameTemplate.Interfaces
         /// <param name="from">Координата ходящей фигуры</param>
         /// <param name="to">Координата, куда ходит фигура с координатами from</param>
         bool MakeStep(Point from, Point to);
-
         /// <summary>
         /// Сделать ход согласно заданной StepInfo
         /// </summary>
         /// <param name="step">Информация о ходе</param>
         bool MakeStep(StepInfo step);
-
         IReadOnlyField GetReadOnlyField();
     }
 }

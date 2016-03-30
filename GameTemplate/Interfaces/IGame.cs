@@ -17,7 +17,6 @@ namespace GameTemplate.Interfaces
         /// Цвет игрока, который ходил в данный момент
         /// </summary>
         Color CurrentColor { get; }
-
         /// <summary>
         /// Игровое поле
         /// </summary>
@@ -27,7 +26,6 @@ namespace GameTemplate.Interfaces
         /// Событие изменения состояния игры
         /// </summary>
         event Action Change;
-
         /// <summary>
         /// Событие завершения игры
         /// </summary>

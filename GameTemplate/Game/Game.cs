@@ -51,7 +51,6 @@ namespace GameTemplate.Game
             get;
             private set;
         }
-
         /// <summary>
         /// Игровое поле
         /// </summary>
@@ -76,7 +75,6 @@ namespace GameTemplate.Game
             }
 
         }
-
         /// <summary>
         /// Обработка хода игрока
         /// </summary>
@@ -93,8 +91,6 @@ namespace GameTemplate.Game
 
             Change();
         }
-
-
         /// <summary>
         /// Обработчик события завершения игры (из игрового поля)
         /// </summary>
@@ -108,7 +104,6 @@ namespace GameTemplate.Game
         /// Событие изменения состояния игры
         /// </summary>
         public event Action Change = () => { };
-
         /// <summary>
         /// Событие завершения игры
         /// </summary>

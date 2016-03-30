@@ -1,6 +1,5 @@
 ﻿using ChessServer.Interfaces;
 using GameTemplate.ChessGame.ChessField;
-using GameTemplate.ChessGame.ChessInterfaces;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using System;
@@ -17,6 +16,7 @@ namespace ChessServer.GameManager
         public GameRoom(IGamer first, IGamer second, IClientFacade facade, IChessFigureFactory figFactory, int roomid)
         {
             this.RoomId = roomid;
+            this.clientFacade = facade;
 
             watchers = new List<int>();
             game = new SimpleGame(first, second, new ChessField(figFactory));

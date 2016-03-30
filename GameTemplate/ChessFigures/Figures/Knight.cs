@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GameTemplate.ChessGame.ChessInterfaces;
 using GameTemplate.ChessGame.ChessEnums;
 using System.Drawing;
 using GameTemplate.Interfaces;
@@ -11,40 +10,41 @@ using GameTemplate.Interfaces;
 namespace GameTemplate.ChessGame.ChessFigures
 {
     /// <summary>
-    /// Класс пешки
+    /// Класс коня
     /// </summary>
-    class Pawn : IChessFigure
+    class Knight : IChessFigure
     {
-        private Color color;
-        public Color Color
-        {
-            get { return color; }
-        }
-        public ChessFType Type
-        {
-            get { return ChessFType.Pawn; }
-        }
-        public Pawn(Color color)
+        public Knight(Color color)
         {
             this.color = color;
         }
 
+        private Color color;
 
+        public ChessFType Type
+        {
+            get { return ChessFType.Knight; }
+        }
+        public Color Color
+        {
+            get { return color; }
+        }
+    
         public bool Step(Point from, Point to, IReadOnlyField field)
         {
             return GetCells(from, field).Contains(to);
         }
-
         public List<Point> GetAllCells(Point location)
         {
             List<Point> cells = new List<Point>();
 
-            if (location.X + 1 < 8)
-                cells.Add(new Point(location.X + 1, location.Y));
+            cells.AddRange(Cells(location, 2, 1));
+            cells.AddRange(Cells(location, 1, 2));
+            cells.AddRange(Cells(location, -1, 2));
+            cells.AddRange(Cells(location, -2, 1));
 
             return cells;
         }
-
         public List<Point> GetCells(Point location, IReadOnlyField field)
         {
             List<Point> cells = GetAllCells(location);
@@ -58,18 +58,26 @@ namespace GameTemplate.ChessGame.ChessFigures
                 }
             }
 
-            Cell(ref cells, location, field, -1);
-            Cell(ref cells, location, field, 1);
-
             return cells;
         }
-        private void Cell(ref List<Point> cells, Point location, IReadOnlyField field, int stepX)
+
+        private List<Point> Cells(Point start, int stepX, int shift) /// ????
         {
-            Point temp = new Point(location.X + stepX, location.Y + 1);
-            if (temp.X >= 0 && temp.Y < 8 && field[temp].Color != color)
+            List<Point> temp = new List<Point>();
+            if (start.X + stepX < 8)
             {
-                cells.Add(temp);
+                if (start.Y + shift < 8)
+                {
+                    temp.Add(new Point(start.X + stepX, start.Y + shift));
+                }
+
+                if (start.Y - shift >= 0)
+                {
+                    temp.Add(new Point(start.X + stepX, start.Y - shift));
+                }
             }
+
+            return temp;
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameTemplate.ChessGame.ChessInterfaces
+namespace GameTemplate.Interfaces
 {
     /// <summary>
     /// Интерфейс фабрики шахматных фигур

@@ -1,5 +1,4 @@
-﻿using GameTemplate.ChessGame.ChessInterfaces;
-using GameTemplate.Game;
+﻿using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using System;
 using System.Collections.Generic;

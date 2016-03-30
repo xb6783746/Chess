@@ -7,7 +7,6 @@ using ClientAPI;
 using GameTemplate.ChessGame.ChessEnums;
 using GameTemplate.Interfaces;
 using System.Drawing;
-using GameTemplate.ChessGame.ChessInterfaces;
 using Rendering.Properties;
 using Rendering.Exceptions;
 

@@ -1,7 +1,6 @@
 ﻿using ChessClient.Enums;
 using ChessClient.Facade.States;
 using ChessClient.Interfaces;
-using GameTemplate.ChessGame.ChessInterfaces;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using Network;

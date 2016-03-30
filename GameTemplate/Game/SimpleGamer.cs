@@ -1,5 +1,4 @@
-﻿using GameTemplate.ChessGame.ChessInterfaces;
-using GameTemplate.Interfaces;
+﻿using GameTemplate.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -15,13 +14,16 @@ namespace GameTemplate.Game
         private Color color;
         private IGame game;
 
+        public Color Color
+        {
+            get { return color; }
+        }
 
         public void Init(IGame game, Color color)
         {
             this.game = game;
             this.color = color;
         }
-
         public StepInfo MakeStep()
         {
             List<FigureOnBoard> figures = game.Field.GetFiguresOnBoard().Where((x) => x.Figure.Color == color).ToList();
@@ -36,11 +38,6 @@ namespace GameTemplate.Game
             }
 
             throw new Exception();
-        }
-
-        public Color Color
-        {
-            get { return color; }
         }
     }
 }

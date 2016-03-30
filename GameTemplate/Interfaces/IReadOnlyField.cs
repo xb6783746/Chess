@@ -1,4 +1,4 @@
-﻿using GameTemplate.ChessGame.ChessInterfaces;
+﻿using GameTemplate.Interfaces;
 using GameTemplate.Game;
 using System;
 using System.Collections.Generic;
@@ -12,21 +12,19 @@ namespace GameTemplate.Interfaces
     public interface IReadOnlyField
     {
         IChessFigure this[Point location] { get; }
+        /// <summary>
+        /// Завершена ли игра
+        /// </summary>
+        bool IsGameOver { get; }
 
         /// <summary>
         /// Получить все фигуры, находящиеся на доске
         /// </summary>
         IReadOnlyList<FigureOnBoard> GetFiguresOnBoard();
-
         /// <summary>
         /// Получить все вышедшие из игры фигуры
         /// </summary>
         IReadOnlyDictionary<IChessFigure, int> GetDiedFigures();
-
-        /// <summary>
-        /// Завершена ли игра
-        /// </summary>
-        bool IsGameOver { get; }
 
         /// <summary>
         /// Событие завершения игры

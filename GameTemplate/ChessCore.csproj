@@ -40,17 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Chess\ChessEnums\ChessFType.cs" />
-    <Compile Include="Chess\ChessField\ChessField.cs" />
-    <Compile Include="Chess\ChessFigures\Figures\Bishop.cs" />
-    <Compile Include="Chess\ChessFigures\ChessFiguresPool.cs" />
-    <Compile Include="Chess\ChessFigures\Figures\King.cs" />
-    <Compile Include="Chess\ChessFigures\Figures\Knight.cs" />
-    <Compile Include="Chess\ChessFigures\Figures\Pawn.cs" />
-    <Compile Include="Chess\ChessFigures\Figures\Queen.cs" />
-    <Compile Include="Chess\ChessFigures\Figures\Rook.cs" />
-    <Compile Include="Chess\ChessInterfaces\IChessFigure.cs" />
-    <Compile Include="Chess\ChessInterfaces\IChessFigureFactory.cs" />
+    <Compile Include="ChessEnums\ChessFType.cs" />
+    <Compile Include="ChessField\ChessField.cs" />
+    <Compile Include="ChessFigures\Figures\Bishop.cs" />
+    <Compile Include="ChessFigures\ChessFiguresPool.cs" />
+    <Compile Include="ChessFigures\Figures\King.cs" />
+    <Compile Include="ChessFigures\Figures\Knight.cs" />
+    <Compile Include="ChessFigures\Figures\Pawn.cs" />
+    <Compile Include="ChessFigures\Figures\Queen.cs" />
+    <Compile Include="ChessFigures\Figures\Rook.cs" />
+    <Compile Include="Interfaces\IChessFigure.cs" />
+    <Compile Include="Interfaces\IChessFigureFactory.cs" />
     <Compile Include="Game\FigureOnBoard.cs" />
     <Compile Include="Game\Game.cs" />
     <Compile Include="Game\SimpleGamer.cs" />

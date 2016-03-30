@@ -26,6 +26,8 @@ namespace GameScreen
         public GameScreen()
         {
             InitializeComponent();
+
+            chatScreen1.Send += Send;
             from = to = null;
             picture = new Bitmap(GameBox.Height, GameBox.Width);
         }
@@ -33,12 +35,6 @@ namespace GameScreen
         private void Concede_Click(object sender, EventArgs e)
         {
             Concede();
-        }
-
-        private void sendButton_Click(object sender, EventArgs e)
-        {
-            //Send(messageBox.Text);
-            messageBox.Text = "";
         }
 
         private void GameBox_Click(object sender, MouseEventArgs e)
@@ -51,10 +47,10 @@ namespace GameScreen
             if (to == null)
             {
                 to = e.Location;
-                return;
             }
 
-            Step(new StepInfo(new Point(from.Value.X, from.Value.Y), new Point(to.Value.X, to.Value.Y)));
+            Step(new StepInfo(from.Value, to.Value));
+
             from = to = null;
         }
 
@@ -91,7 +87,7 @@ namespace GameScreen
 
         public void Receive(ChatMessage message)
         {
-            chatWindow.Text += message.Text + Environment.NewLine;
+            chatScreen1.Receive(message);
         }
 
         public UserControl GetScreen()

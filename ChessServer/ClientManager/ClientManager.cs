@@ -54,5 +54,16 @@ namespace ChessServer.Managers
         {
             clients[id].Nick = nick;
         }
+
+
+        public IClient GetClient(int id)
+        {
+            if (clients.ContainsKey(id))
+            {
+                return clients[id];
+            }
+
+            return null;
+        }
     }
 }

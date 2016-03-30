@@ -14,7 +14,7 @@ namespace Rendering
 {
     public class Render : IRender
     {
-        public Render(int wh, int ht)
+        public Render()
         {
             try
             {

@@ -41,10 +41,19 @@ namespace ChessClient.Controllers
 
         protected override void LoadScreen()
         {
-            //gameScreen = null;
+            var gScreen = this.GetScreenType("/Screens", typeof(IGameScreen));
 
-            //gameScreen.Send += Send;
-            //gameScreen.Step += Step;
+            var renderType = this.GetScreenType("/Screens", typeof(IRender));
+
+            var render = Activator.CreateInstance(renderType) as IRender;
+
+            gameScreen = Activator.CreateInstance(gScreen) as IGameScreen;
+            gameScreen.SetRender(render);
+
+            this.screen = gameScreen.GetScreen();
+
+            gameScreen.Send += Send;
+            gameScreen.Step += Step;
         }
 
         private void Send(ChatMessage msg)

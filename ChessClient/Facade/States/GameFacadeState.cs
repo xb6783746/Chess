@@ -42,7 +42,7 @@ namespace ChessClient.Facade.States
         }
         public void Challenge(string from)
         {
-            manager.MainController.Challenge(from);
+            //manager.MainController.Challenge(from);
         }
         public void UpdateField(IReadOnlyField field, StepInfo step)
         {
@@ -54,7 +54,7 @@ namespace ChessClient.Facade.States
         }
         public void Waiting()
         {
-            Switch(ClientState.Waiting);
+            //Switch(ClientState.Waiting);
         }
 
 

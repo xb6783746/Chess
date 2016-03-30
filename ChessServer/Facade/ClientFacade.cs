@@ -1,8 +1,10 @@
 ﻿using ChessServer.Interfaces;
 using GameTemplate.Game;
+using GameTemplate.Interfaces;
 using Network;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -59,10 +61,15 @@ namespace ChessServer.Facade
 
             SendMessage(m, id);
         }
-
         public void Update(GameTemplate.Interfaces.IReadOnlyField field, StepInfo step, int id)
         {
             Message m = new Message("UpdateField", field, step);
+
+            SendMessage(m, id);
+        }
+        public void StartGame(Color color, int id)
+        {
+            Message m = new Message("StartGame", color);
 
             SendMessage(m, id);
         }

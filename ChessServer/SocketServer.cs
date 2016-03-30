@@ -12,29 +12,8 @@ namespace ChessServer
 {
     class SocketServer : IServer
     {
-        struct Client
-        {
-            public Client(Socket socket, int id)
-            {
-                this.socket = socket;
-                this.id = id;
-            }
-
-            private int id;
-            private Socket socket;
-
-            public int ID
-            {
-                get { return id; }
-            }
-            public Socket Socket
-            {
-                get { return socket; }
-            }
-        }
         public SocketServer(IClientManager clientManager, IIDManager idManager)
         {
-            //this.parser = parser;
             this.clientManager = clientManager;
             this.idManager = idManager;
 
@@ -42,13 +21,10 @@ namespace ChessServer
             clients = new Dictionary<int, Socket>();
         }
 
-        //private IParser parser;
         private IClientManager clientManager;
         private IIDManager idManager;
         private Socket socket;
-
         private Dictionary<int, Socket> clients;
-
         private object lck = new object();
 
         private int max = 10;
@@ -59,13 +35,10 @@ namespace ChessServer
         {
             Accept();
         }
-
         public void Stop()
         {
             throw new NotImplementedException();
         }
-        public event Action<byte[], int> Receive = (x, y) => { };
-
         public void Send(byte[] msg, int id)
         {
             if (clients.ContainsKey(id))
@@ -73,7 +46,6 @@ namespace ChessServer
                 clients[id].Send(msg);
             }
         }
-
 
         private void Accept()
         {
@@ -104,7 +76,6 @@ namespace ChessServer
                 }
             }
         }
-
         private void Listen(int id, Socket socket)
         {
             byte[] arr = new byte[packetLenght];
@@ -131,5 +102,7 @@ namespace ChessServer
             }
 
         }
+
+        public event Action<byte[], int> Receive = (x, y) => { };
     }
 }

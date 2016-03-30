@@ -1,4 +1,5 @@
-﻿using Network;
+﻿using GameTemplate.Interfaces;
+using Network;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace ChessServer.Interfaces
     {
         int Id { get; }
         string Nick { get; set; }
+        IGamer Gamer { get; }
 
         void Send(ChatMessage mesg);
         void LoginResult(bool result, string message);

@@ -1,4 +1,5 @@
-﻿using Network;
+﻿using GameTemplate.Game;
+using Network;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,8 @@ namespace ChessServer.Interfaces
     {
         void Message(ChatMessage message, int id);
         void ChangeNick(string nick, int id);
+        void NewStep(StepInfo step, int id);
+
+        void RandomGame(int id);
     }
 }

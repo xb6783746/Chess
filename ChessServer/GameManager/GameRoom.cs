@@ -13,7 +13,8 @@ namespace ChessServer.GameManager
 {
     class GameRoom
     {
-        public GameRoom(IGamer first, IGamer second, IClientFacade facade, IChessFigureFactory figFactory, int roomid)
+        public GameRoom(IGamer first, IGamer second, IClientFacade facade, 
+            IChessFigureFactory figFactory, int roomid)
         {
             this.RoomId = roomid;
             this.clientFacade = facade;

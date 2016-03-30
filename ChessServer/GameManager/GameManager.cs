@@ -1,4 +1,5 @@
 ﻿using ChessServer.Interfaces;
+using GameTemplate.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,10 @@ namespace ChessServer.GameManager
 {
     class GameManager :IGameManager
     {
+
+        private IChessFigureFactory chessPool;
+        private IClientFacade clientFacade;
+
         public void RandomGame(int gamer)
         {
             throw new NotImplementedException();

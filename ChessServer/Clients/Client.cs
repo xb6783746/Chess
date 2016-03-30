@@ -1,4 +1,5 @@
 ﻿using ChessServer.Interfaces;
+using GameTemplate.Interfaces;
 using Network;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,7 @@ namespace ChessServer.Clients
             get;
             set;
         }
+        public IGamer Gamer { get; private set; }
 
         public void Send(ChatMessage mesg)
         {

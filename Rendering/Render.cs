@@ -14,9 +14,6 @@ namespace Rendering
 {
     public class Render : IRender
     {
-        private Dictionary<Type, Image> figurePictures;
-        private float blockSize;
-
         public Render(int wh, int ht)
         {
             try
@@ -42,6 +39,10 @@ namespace Rendering
                 throw new DataLoadException();
             }
         }
+
+        private Dictionary<Type, Image> figurePictures;
+        private float blockSize;
+
         public void UpdateField(Bitmap bitmap, IReadOnlyField field)
         {
             blockSize = bitmap.Size.Height / 8 - 0.1f;

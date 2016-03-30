@@ -29,5 +29,16 @@ namespace ChessServer.Facade
         {
             clientManager.ChangeNick(nick, id);
         }
+
+
+        public void NewStep(GameTemplate.Game.StepInfo step, int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RandomGame(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

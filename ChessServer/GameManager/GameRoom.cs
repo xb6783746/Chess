@@ -19,7 +19,7 @@ namespace ChessServer.GameManager
             this.RoomId = roomid;
             this.clientFacade = facade;
 
-            watchers = new List<int>();
+            watchers = new List<IClient>();
             game = new SimpleGame(first, second, new ChessField(figFactory));
 
             game.Change += Update;
@@ -27,11 +27,16 @@ namespace ChessServer.GameManager
         }
 
         private IGame game;
-        private List<int> watchers;
+        private List<IClient> watchers;
         private IClientFacade clientFacade;
         private object lck = new object();
 
         public int RoomId { get; private set; }
+
+        public void AddWatcher(IClient watcher)
+        {
+            watchers.Add(watcher);
+        }
 
         private void Update()
         {
@@ -42,7 +47,7 @@ namespace ChessServer.GameManager
                     clientFacade.Update(
                         game.Field, 
                         new StepInfo(new Point(), new Point()), 
-                        item);
+                        item.Id);
                 }
             }
         }

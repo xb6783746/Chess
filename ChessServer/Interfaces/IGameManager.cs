@@ -8,11 +8,11 @@ namespace ChessServer.Interfaces
 {
     interface IGameManager
     {
-        void RandomGame(int gamer);
-        void RequestGame(int who, int gamer);
-        void WatchFor(int gamerId, int gameId);
+        void RandomGame(IClient gamer);
+        void RequestGame(IClient who, IClient gamer);
+        void WatchFor(IClient gamer, int game);
 
-        void GameWithComputer(int gamerId, int algId);
+        void GameWithComputer(IClient gamer, IClient alg);
 
 
         event Action<int> GameOver;

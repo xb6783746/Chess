@@ -1,4 +1,5 @@
 ﻿using ChessServer.Interfaces;
+using GameTemplate.Game;
 using Network;
 using System;
 using System.Collections.Generic;
@@ -55,6 +56,13 @@ namespace ChessServer.Facade
         public void LoginResult(bool result, string message, int id)
         {
             Message m = new Message("LoginResult", result, message);
+
+            SendMessage(m, id);
+        }
+
+        public void Update(GameTemplate.Interfaces.IReadOnlyField field, StepInfo step, int id)
+        {
+            Message m = new Message("UpdateField", field, step);
 
             SendMessage(m, id);
         }

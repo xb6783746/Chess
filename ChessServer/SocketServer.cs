@@ -39,7 +39,7 @@ namespace ChessServer
             this.idManager = idManager;
 
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            clients = new List<Client>();
+            clients = new Dictionary<int, Socket>();
         }
 
         //private IParser parser;
@@ -47,7 +47,7 @@ namespace ChessServer
         private IIDManager idManager;
         private Socket socket;
 
-        private List<Client> clients;
+        private Dictionary<int, Socket> clients;
 
         private object lck = new object();
 
@@ -68,11 +68,9 @@ namespace ChessServer
 
         public void Send(byte[] msg, int id)
         {
-            var client = clients.FirstOrDefault((x) => x.ID == id);
-
-            if (client.Socket != null)
+            if (clients.ContainsKey(id))
             {
-                client.Socket.Send(msg);
+                clients[id].Send(msg);
             }
         }
 
@@ -91,7 +89,7 @@ namespace ChessServer
                     id = idManager.GetId();
                     lock (lck)
                     {
-                        clients.Add(new Client(client, id));
+                        clients.Add(id, client);
                     }
 
                     clientManager.Registration(id);
@@ -125,6 +123,10 @@ namespace ChessServer
             {
                 clientManager.Disconnect(id);
 
+                lock (lck)
+                {
+                    clients.Remove(id);
+                }
                 idManager.Delete(id);
             }
 

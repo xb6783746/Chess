@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,11 +48,14 @@
     <Compile Include="Clients\Client.cs" />
     <Compile Include="Facade\ClientFacade.cs" />
     <Compile Include="Facade\ServerFacade.cs" />
+    <Compile Include="GameManager\GameManager.cs" />
+    <Compile Include="GameManager\GameRoom.cs" />
     <Compile Include="IdManager\IDManager.cs" />
     <Compile Include="Interfaces\IChatManager.cs" />
     <Compile Include="Interfaces\IClient.cs" />
     <Compile Include="Interfaces\IClientFacade.cs" />
     <Compile Include="Interfaces\IClientManager.cs" />
+    <Compile Include="Interfaces\IGameManager.cs" />
     <Compile Include="Interfaces\IIDManager.cs" />
     <Compile Include="Interfaces\IParser.cs" />
     <Compile Include="Interfaces\IServer.cs" />
@@ -64,6 +68,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GameTemplate\ChessCore.csproj">
+      <Project>{c5b11426-c04f-4882-8640-031fd9461faa}</Project>
+      <Name>ChessCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Network\Network.csproj">
       <Project>{f16bf67b-f1ce-4425-8122-a11a27cc287a}</Project>
       <Name>Network</Name>

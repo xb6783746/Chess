@@ -64,16 +64,16 @@ namespace MainScreen
             this.gameWithButton = new System.Windows.Forms.Button();
             this.watchForButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.chatScreen = new ClientAPI.ChatScreen();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.window = new tmp.ModalWindow();
-            this.chatScreen = new ClientAPI.ChatScreen();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // startRandomGameButton
             // 
             this.startRandomGameButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.startRandomGameButton.Location = new System.Drawing.Point(362, 179);
+            this.startRandomGameButton.Location = new System.Drawing.Point(348, 13);
             this.startRandomGameButton.Name = "startRandomGameButton";
             this.startRandomGameButton.Size = new System.Drawing.Size(127, 44);
             this.startRandomGameButton.TabIndex = 3;
@@ -84,7 +84,7 @@ namespace MainScreen
             // gameWithButton
             // 
             this.gameWithButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.gameWithButton.Location = new System.Drawing.Point(362, 229);
+            this.gameWithButton.Location = new System.Drawing.Point(348, 63);
             this.gameWithButton.Name = "gameWithButton";
             this.gameWithButton.Size = new System.Drawing.Size(127, 44);
             this.gameWithButton.TabIndex = 5;
@@ -95,7 +95,7 @@ namespace MainScreen
             // watchForButton
             // 
             this.watchForButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.watchForButton.Location = new System.Drawing.Point(362, 279);
+            this.watchForButton.Location = new System.Drawing.Point(348, 113);
             this.watchForButton.Name = "watchForButton";
             this.watchForButton.Size = new System.Drawing.Size(127, 44);
             this.watchForButton.TabIndex = 6;
@@ -115,12 +115,19 @@ namespace MainScreen
             this.panel1.Size = new System.Drawing.Size(503, 456);
             this.panel1.TabIndex = 7;
             // 
+            // chatScreen
+            // 
+            this.chatScreen.Location = new System.Drawing.Point(14, 247);
+            this.chatScreen.Name = "chatScreen";
+            this.chatScreen.Size = new System.Drawing.Size(301, 206);
+            this.chatScreen.TabIndex = 8;
+            // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(16, 13);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(299, 186);
+            this.listBox1.Size = new System.Drawing.Size(299, 225);
             this.listBox1.TabIndex = 7;
             // 
             // window
@@ -132,20 +139,14 @@ namespace MainScreen
             this.window.Size = new System.Drawing.Size(437, 377);
             this.window.TabIndex = 8;
             this.window.Visible = false;
-            // 
-            // chatScreen1
-            // 
-            this.chatScreen.Location = new System.Drawing.Point(16, 205);
-            this.chatScreen.Name = "chatScreen1";
-            this.chatScreen.Size = new System.Drawing.Size(299, 248);
-            this.chatScreen.TabIndex = 8;
+            this.window.Load += new System.EventHandler(this.window_Load);
             // 
             // MainScreen
             // 
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.window);
+            this.Controls.Add(this.panel1);
             this.Name = "MainScreen";
-            this.Size = new System.Drawing.Size(517, 468);
+            this.Size = new System.Drawing.Size(510, 468);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -210,13 +211,16 @@ namespace MainScreen
             }
 
             selectedEvent = null;
+
             panel1.Enabled = true;
+            window.Visible = false;
         }
         private void Cancel()
         {
             selectedEvent = null;
 
             panel1.Enabled = true;
+            window.Visible = false;
         }
 
 
@@ -224,6 +228,11 @@ namespace MainScreen
         {
             get;
             set;
+        }
+
+        private void window_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

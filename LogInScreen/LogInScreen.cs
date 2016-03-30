@@ -34,9 +34,10 @@ namespace LogInScreen
             // 
             // logInButton
             // 
-            this.logInButton.Location = new System.Drawing.Point(3, 65);
+            this.logInButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.logInButton.Location = new System.Drawing.Point(26, 101);
             this.logInButton.Name = "logInButton";
-            this.logInButton.Size = new System.Drawing.Size(170, 59);
+            this.logInButton.Size = new System.Drawing.Size(262, 81);
             this.logInButton.TabIndex = 0;
             this.logInButton.Text = "Войти";
             this.logInButton.UseVisualStyleBackColor = true;
@@ -44,17 +45,20 @@ namespace LogInScreen
             // 
             // nickTextBox
             // 
-            this.nickTextBox.Location = new System.Drawing.Point(3, 18);
+            this.nickTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nickTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.nickTextBox.Location = new System.Drawing.Point(26, 54);
             this.nickTextBox.Name = "nickTextBox";
-            this.nickTextBox.Size = new System.Drawing.Size(170, 20);
+            this.nickTextBox.Size = new System.Drawing.Size(262, 38);
             this.nickTextBox.TabIndex = 2;
             // 
             // nickLabel
             // 
             this.nickLabel.AutoSize = true;
-            this.nickLabel.Location = new System.Drawing.Point(0, 2);
+            this.nickLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.nickLabel.Location = new System.Drawing.Point(19, 14);
             this.nickLabel.Name = "nickLabel";
-            this.nickLabel.Size = new System.Drawing.Size(27, 13);
+            this.nickLabel.Size = new System.Drawing.Size(72, 37);
             this.nickLabel.TabIndex = 4;
             this.nickLabel.Text = "Ник";
             // 
@@ -64,7 +68,7 @@ namespace LogInScreen
             this.Controls.Add(this.nickTextBox);
             this.Controls.Add(this.logInButton);
             this.Name = "LogInScreen";
-            this.Size = new System.Drawing.Size(177, 125);
+            this.Size = new System.Drawing.Size(326, 252);
             this.ResumeLayout(false);
             this.PerformLayout();
 

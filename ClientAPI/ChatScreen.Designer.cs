@@ -35,7 +35,7 @@
             // 
             // sendButton
             // 
-            this.sendButton.Location = new System.Drawing.Point(223, 226);
+            this.sendButton.Location = new System.Drawing.Point(223, 179);
             this.sendButton.Name = "sendButton";
             this.sendButton.Size = new System.Drawing.Size(73, 21);
             this.sendButton.TabIndex = 8;
@@ -45,7 +45,7 @@
             // 
             // messageBox
             // 
-            this.messageBox.Location = new System.Drawing.Point(0, 226);
+            this.messageBox.Location = new System.Drawing.Point(0, 179);
             this.messageBox.Name = "messageBox";
             this.messageBox.Size = new System.Drawing.Size(217, 20);
             this.messageBox.TabIndex = 7;
@@ -56,7 +56,7 @@
             this.chatWindow.FormattingEnabled = true;
             this.chatWindow.Location = new System.Drawing.Point(0, 0);
             this.chatWindow.Name = "chatWindow";
-            this.chatWindow.Size = new System.Drawing.Size(296, 225);
+            this.chatWindow.Size = new System.Drawing.Size(301, 173);
             this.chatWindow.TabIndex = 9;
             // 
             // ChatScreen
@@ -67,7 +67,7 @@
             this.Controls.Add(this.sendButton);
             this.Controls.Add(this.messageBox);
             this.Name = "ChatScreen";
-            this.Size = new System.Drawing.Size(301, 253);
+            this.Size = new System.Drawing.Size(301, 209);
             this.ResumeLayout(false);
             this.PerformLayout();
 

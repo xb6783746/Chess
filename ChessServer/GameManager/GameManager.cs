@@ -11,10 +11,12 @@ namespace ChessServer.GameManager
 {
     class GameManager : IGameManager
     {
-        public GameManager()
+        public GameManager(IChessFigureFactory chessPool, IClientFacade clientFacade)
         {
             playerWait = new List<IClient>();
             gameRooms = new List<GameRoom>();
+            this.chessPool = chessPool;
+            this.clientFacade = clientFacade;
         }
 
         private IChessFigureFactory chessPool;

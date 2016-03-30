@@ -17,6 +17,7 @@ namespace ChessServer.Facade
         }
 
         private IChatManager chatManager;
+        private IGameManager gameManager;
         private IClientManager clientManager;
 
         public void Message(ChatMessage message, int id)
@@ -33,12 +34,17 @@ namespace ChessServer.Facade
 
         public void NewStep(GameTemplate.Game.StepInfo step, int id)
         {
-            throw new NotImplementedException();
+            var client = clientManager.GetClient(id);
+
+            if (client != null)
+            {
+                client.Step(step);
+            }
         }
 
         public void RandomGame(int id)
         {
-            throw new NotImplementedException();
+            gameManager.RandomGame(id);
         }
     }
 }

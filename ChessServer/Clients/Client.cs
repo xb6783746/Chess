@@ -15,9 +15,12 @@ namespace ChessServer.Clients
         {
             this.Id = id;
             this.clientFacade = facade;
+
+            gamer = new RemoteGamer();
         }
 
         private IClientFacade clientFacade;
+        private RemoteGamer gamer;
 
         public int Id
         {
@@ -29,7 +32,7 @@ namespace ChessServer.Clients
             get;
             set;
         }
-        public IGamer Gamer { get; private set; }
+        public IGamer Gamer { get { return gamer; } }
 
         public void Send(ChatMessage mesg)
         {
@@ -40,6 +43,12 @@ namespace ChessServer.Clients
         public void LoginResult(bool result, string message)
         {
             clientFacade.LoginResult(result, message, this.Id);
+        }
+
+
+        public void Step(GameTemplate.Game.StepInfo step)
+        {
+            gamer.Step(step);
         }
     }
 }

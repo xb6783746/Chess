@@ -57,9 +57,9 @@ namespace ChessClient.Controllers
         {
             current.Challenge(from);
         }
-        public void UpdateField(IReadOnlyList<FigureOnBoard> field, StepInfo step)
+        public void UpdateField(ChessState state)
         {
-            current.UpdateField(field, step);
+            current.UpdateField(state);
         }
         public void GameOver(bool win)
         {

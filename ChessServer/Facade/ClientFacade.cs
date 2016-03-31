@@ -62,9 +62,9 @@ namespace ChessServer.Facade
 
             SendMessage(m, id);
         }
-        public void Update(IReadOnlyList<FigureOnBoard> figures, StepInfo step, int id)
+        public void Update(ChessState state, int id)
         {
-            Message m = new Message("UpdateField", figures, step);
+            Message m = new Message("UpdateField", state);
 
             SendMessage(m, id);
         }

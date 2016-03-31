@@ -44,9 +44,9 @@ namespace ChessClient.Facade.States
         {
             //manager.MainController.Challenge(from);
         }
-        public void UpdateField(IReadOnlyList<FigureOnBoard> field, StepInfo step)
+        public void UpdateField(ChessState state)
         {
-            manager.GameController.Step(field, step);
+            manager.GameController.Step(state);
         }
         public void GameOver(bool win)
         {

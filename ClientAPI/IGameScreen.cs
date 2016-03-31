@@ -1,5 +1,6 @@
 ﻿using GameTemplate.Game;
 using GameTemplate.Interfaces;
+using Network;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -16,7 +17,7 @@ namespace ClientAPI
         event Action Concede;
 
         void StartGame(Color color);
-        void UpdateField(IReadOnlyList<FigureOnBoard> f);
+        void UpdateField(ChessState state);
         void SetRender(IRender r);
         void GameOver(bool win);
     }

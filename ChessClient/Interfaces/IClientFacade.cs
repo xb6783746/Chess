@@ -18,7 +18,7 @@ namespace ChessClient.Interfaces
         void StartGame(Color color);
         void Challenge(string from);
 
-        void UpdateField(IReadOnlyList<FigureOnBoard> field, StepInfo step);
+        void UpdateField(ChessState state);
 
         void GameOver(bool win);
         void Waiting();

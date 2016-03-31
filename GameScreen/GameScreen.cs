@@ -81,6 +81,7 @@ namespace GameScreen
             MessageBox.Show("Вы играете за {0} цвет", color.ToString());
 
             render.UpdateField(picture, ChessField.Empty.GetFiguresOnBoard());
+            GameBox.Image = picture;
         }
 
         public void UpdateField(ChessState state)

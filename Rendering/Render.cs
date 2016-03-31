@@ -10,6 +10,7 @@ using System.Drawing;
 using Rendering.Properties;
 using Rendering.Exceptions;
 using GameTemplate.Game;
+using GameTemplate.ChessEnums;
 
 namespace Rendering
 {
@@ -39,9 +40,15 @@ namespace Rendering
             {
                 throw new DataLoadException();
             }
+            fColor = new Dictionary<FColor, Color>()
+            {
+                {FColor.Black, Color.Black},
+                {FColor.White, Color.White}
+            };
         }
 
         private Dictionary<Type, Image> figurePictures;
+        private Dictionary<FColor, Color> fColor;
         private float blockSize;
 
         public void UpdateField(Bitmap bitmap, IReadOnlyList<FigureOnBoard> field)
@@ -63,7 +70,7 @@ namespace Rendering
                     IChessFigure figure = field[new Point(i, j)];
                     if (figure != null)
                     {
-                        var type = new Type(figure.Type, figure.Color);
+                        var type = new Type(figure.Type, fColor[figure.Color]);
                         g.DrawImage(figurePictures[type], new PointF(i * blockSize, j * blockSize));
 
                     }
@@ -75,7 +82,7 @@ namespace Rendering
         {
             foreach (var item in field)
             {
-                var type = new Type(item.Figure.Type, item.Figure.Color);
+                var type = new Type(item.Figure.Type, fColor[item.Figure.Color]);
                 g.DrawImage(figurePictures[type], new PointF(item.Location.X * blockSize, item.Location.Y * blockSize));
             }
 

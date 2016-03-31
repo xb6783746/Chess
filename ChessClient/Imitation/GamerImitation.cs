@@ -1,4 +1,5 @@
-﻿using GameTemplate.Game;
+﻿using GameTemplate.ChessEnums;
+using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -19,9 +20,9 @@ namespace ChessClient.Imitation
 
         private EventWaitHandle handle;
         private StepInfo step;
-        private Color color; 
+        private FColor color;
 
-        public void Init(IGame game, System.Drawing.Color color)
+        public void Init(IGame game, FColor color)
         {
             this.color = color;
 
@@ -39,7 +40,7 @@ namespace ChessClient.Imitation
 
         }
 
-        public System.Drawing.Color Color
+        public FColor Color
         {
             get { return color; }
         }
@@ -53,5 +54,6 @@ namespace ChessClient.Imitation
 
         public event Action InitAction;
         public event Action Step;
+
     }
 }

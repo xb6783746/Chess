@@ -1,4 +1,5 @@
-﻿using GameTemplate.Game;
+﻿using GameTemplate.ChessEnums;
+using GameTemplate.Game;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,14 +18,14 @@ namespace GameTemplate.Interfaces
         /// <summary>
         /// Цвет игрока
         /// </summary>
-        Color Color { get; }
+        FColor Color { get; }
 
         /// <summary>
         /// Инициализирует экземпляр игрока
         /// </summary>
         /// <param name="game">Экземпляр игры</param>
         /// <param name="color">Цвет игрока</param>
-        void Init(IGame game, Color color);
+        void Init(IGame game, FColor color);
         /// <summary>
         /// Сделать ход
         /// </summary>

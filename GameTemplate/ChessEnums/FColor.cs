@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameTemplate.ChessEnums
 {
-    enum FColor
+    public enum FColor
     {
         White,
         Black

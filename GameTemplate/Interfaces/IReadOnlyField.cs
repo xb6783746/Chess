@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GameTemplate.ChessEnums;
 
 namespace GameTemplate.Interfaces
 {
@@ -29,6 +30,6 @@ namespace GameTemplate.Interfaces
         /// <summary>
         /// Событие завершения игры
         /// </summary>
-        event Action<Color> GameOver;
+        event Action<FColor> GameOver;
     }
 }

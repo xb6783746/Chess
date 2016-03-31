@@ -1,4 +1,5 @@
-﻿using GameTemplate.ChessGame.ChessEnums;
+﻿using GameTemplate.ChessEnums;
+using GameTemplate.ChessGame.ChessEnums;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,6 +14,6 @@ namespace GameTemplate.Interfaces
     /// </summary>
     public interface IChessFigureFactory
     {
-        IChessFigure GetFigure(ChessFType type, Color color);
+        IChessFigure GetFigure(ChessFType type, FColor color);
     }
 }

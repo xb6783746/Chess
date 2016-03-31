@@ -1,4 +1,5 @@
-﻿using GameTemplate.Interfaces;
+﻿using GameTemplate.ChessEnums;
+using GameTemplate.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -23,8 +24,8 @@ namespace GameTemplate.Game
             gamerQueue.Enqueue(first);
             gamerQueue.Enqueue(second);
 
-            first.Init(this, Color.Black);
-            second.Init(this, Color.White);
+            first.Init(this, FColor.Black);
+            second.Init(this, FColor.White);
 
             this.field = field;
 
@@ -50,7 +51,7 @@ namespace GameTemplate.Game
         /// <summary>
         /// Цвет игрока, который ходит в данный момент
         /// </summary>
-        public Color CurrentColor
+        public FColor CurrentColor
         {
             get;
             private set;
@@ -102,7 +103,7 @@ namespace GameTemplate.Game
         /// Обработчик события завершения игры (из игрового поля)
         /// </summary>
         /// <param name="color"></param>
-        protected virtual void GameOverHandler(Color color)
+        protected virtual void GameOverHandler(FColor color)
         {
             GameOver(color);
         }
@@ -114,7 +115,8 @@ namespace GameTemplate.Game
         /// <summary>
         /// Событие завершения игры
         /// </summary>
-        public event Action<Color> GameOver = (x) => { };
-     
+        public event Action<FColor> GameOver = (x) => { };
+
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using GameTemplate.ChessGame.ChessEnums;
+﻿using GameTemplate.ChessEnums;
+using GameTemplate.ChessGame.ChessEnums;
 using GameTemplate.ChessGame.ChessFigures;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
@@ -107,30 +108,30 @@ namespace GameTemplate.ChessGame.ChessField
             return this;
         }
 
-        public event Action<Color> GameOver;
+        public event Action<FColor> GameOver;
 
         private void Init()
         {
             for (int i = 0; i < field.GetLength(0); i++)
             {
-                field[i, 1] = factory.GetFigure(ChessFType.Pawn, Color.Black);
-                field[i, 6] = factory.GetFigure(ChessFType.Pawn, Color.White);
+                field[i, 1] = factory.GetFigure(ChessFType.Pawn, FColor.Black);
+                field[i, 6] = factory.GetFigure(ChessFType.Pawn, FColor.White);
             }
 
-            field[0, 0] = field[7, 0] = factory.GetFigure(ChessFType.Rook, Color.Black);
-            field[0, 7] = field[7, 7] = factory.GetFigure(ChessFType.Rook, Color.White);
+            field[0, 0] = field[7, 0] = factory.GetFigure(ChessFType.Rook, FColor.Black);
+            field[0, 7] = field[7, 7] = factory.GetFigure(ChessFType.Rook, FColor.White);
 
-            field[1, 0] = field[6, 0] = factory.GetFigure(ChessFType.Knight, Color.Black);
-            field[1, 7] = field[6, 7] = factory.GetFigure(ChessFType.Knight, Color.White);
+            field[1, 0] = field[6, 0] = factory.GetFigure(ChessFType.Knight, FColor.Black);
+            field[1, 7] = field[6, 7] = factory.GetFigure(ChessFType.Knight, FColor.White);
 
-            field[2, 0] = field[5, 0] = factory.GetFigure(ChessFType.Bishop, Color.Black);
-            field[2, 7] = field[5, 7] = factory.GetFigure(ChessFType.Bishop, Color.White);
+            field[2, 0] = field[5, 0] = factory.GetFigure(ChessFType.Bishop, FColor.Black);
+            field[2, 7] = field[5, 7] = factory.GetFigure(ChessFType.Bishop, FColor.White);
 
-            field[3, 0] = factory.GetFigure(ChessFType.Queen, Color.Black);
-            field[3, 7] = factory.GetFigure(ChessFType.Queen, Color.White);
+            field[3, 0] = factory.GetFigure(ChessFType.Queen, FColor.Black);
+            field[3, 7] = factory.GetFigure(ChessFType.Queen, FColor.White);
 
-            field[4, 0] = factory.GetFigure(ChessFType.King, Color.Black);
-            field[4, 7] = factory.GetFigure(ChessFType.King, Color.White);
+            field[4, 0] = factory.GetFigure(ChessFType.King, FColor.Black);
+            field[4, 7] = factory.GetFigure(ChessFType.King, FColor.White);
         }
         private void Died(IChessFigure died)
         {
@@ -142,5 +143,7 @@ namespace GameTemplate.ChessGame.ChessField
 
             diedFigures[died]++;
         }
+
+
     }
 }

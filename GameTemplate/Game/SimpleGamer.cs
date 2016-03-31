@@ -1,4 +1,5 @@
-﻿using GameTemplate.Interfaces;
+﻿using GameTemplate.ChessEnums;
+using GameTemplate.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,15 +12,15 @@ namespace GameTemplate.Game
     public class SimpleGamer :IGamer
     {
 
-        private Color color;
+        private FColor color;
         private IGame game;
 
-        public Color Color
+        public FColor Color
         {
             get { return color; }
         }
 
-        public void Init(IGame game, Color color)
+        public void Init(IGame game, FColor color)
         {
             this.game = game;
             this.color = color;

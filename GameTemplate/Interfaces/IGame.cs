@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameTemplate.ChessEnums;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace GameTemplate.Interfaces
         /// <summary>
         /// Цвет игрока, который ходил в данный момент
         /// </summary>
-        Color CurrentColor { get; }
+        FColor CurrentColor { get; }
         /// <summary>
         /// Игровое поле
         /// </summary>
@@ -29,6 +30,6 @@ namespace GameTemplate.Interfaces
         /// <summary>
         /// Событие завершения игры
         /// </summary>
-        event Action<Color> GameOver;
+        event Action<FColor> GameOver;
     }
 }

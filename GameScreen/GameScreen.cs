@@ -25,6 +25,9 @@ namespace GameScreen
         private Point to;
         private Bitmap picture;
         private int cellSize = 600 / 8;
+        private IReadOnlyList<FigureOnBoard> field;
+        private FColor color;
+        private bool YourTurn;
 
         public GameScreen()
         {
@@ -42,26 +45,33 @@ namespace GameScreen
 
         private void GameBox_Click(object sender, MouseEventArgs e)
         {
-            if (from.IsEmpty)
+            if (YourTurn)
             {
-                from = new Point(e.X / cellSize, e.Y / cellSize);
-                return;
-            }
-            if (to.IsEmpty)
-            {
-                to = new Point(e.X / cellSize, e.Y / cellSize);
-            }
+                if (from.IsEmpty)
+                {
+                    from = GetGamePoint(e.Location);
+                    IReadOnlyList<FigureOnBoard> q = field.Where(x => x.Location == from) as IReadOnlyList<FigureOnBoard>;
 
-            Step(new StepInfo(from, to));
+                    //render.DrawCells(field, q[0].Figure.GetCells(from, field) );
+                    UpdatePic();
+                    return;
+                }
+                if (to.IsEmpty)
+                {
+                    to = GetGamePoint(e.Location);
+                }
 
-            from = to = new Point();
+                Step(new StepInfo(from, to));
+
+                from = to = new Point();
+            }
         }
 
 
         public void GameOver(bool win)
         {
             string end;
-            if(win)
+            if (win)
             {
                 end = "Выиграли";
             }
@@ -81,15 +91,20 @@ namespace GameScreen
         {
             string cl = color.ToString();
             MessageBox.Show("Вы играете за" + cl + "цвет");
+            this.color = color;
 
             render.UpdateField(picture, figures);
             GameBox.Image = picture;
+            field = figures;
         }
 
         public void UpdateField(ChessState state)
         {
             render.UpdateField(picture, state.Figures);
-            GameBox.Image = picture;
+            UpdatePic();
+
+            field = state.Figures;
+            YourTurn = (color == state.Turn);
         }
 
         public void Receive(ChatMessage message)
@@ -106,5 +121,14 @@ namespace GameScreen
         public event Action<ChatMessage> Send;
         public event Action<StepInfo> Step;
         public event Action Concede;
+
+        private Point GetGamePoint(Point systemPoint)
+        {
+            return new Point(systemPoint.X / cellSize, systemPoint.Y / cellSize);
+        }
+        private void UpdatePic()
+        {
+            GameBox.Image = picture;
+        }
     }
 }

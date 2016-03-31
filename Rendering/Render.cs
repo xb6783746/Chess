@@ -61,20 +61,28 @@ namespace Rendering
                 DrawFigures(g, field);
             }
         }
-        private void DrawFigures(Graphics g, IReadOnlyField field)
+        public void DrawCells(Bitmap bitmap, IReadOnlyList<FigureOnBoard> field, List<Point> cells)
         {
-            for (int i = 0; i < 8; i++)
+            blockSize = bitmap.Size.Height / 8 - 0.1f;
+            using (Graphics g = Graphics.FromImage(bitmap))
             {
-                for (int j = 0; j < 8; j++)
+                g.Clear(Color.White);
+                DrawGrid(g);
+                DrawFigures(g, field);
+            }
+        }
+
+        private void DrawCells(Graphics g, IReadOnlyList<FigureOnBoard> field, List<Point> cell)
+        {
+            for (int i = 0; i < cell.Count; i++)
+            {
+                if (field.Where((x) => x.Location == cell[i]) == null)
                 {
-                    IChessFigure figure = field[new Point(i, j)];
-                    if (figure != null)
-                    {
-                        var type = new Type(figure.Type, fColor[figure.Color]);
-                        g.DrawImage(figurePictures[type], new PointF(i * blockSize, j * blockSize));
-
-                    }
-
+                    g.DrawRectangle(Pens.LightGreen, cell[i].X * blockSize, cell[i].Y * blockSize, blockSize, blockSize);
+                }
+                else
+                {
+                    g.DrawRectangle(Pens.Red, cell[i].X * blockSize, cell[i].Y * blockSize, blockSize, blockSize);
                 }
             }
         }
@@ -104,6 +112,27 @@ namespace Rendering
                 }
             }
         }
+
+
+
+        private void DrawFigures(Graphics g, IReadOnlyField field)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    IChessFigure figure = field[new Point(i, j)];
+                    if (figure != null)
+                    {
+                        var type = new Type(figure.Type, fColor[figure.Color]);
+                        g.DrawImage(figurePictures[type], new PointF(i * blockSize, j * blockSize));
+
+                    }
+
+                }
+            }
+        }
+
     }
 
     public struct Type

@@ -44,7 +44,7 @@ namespace GameTemplate.ChessGame.ChessFigures
             for (int i = 0; i < cells.Count; i++)
             {
                 temp = new Point(cells[i].X, cells[i].Y);
-                if (field[temp].Color == color)
+                if (field[temp] != null && field[temp].Color == color)
                 {
                     cells.Remove(temp);
                 }

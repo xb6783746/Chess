@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using GameTemplate.ChessGame.ChessEnums;
 using System.Drawing;
 using GameTemplate.Interfaces;
+using GameTemplate.ChessEnums;
 
 namespace GameTemplate.ChessGame.ChessFigures
 {
@@ -15,14 +16,14 @@ namespace GameTemplate.ChessGame.ChessFigures
     [Serializable]
     class Pawn : IChessFigure
     {
-        public Pawn(Color color)
+        public Pawn(FColor color)
         {
             this.color = color;
         }
 
-        private Color color;
+        private FColor color;
 
-        public Color Color
+        public FColor Color
         {
             get { return color; }
         }

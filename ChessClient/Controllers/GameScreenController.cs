@@ -30,9 +30,9 @@ namespace ChessClient.Controllers
         {
             gameScreen.StartGame(color);
         }
-        public void Step(IReadOnlyList<FigureOnBoard> f, StepInfo step)
+        public void Step(ChessState state)
         {
-            gameScreen.UpdateField(f);
+            gameScreen.UpdateField(state);
         }
         public void GameOver(bool win)
         {

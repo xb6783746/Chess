@@ -14,7 +14,7 @@ namespace ChessClient.Interfaces.IControllers
     {
         void Message(ChatMessage msg);
         void StartGame(Color color);
-        void Step(IReadOnlyList<FigureOnBoard> f, StepInfo step);
+        void Step(ChessState state);
         void GameOver(bool win);
     }
 }

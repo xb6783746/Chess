@@ -80,12 +80,13 @@ namespace GameScreen
         {
             MessageBox.Show("Вы играете за {0} цвет", color.ToString());
 
-            UpdateField(ChessField.Empty.GetFiguresOnBoard());
+            render.UpdateField(picture, ChessField.Empty.GetFiguresOnBoard());
+            GameBox.Image = picture;
         }
 
-        public void UpdateField(IReadOnlyList<FigureOnBoard> f)
+        public void UpdateField(ChessState state)
         {
-            render.UpdateField(picture, f);
+            render.UpdateField(picture, state.Figures);
             GameBox.Image = picture;
         }
 

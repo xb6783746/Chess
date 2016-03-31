@@ -2,6 +2,7 @@
 using GameTemplate.ChessGame.ChessField;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
+using Network;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -46,8 +47,7 @@ namespace ChessServer.Managers
                 foreach (var item in watchers)
                 {
                     clientFacade.Update(
-                        game.Field.GetFiguresOnBoard(), 
-                        new StepInfo(new Point(), new Point()), 
+                        GetState(),
                         item.Id);
                 }
             }
@@ -57,6 +57,10 @@ namespace ChessServer.Managers
             //послать сообщение об конце игры
 
             RoomClosed(RoomId);
+        }
+        private ChessState GetState()
+        {
+            return new ChessState(game.Field.GetFiguresOnBoard(), new StepInfo(new Point(), new Point()));
         }
 
         public event Action<int> RoomClosed;

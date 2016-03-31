@@ -49,9 +49,9 @@ namespace ChessClient.Controllers
         {
             current.Disconnected();
         }
-        public void StartGame(Color color)
+        public void StartGame(IReadOnlyList<FigureOnBoard> figures, Color color)
         {
-            current.StartGame(color);
+            current.StartGame(figures, color);
         }
         public void Challenge(string from)
         {

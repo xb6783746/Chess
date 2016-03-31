@@ -26,9 +26,9 @@ namespace ChessClient.Controllers
         {
             gameScreen.Receive(msg);
         }
-        public void StartGame(Color color)
+        public void StartGame(IReadOnlyList<FigureOnBoard> figures, Color color)
         {
-            gameScreen.StartGame(color);
+            gameScreen.StartGame(figures, color);
         }
         public void Step(ChessState state)
         {

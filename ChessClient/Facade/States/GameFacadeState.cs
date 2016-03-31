@@ -35,9 +35,9 @@ namespace ChessClient.Facade.States
         {
             Switch(ClientState.Offline);
         }
-        public void StartGame(Color color)
+        public void StartGame(IReadOnlyList<FigureOnBoard> figures, Color color)
         {
-            manager.GameController.StartGame(color);
+            manager.GameController.StartGame(figures, color);
             Switch(ClientState.InGame);
         }
         public void Challenge(string from)

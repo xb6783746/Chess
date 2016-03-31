@@ -16,7 +16,7 @@ namespace ClientAPI
         event Action<StepInfo> Step;
         event Action Concede;
 
-        void StartGame(Color color);
+        void StartGame(IReadOnlyList<FigureOnBoard> figures, Color color);
         void UpdateField(ChessState state);
         void SetRender(IRender r);
         void GameOver(bool win);

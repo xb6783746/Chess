@@ -1,4 +1,5 @@
-﻿using GameTemplate.Game;
+﻿using ChessServer.Interfaces;
+using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,7 @@ namespace ChessServer.Clients
         {
             this.game = game;
             this.color = color;
+
         }
 
         public GameTemplate.Game.StepInfo MakeStep()

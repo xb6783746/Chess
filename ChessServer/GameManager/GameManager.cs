@@ -1,4 +1,5 @@
 ﻿using ChessServer.Interfaces;
+using GameTemplate.ChessGame.ChessField;
 using GameTemplate.ChessGame.ChessFigures;
 using GameTemplate.Interfaces;
 using System;
@@ -24,6 +25,7 @@ namespace ChessServer.Managers
         private IClientFacade clientFacade;
         private List<IClient> playerWait;
         private List<GameRoom> gameRooms;
+        private IReadOnlyField startField = ChessField.Empty;
 
         public void RandomGame(IClient gamer)
         {
@@ -61,8 +63,8 @@ namespace ChessServer.Managers
 
         private void CreateRoom(IClient first, IClient second)
         {
-            clientFacade.StartGame(Color.White, first.Id);
-            clientFacade.StartGame(Color.Black, second.Id);
+            clientFacade.StartGame(startField.GetFiguresOnBoard(), Color.White, first.Id);
+            clientFacade.StartGame(startField.GetFiguresOnBoard(), Color.Black, second.Id);
 
             var room = new GameRoom(first.Gamer, second.Gamer, clientFacade, chessPool, gameRooms.Count + 1);
             room.AddWatcher(first);

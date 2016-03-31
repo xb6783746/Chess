@@ -13,7 +13,7 @@ namespace ChessClient.Interfaces.IControllers
     interface IGameScreenController
     {
         void Message(ChatMessage msg);
-        void StartGame(Color color);
+        void StartGame(IReadOnlyList<FigureOnBoard> figures, Color color);
         void Step(ChessState state);
         void GameOver(bool win);
     }

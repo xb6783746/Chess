@@ -1,4 +1,5 @@
 ﻿using ChessServer.Interfaces;
+using GameTemplate.ChessGame.ChessFigures;
 using GameTemplate.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -7,15 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChessServer.GameManager
+namespace ChessServer.Managers
 {
     class GameManager : IGameManager
     {
-        public GameManager(IChessFigureFactory chessPool, IClientFacade clientFacade)
+        public GameManager(IClientFacade clientFacade)
         {
             playerWait = new List<IClient>();
             gameRooms = new List<GameRoom>();
-            this.chessPool = chessPool;
+            this.chessPool = new ChessFiguresPool();
             this.clientFacade = clientFacade;
         }
 
@@ -27,6 +28,8 @@ namespace ChessServer.GameManager
         public void RandomGame(IClient gamer)
         {
             playerWait.Add(gamer);
+
+            clientFacade.Wait(gamer.Id);
             if (playerWait.Count == 2)
             {
                 CreateRoom(playerWait[0], playerWait[1]);
@@ -37,7 +40,7 @@ namespace ChessServer.GameManager
 
         public void RequestGame(IClient who, IClient gamer)
         {
-            CreateRoom(who, gamer);
+           // CreateRoom(who, gamer);
         }
 
         public void WatchFor(IClient gamerId, int gameId)
@@ -53,15 +56,19 @@ namespace ChessServer.GameManager
             CreateRoom(gamerId, algId);
         }
 
-        public event Action<int> GameOver;
-        public event Action<int> GameStart;
+        public event Action<int> GameOver = (x) => { };
+        public event Action<int> GameStart = (x) => { };
 
         private void CreateRoom(IClient first, IClient second)
         {
             clientFacade.StartGame(Color.White, first.Id);
             clientFacade.StartGame(Color.Black, second.Id);
 
-            gameRooms.Add(new GameRoom(first.Gamer, second.Gamer, clientFacade, chessPool, gameRooms.Count + 1));
+            var room = new GameRoom(first.Gamer, second.Gamer, clientFacade, chessPool, gameRooms.Count + 1);
+            room.AddWatcher(first);
+            room.AddWatcher(second);
+
+            gameRooms.Add(room);
 
             GameStart(first.Id);
             GameStart(second.Id);

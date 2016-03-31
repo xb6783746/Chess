@@ -10,13 +10,15 @@ namespace ChessServer.Facade
 {
     class ServerFacade :IServerFacade
     {
-        public ServerFacade(IChatManager chatManager, IClientManager clientManager)
+        public ServerFacade(IChatManager chatManager, IClientManager clientManager, IGameManager gameManager)
         {
             this.chatManager = chatManager;
+            this.gameManager = gameManager;
             this.clientManager = clientManager;
         }
 
         private IChatManager chatManager;
+        private IGameManager gameManager;
         private IClientManager clientManager;
 
         public void Message(ChatMessage message, int id)
@@ -33,12 +35,21 @@ namespace ChessServer.Facade
 
         public void NewStep(GameTemplate.Game.StepInfo step, int id)
         {
-            throw new NotImplementedException();
+            var client = clientManager.GetClient(id);
+
+            if (client != null)
+            {
+                client.Step(step);
+            }
         }
 
         public void RandomGame(int id)
         {
-            throw new NotImplementedException();
+            var gamer = clientManager.GetClient(id);
+            if (gamer != null)
+            {
+                gameManager.RandomGame(gamer);
+            }
         }
     }
 }

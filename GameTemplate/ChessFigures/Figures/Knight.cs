@@ -13,6 +13,7 @@ namespace GameTemplate.ChessGame.ChessFigures
     /// <summary>
     /// Класс коня
     /// </summary>
+    [Serializable] 
     class Knight : IChessFigure
     {
         public Knight(FColor color)

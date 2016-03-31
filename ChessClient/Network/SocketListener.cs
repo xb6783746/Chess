@@ -22,7 +22,7 @@ namespace ChessClient.Network
         private IClientFacade clientFacade;
         private Socket socket;
 
-        private int packetLenght = 1024;
+        private int packetLenght = 5000;
 
         public void Connect(IPAddress id, int port)
         {

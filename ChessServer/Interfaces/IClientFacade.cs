@@ -15,7 +15,8 @@ namespace ChessServer.Interfaces
         void Message(ChatMessage msg, int id);
         void LoginResult(bool result, string message, int id);
 
+        void Wait(int id);
         void StartGame(Color color, int id);
-        void Update(IReadOnlyField field, StepInfo step, int id);
+        void Update(IReadOnlyList<FigureOnBoard> figures, StepInfo step, int id);
     }
 }

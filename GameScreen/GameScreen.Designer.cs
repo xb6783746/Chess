@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             this.GameBox = new System.Windows.Forms.PictureBox();
-            this.messageBox = new System.Windows.Forms.TextBox();
-            this.chatWindow = new System.Windows.Forms.TextBox();
-            this.sendButton = new System.Windows.Forms.Button();
             this.ConcedeButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -53,6 +50,7 @@
             this.label18 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
+            this.chatScreen1 = new ClientAPI.ChatScreen();
             ((System.ComponentModel.ISupportInitialize)(this.GameBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,33 +63,6 @@
             this.GameBox.TabIndex = 0;
             this.GameBox.TabStop = false;
             this.GameBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.GameBox_Click);
-            // 
-            // messageBox
-            // 
-            this.messageBox.Location = new System.Drawing.Point(666, 595);
-            this.messageBox.Name = "messageBox";
-            this.messageBox.Size = new System.Drawing.Size(214, 20);
-            this.messageBox.TabIndex = 4;
-            // 
-            // chatWindow
-            // 
-            this.chatWindow.Location = new System.Drawing.Point(666, 372);
-            this.chatWindow.Multiline = true;
-            this.chatWindow.Name = "chatWindow";
-            this.chatWindow.ReadOnly = true;
-            this.chatWindow.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.chatWindow.Size = new System.Drawing.Size(293, 217);
-            this.chatWindow.TabIndex = 3;
-            // 
-            // sendButton
-            // 
-            this.sendButton.Location = new System.Drawing.Point(886, 595);
-            this.sendButton.Name = "sendButton";
-            this.sendButton.Size = new System.Drawing.Size(73, 21);
-            this.sendButton.TabIndex = 5;
-            this.sendButton.Text = "Отправить";
-            this.sendButton.UseVisualStyleBackColor = true;
-            this.sendButton.Click += new System.EventHandler(this.sendButton_Click);
             // 
             // ConcedeButton
             // 
@@ -290,7 +261,7 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(666, 89);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(129, 275);
+            this.listBox1.Size = new System.Drawing.Size(129, 301);
             this.listBox1.TabIndex = 26;
             // 
             // listBox2
@@ -299,13 +270,21 @@
             this.listBox2.FormattingEnabled = true;
             this.listBox2.Location = new System.Drawing.Point(830, 89);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(129, 275);
+            this.listBox2.Size = new System.Drawing.Size(129, 301);
             this.listBox2.TabIndex = 27;
+            // 
+            // chatScreen1
+            // 
+            this.chatScreen1.Location = new System.Drawing.Point(666, 401);
+            this.chatScreen1.Name = "chatScreen1";
+            this.chatScreen1.Size = new System.Drawing.Size(304, 215);
+            this.chatScreen1.TabIndex = 28;
             // 
             // GameScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.chatScreen1);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label18);
@@ -327,9 +306,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ConcedeButton);
-            this.Controls.Add(this.sendButton);
-            this.Controls.Add(this.messageBox);
-            this.Controls.Add(this.chatWindow);
             this.Controls.Add(this.GameBox);
             this.Name = "GameScreen";
             this.Size = new System.Drawing.Size(974, 653);
@@ -342,9 +318,6 @@
         #endregion
 
         private System.Windows.Forms.PictureBox GameBox;
-        private System.Windows.Forms.TextBox messageBox;
-        private System.Windows.Forms.TextBox chatWindow;
-        private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.Button ConcedeButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -366,5 +339,6 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ListBox listBox2;
+        private ClientAPI.ChatScreen chatScreen1;
     }
 }

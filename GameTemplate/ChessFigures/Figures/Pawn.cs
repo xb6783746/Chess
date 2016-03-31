@@ -6,23 +6,23 @@ using System.Threading.Tasks;
 using GameTemplate.ChessGame.ChessEnums;
 using System.Drawing;
 using GameTemplate.Interfaces;
-using GameTemplate.ChessEnums;
 
 namespace GameTemplate.ChessGame.ChessFigures
 {
     /// <summary>
     /// Класс пешки
     /// </summary>
+    [Serializable]
     class Pawn : IChessFigure
     {
-        public Pawn(FColor color)
+        public Pawn(Color color)
         {
             this.color = color;
         }
 
-        private FColor color;
+        private Color color;
 
-        public FColor Color
+        public Color Color
         {
             get { return color; }
         }
@@ -35,30 +35,37 @@ namespace GameTemplate.ChessGame.ChessFigures
         {
             return GetCells(from, field).Contains(to);
         }
+        public List<Point> GetAllCells(Point location)
+        {
+            List<Point> cells = new List<Point>();
+
+            if (location.Y - 1 >= 0)
+            {
+                cells.Add(new Point(location.X, location.Y - 1));
+            }
+            if (location.Y + 1 <= 7)
+            {
+                cells.Add(new Point(location.X, location.Y + 1));
+            }
+
+            return cells;
+        }
         public List<Point> GetCells(Point location, IReadOnlyField field)
         {
             List<Point> cells = GetAllCells(location);
             Point temp;
+
             for (int i = 0; i < cells.Count; i++)
             {
-                temp = new Point(cells[i].X, cells[i].Y);
-                if (field[temp].Color == color)
+                temp = cells[i];
+                if (field[temp] != null && field[temp].Color == color)
                 {
                     cells.Remove(temp);
                 }
             }
 
-            Cell(ref cells, location, field, -1);
-            Cell(ref cells, location, field, 1);
-
-            return cells;
-        }
-        private List<Point> GetAllCells(Point location)
-        {
-            List<Point> cells = new List<Point>();
-
-            if (location.X + 1 < 8)
-                cells.Add(new Point(location.X + 1, location.Y));
+            //Cell(ref cells, location, field, -1);
+            //Cell(ref cells, location, field, 1);
 
             return cells;
         }

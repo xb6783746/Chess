@@ -9,12 +9,13 @@ using GameTemplate.Interfaces;
 using System.Drawing;
 using Rendering.Properties;
 using Rendering.Exceptions;
+using GameTemplate.Game;
 
 namespace Rendering
 {
     public class Render : IRender
     {
-        public Render(int wh, int ht)
+        public Render()
         {
             try
             {
@@ -43,7 +44,7 @@ namespace Rendering
         private Dictionary<Type, Image> figurePictures;
         private float blockSize;
 
-        public void UpdateField(Bitmap bitmap, IReadOnlyField field)
+        public void UpdateField(Bitmap bitmap, IReadOnlyList<FigureOnBoard> field)
         {
             blockSize = bitmap.Size.Height / 8 - 0.1f;
             using (Graphics g = Graphics.FromImage(bitmap))
@@ -60,9 +61,24 @@ namespace Rendering
                 for (int j = 0; j < 8; j++)
                 {
                     IChessFigure figure = field[new Point(i, j)];
-                    g.DrawImage(figurePictures[new Type(figure.Type, figure.Color)], new PointF(i * blockSize, j * blockSize));
+                    if (figure != null)
+                    {
+                        var type = new Type(figure.Type, figure.Color);
+                        g.DrawImage(figurePictures[type], new PointF(i * blockSize, j * blockSize));
+
+                    }
+
                 }
             }
+        }
+        private void DrawFigures(Graphics g, IReadOnlyList<FigureOnBoard> field)
+        {
+            foreach (var item in field)
+            {
+                var type = new Type(item.Figure.Type, item.Figure.Color);
+                g.DrawImage(figurePictures[type], new PointF(item.Location.X * blockSize, item.Location.Y * blockSize));
+            }
+
         }
         private void DrawGrid(Graphics g)
         {

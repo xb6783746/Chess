@@ -12,11 +12,13 @@ namespace GameTemplate.Game
     /// Простейшая реализация интерфейса IGame
     /// </summary>
     /// <typeparam name="T">Интерфейс фигур на доске</typeparam>
+    [Serializable]
     public class SimpleGame :IGame
     {
         public SimpleGame(IGamer first, IGamer second, IField field)
         {
             gamerQueue = new Queue<IGamer>();
+            ok = true;
 
             gamerQueue.Enqueue(first);
             gamerQueue.Enqueue(second);
@@ -27,6 +29,8 @@ namespace GameTemplate.Game
             this.field = field;
 
             field.GameOver += GameOverHandler;
+
+            Task.Run(() => StartGame());
 
         }
 
@@ -89,7 +93,10 @@ namespace GameTemplate.Game
             } 
             while (!field.MakeStep(step));
 
-            Change();
+            if (Change != null)
+            {
+                Change();
+            }
         }
         /// <summary>
         /// Обработчик события завершения игры (из игрового поля)
@@ -103,7 +110,7 @@ namespace GameTemplate.Game
         /// <summary>
         /// Событие изменения состояния игры
         /// </summary>
-        public event Action Change = () => { };
+        public event Action Change;
         /// <summary>
         /// Событие завершения игры
         /// </summary>

@@ -10,6 +10,7 @@ namespace GameTemplate.Game
     /// <summary>
     /// Информация о ходе
     /// </summary>
+    [Serializable]
     public class StepInfo
     {
         public StepInfo(Point from, Point to)

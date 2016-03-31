@@ -12,6 +12,7 @@ namespace GameTemplate.ChessGame.ChessFigures
     /// <summary>
     /// Пул шахматных фигур
     /// </summary>
+    [Serializable]
     public class ChessFiguresPool :IChessFigureFactory
     {
         public ChessFiguresPool()

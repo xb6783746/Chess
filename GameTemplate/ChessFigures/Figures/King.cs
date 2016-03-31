@@ -13,6 +13,7 @@ namespace GameTemplate.ChessGame.ChessFigures
     /// <summary>
     /// Класс Короля    
     /// </summary>
+    [Serializable]
     class King : IChessFigure
     {
         public King(FColor color)

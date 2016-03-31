@@ -16,7 +16,7 @@ namespace ClientAPI
         event Action Concede;
 
         void StartGame(Color color);
-        void UpdateField(IReadOnlyField f);
+        void UpdateField(IReadOnlyList<FigureOnBoard> f);
         void SetRender(IRender r);
         void GameOver(bool win);
     }

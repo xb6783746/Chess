@@ -1,4 +1,5 @@
 ﻿using GameTemplate.ChessGame.ChessEnums;
+using GameTemplate.ChessGame.ChessFigures;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using System;
@@ -13,6 +14,7 @@ namespace GameTemplate.ChessGame.ChessField
     /// <summary>
     /// Поле для шахмат
     /// </summary>
+    [Serializable]
     public class ChessField :IField
     {
         public ChessField(IChessFigureFactory factory)
@@ -25,7 +27,16 @@ namespace GameTemplate.ChessGame.ChessField
             Init();
         }
 
+        public static IReadOnlyField Empty
+        {
+            get
+            {
+                return new ChessField(new ChessFiguresPool());
+            }
+        }
+
         private IChessFigure[,] field;
+        [NonSerialized]
         private IChessFigureFactory factory;
         private Dictionary<IChessFigure, int> diedFigures;
 
@@ -69,6 +80,7 @@ namespace GameTemplate.ChessGame.ChessField
             if (attacker.Step(from, to, this) && (attacked == null || attacker.Color != attacked.Color))
             {
                 this[to] = attacker;
+                this[from] = null;
 
                 if (attacked != null)
                 {

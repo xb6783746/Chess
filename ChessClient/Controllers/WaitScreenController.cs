@@ -7,16 +7,11 @@ using System.Threading.Tasks;
 
 namespace ChessClient.Controllers
 {
-    class WaitScreenController : ISwitch
+    class WaitScreenController : BasicController, ISwitch
     {
-        public void Enable()
+        public WaitScreenController(IMainForm mainForm, IServerFacade facade) :base(mainForm, facade)
         {
-            throw new NotImplementedException();
-        }
 
-        public void Disable()
-        {
-            throw new NotImplementedException();
         }
     }
 }

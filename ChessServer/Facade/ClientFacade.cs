@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace ChessServer.Facade
 {
+    [Serializable]
     class ClientFacade : IClientFacade, IParser
     {
         public ClientFacade()
@@ -61,9 +62,9 @@ namespace ChessServer.Facade
 
             SendMessage(m, id);
         }
-        public void Update(GameTemplate.Interfaces.IReadOnlyField field, StepInfo step, int id)
+        public void Update(IReadOnlyList<FigureOnBoard> figures, StepInfo step, int id)
         {
-            Message m = new Message("UpdateField", field, step);
+            Message m = new Message("UpdateField", figures, step);
 
             SendMessage(m, id);
         }
@@ -73,14 +74,27 @@ namespace ChessServer.Facade
 
             SendMessage(m, id);
         }
+        public void Wait(int id)
+        {
+            Message m = new Message("Waiting");
+
+            SendMessage(m, id);
+        }
 
         private void SendMessage(Message m, int id)
         {
             using (var stream = new MemoryStream())
             {
-                formatter.Serialize(stream, m);
+                try
+                {
+                    formatter.Serialize(stream, m);
 
-                server.Send(stream.GetBuffer(), id);
+                    server.Send(stream.GetBuffer(), id);
+                }
+                catch(Exception e)
+                {
+
+                }
             }
         }
     }

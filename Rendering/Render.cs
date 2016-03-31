@@ -133,6 +133,12 @@ namespace Rendering
             }
         }
 
+
+
+        public void DrawCells(IReadOnlyList<FigureOnBoard> field, List<Point> cells)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public struct Type

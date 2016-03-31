@@ -1,6 +1,7 @@
 ﻿using ChessClient.Enums;
 using ChessClient.Facade.States;
 using ChessClient.Interfaces;
+using GameTemplate.ChessEnums;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using Network;
@@ -49,7 +50,7 @@ namespace ChessClient.Controllers
         {
             current.Disconnected();
         }
-        public void StartGame(IReadOnlyList<FigureOnBoard> figures, Color color)
+        public void StartGame(IReadOnlyField figures, FColor color)
         {
             current.StartGame(figures, color);
         }

@@ -63,8 +63,8 @@ namespace ChessServer.Managers
 
         private void CreateRoom(IClient first, IClient second)
         {
-            clientFacade.StartGame(startField.GetFiguresOnBoard(), Color.White, first.Id);
-            clientFacade.StartGame(startField.GetFiguresOnBoard(), Color.Black, second.Id);
+            clientFacade.StartGame(startField, Color.White, first.Id);
+            clientFacade.StartGame(startField, Color.Black, second.Id);
 
             var room = new GameRoom(first.Gamer, second.Gamer, clientFacade, chessPool, gameRooms.Count + 1);
             room.AddWatcher(first);

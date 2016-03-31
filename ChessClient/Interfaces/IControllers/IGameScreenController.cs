@@ -1,4 +1,5 @@
-﻿using GameTemplate.Game;
+﻿using GameTemplate.ChessEnums;
+using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using Network;
 using System;
@@ -13,7 +14,7 @@ namespace ChessClient.Interfaces.IControllers
     interface IGameScreenController
     {
         void Message(ChatMessage msg);
-        void StartGame(IReadOnlyList<FigureOnBoard> figures, Color color);
+        void StartGame(IReadOnlyField figures, FColor color);
         void Step(ChessState state);
         void GameOver(bool win);
     }

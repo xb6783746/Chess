@@ -1,4 +1,5 @@
-﻿using GameTemplate.Game;
+﻿using GameTemplate.ChessEnums;
+using GameTemplate.Game;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -27,5 +28,10 @@ namespace GameTemplate.Interfaces
         /// <param name="step">Информация о ходе</param>
         bool MakeStep(StepInfo step);
         IReadOnlyField GetReadOnlyField();
+
+        /// <summary>
+        /// Событие завершения игры
+        /// </summary>
+        event Action<FColor> GameOver;
     }
 }

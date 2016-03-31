@@ -1,6 +1,7 @@
 ﻿using ChessClient.Interfaces;
 using ChessClient.Interfaces.IControllers;
 using ClientAPI;
+using GameTemplate.ChessEnums;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using Network;
@@ -26,7 +27,7 @@ namespace ChessClient.Controllers
         {
             gameScreen.Receive(msg);
         }
-        public void StartGame(IReadOnlyList<FigureOnBoard> figures, Color color)
+        public void StartGame(IReadOnlyField figures, FColor color)
         {
             gameScreen.StartGame(figures, color);
         }

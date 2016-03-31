@@ -25,7 +25,7 @@ namespace GameScreen
         private Point to;
         private Bitmap picture;
         private int cellSize = 600 / 8;
-        private IReadOnlyList<FigureOnBoard> field;
+        private IReadOnlyField field;
         private FColor color;
         private bool YourTurn;
 
@@ -50,9 +50,9 @@ namespace GameScreen
                 if (from.IsEmpty)
                 {
                     from = GetGamePoint(e.Location);
-                    IReadOnlyList<FigureOnBoard> q = field.Where(x => x.Location == from) as IReadOnlyList<FigureOnBoard>;
-
-                    //render.DrawCells(field, q[0].Figure.GetCells(from, field) );
+                    var figure = field[from]; // )))))))))))))))))))))))))))))))))))))))0
+                   
+                   // render.DrawCells(field, q[0].Figure.GetCells(from, field) );
                     UpdatePic();
                     return;
                 }
@@ -87,20 +87,20 @@ namespace GameScreen
             render = r;
         }
 
-        public void StartGame(IReadOnlyList<FigureOnBoard> figures, FColor color)
+        public void StartGame(IReadOnlyField figures, FColor color)
         {
             string cl = color.ToString();
             MessageBox.Show("Вы играете за" + cl + "цвет");
             this.color = color;
 
-            render.UpdateField(picture, figures);
+            render.UpdateField(picture, figures.GetFiguresOnBoard());
             GameBox.Image = picture;
             field = figures;
         }
 
         public void UpdateField(ChessState state)
         {
-            render.UpdateField(picture, state.Figures);
+            render.UpdateField(picture, state.Figures.GetFiguresOnBoard());
             UpdatePic();
 
             field = state.Figures;

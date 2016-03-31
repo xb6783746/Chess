@@ -1,4 +1,5 @@
 ﻿using ChessClient.Interfaces;
+using GameTemplate.ChessEnums;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using Network;
@@ -32,7 +33,7 @@ namespace ChessClient.Facade.States
         {
             Switch(Enums.ClientState.Offline);
         }
-        public void StartGame(IReadOnlyList<FigureOnBoard> figures, System.Drawing.Color color)
+        public void StartGame(IReadOnlyField figures, FColor color)
         {
             manager.GameController.StartGame(figures, color);
 

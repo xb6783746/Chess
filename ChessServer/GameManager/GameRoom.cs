@@ -62,7 +62,7 @@ namespace ChessServer.Managers
         private ChessState GetState()
         {
             return new ChessState(
-                game.Field.GetFiguresOnBoard(), 
+                game.Field, 
                 game.LastStep, 
                 game.Turn);
         }

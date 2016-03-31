@@ -1,4 +1,5 @@
-﻿using GameTemplate.Game;
+﻿using GameTemplate.ChessEnums;
+using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using Network;
 using System;
@@ -15,7 +16,7 @@ namespace ChessClient.Interfaces
         void LoginResult(bool result, string message);
         void Message(ChatMessage msg);
         void Disconnected();
-        void StartGame(IReadOnlyList<FigureOnBoard> figures, Color color);
+        void StartGame(IReadOnlyField figures, FColor color);
         void Challenge(string from);
 
         void UpdateField(ChessState state);

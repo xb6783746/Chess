@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ChessClient.Enums;
 using Network;
+using GameTemplate.ChessEnums;
 
 namespace ChessClient.Facade.States
 {
@@ -42,7 +43,7 @@ namespace ChessClient.Facade.States
         {
             Switch(ClientState.Offline);
         }
-        public void StartGame(IReadOnlyList<FigureOnBoard> figures, Color color)
+        public void StartGame(IReadOnlyField figures, FColor color)
         {
             throw new NotImplementedException();
         }

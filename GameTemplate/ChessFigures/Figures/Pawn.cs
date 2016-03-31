@@ -36,7 +36,7 @@ namespace GameTemplate.ChessGame.ChessFigures
         {
             return GetCells(from, field).Contains(to);
         }
-        public List<Point> GetAllCells(Point location)
+        private List<Point> GetAllCells(Point location)
         {
             List<Point> cells = new List<Point>();
 

@@ -13,6 +13,7 @@ using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using Network;
 using GameTemplate.ChessGame.ChessField;
+using GameTemplate.ChessEnums;
 
 namespace GameScreen
 {
@@ -20,8 +21,8 @@ namespace GameScreen
     {
 
         private IRender render;
-        private Point? from;
-        private Point? to;
+        private Point from;
+        private Point to;
         private Bitmap picture;
         private int cellSize = 600 / 8;
 
@@ -30,7 +31,7 @@ namespace GameScreen
             InitializeComponent();
 
             chatScreen1.Send += Send;
-            from = to = null;
+            from = to = new Point();
             picture = new Bitmap(GameBox.Height, GameBox.Width);
         }
 
@@ -41,19 +42,19 @@ namespace GameScreen
 
         private void GameBox_Click(object sender, MouseEventArgs e)
         {
-            if (from == null)
+            if (from.IsEmpty)
             {
                 from = new Point(e.X / cellSize, e.Y / cellSize);
                 return;
             }
-            if (to == null)
+            if (to.IsEmpty)
             {
                 to = new Point(e.X / cellSize, e.Y / cellSize);
             }
 
-            Step(new StepInfo(from.Value, to.Value));
+            Step(new StepInfo(from, to));
 
-            from = to = null;
+            from = to = new Point();
         }
 
 
@@ -76,9 +77,10 @@ namespace GameScreen
             render = r;
         }
 
-        public void StartGame(IReadOnlyList<FigureOnBoard> figures, Color color)
+        public void StartGame(IReadOnlyList<FigureOnBoard> figures, FColor color)
         {
-            MessageBox.Show("Вы играете за {0} цвет", color.ToString());
+            string cl = color.ToString();
+            MessageBox.Show("Вы играете за" + cl + "цвет");
 
             render.UpdateField(picture, figures);
             GameBox.Image = picture;

@@ -15,7 +15,7 @@ namespace ChessClient.Interfaces
         void LoginResult(bool result, string message);
         void Message(ChatMessage msg);
         void Disconnected();
-        void StartGame(Color color);
+        void StartGame(IReadOnlyList<FigureOnBoard> figures, Color color);
         void Challenge(string from);
 
         void UpdateField(ChessState state);

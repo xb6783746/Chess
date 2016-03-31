@@ -76,11 +76,11 @@ namespace GameScreen
             render = r;
         }
 
-        public void StartGame(Color color)
+        public void StartGame(IReadOnlyList<FigureOnBoard> figures, Color color)
         {
             MessageBox.Show("Вы играете за {0} цвет", color.ToString());
 
-            render.UpdateField(picture, ChessField.Empty.GetFiguresOnBoard());
+            render.UpdateField(picture, figures);
             GameBox.Image = picture;
         }
 

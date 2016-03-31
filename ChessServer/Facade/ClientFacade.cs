@@ -68,9 +68,9 @@ namespace ChessServer.Facade
 
             SendMessage(m, id);
         }
-        public void StartGame(Color color, int id)
+        public void StartGame(IReadOnlyList<FigureOnBoard> figures, Color color, int id)
         {
-            Message m = new Message("StartGame", color);
+            Message m = new Message("StartGame",figures, color);
 
             SendMessage(m, id);
         }

@@ -16,7 +16,7 @@ namespace ChessServer.Interfaces
         void LoginResult(bool result, string message, int id);
 
         void Wait(int id);
-        void StartGame(Color color, int id);
+        void StartGame(IReadOnlyList<FigureOnBoard> figures, Color color, int id);
         void Update(ChessState state, int id);
     }
 }

@@ -42,7 +42,7 @@ namespace ChessClient.Facade.States
         {
             Switch(ClientState.Offline);
         }
-        public void StartGame(Color color)
+        public void StartGame(IReadOnlyList<FigureOnBoard> figures, Color color)
         {
             throw new NotImplementedException();
         }

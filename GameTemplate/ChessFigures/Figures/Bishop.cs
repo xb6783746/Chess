@@ -7,6 +7,7 @@ using GameTemplate.ChessGame.ChessEnums;
 using System.Drawing;
 using GameTemplate.Interfaces;
 using GameTemplate.Game;
+using GameTemplate.ChessEnums;
 
 namespace GameTemplate.ChessGame.ChessFigures
 {
@@ -16,14 +17,14 @@ namespace GameTemplate.ChessGame.ChessFigures
     [Serializable]
     class Bishop : IChessFigure
     {
-        public Bishop(Color color)
+        public Bishop(FColor color)
         {
             this.color = color;
         }
 
-        private Color color;
+        private FColor color;
 
-        public Color Color
+        public FColor Color
         {
             get { return color; }
         }
@@ -35,16 +36,6 @@ namespace GameTemplate.ChessGame.ChessFigures
         public bool Step(Point from, Point to, IReadOnlyField field)
         {
             return GetCells(from, field).Contains(to);
-        }
-        public List<Point> GetAllCells(Point location)
-        {
-            List<Point> cells = new List<Point>();
-            cells.AddRange(Cells(location, 1, 1));
-            cells.AddRange(Cells(location, -1, 1));
-            cells.AddRange(Cells(location, -1, -1));
-            cells.AddRange(Cells(location, 1, -1));
-
-            return cells;
         }
         public List<Point> GetCells(Point location, IReadOnlyField field)
         {
@@ -58,6 +49,16 @@ namespace GameTemplate.ChessGame.ChessFigures
                     cells.Remove(temp);
                 }
             }
+
+            return cells;
+        }
+        private List<Point> GetAllCells(Point location)
+        {
+            List<Point> cells = new List<Point>();
+            cells.AddRange(Cells(location, 1, 1));
+            cells.AddRange(Cells(location, -1, 1));
+            cells.AddRange(Cells(location, -1, -1));
+            cells.AddRange(Cells(location, 1, -1));
 
             return cells;
         }

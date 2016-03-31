@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChessEnums\ChessFType.cs" />
+    <Compile Include="ChessEnums\FColor.cs" />
     <Compile Include="ChessField\ChessField.cs" />
     <Compile Include="ChessFigures\Figures\Bishop.cs" />
     <Compile Include="ChessFigures\ChessFiguresPool.cs" />

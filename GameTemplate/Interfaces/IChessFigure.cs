@@ -1,4 +1,5 @@
-﻿using GameTemplate.ChessGame.ChessEnums;
+﻿using GameTemplate.ChessEnums;
+using GameTemplate.ChessGame.ChessEnums;
 using GameTemplate.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace GameTemplate.Interfaces
         /// <summary>
         /// Цвет фигуры
         /// </summary>
-        Color Color { get; }
+        FColor Color { get; }
 
         /// <summary>
         /// Может ли фигура сходить из клетки с координатами from в клетку с координатами to
@@ -26,8 +27,6 @@ namespace GameTemplate.Interfaces
         /// </summary>
         /// <param name="location"></param>
         /// <returns></returns>
-        List<Point> GetAllCells(Point location);
         List<Point> GetCells(Point location, IReadOnlyField field);
-
     }
 }

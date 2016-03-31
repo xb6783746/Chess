@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using GameTemplate.ChessGame.ChessEnums;
 using System.Drawing;
 using GameTemplate.Interfaces;
+using GameTemplate.ChessEnums;
 
 namespace GameTemplate.ChessGame.ChessFigures
 {
@@ -15,18 +16,18 @@ namespace GameTemplate.ChessGame.ChessFigures
     [Serializable]
     class King : IChessFigure
     {
-        public King(Color color)
+        public King(FColor color)
         {
             this.color = color;
         }
 
-        private Color color;
+        private FColor color;
 
         public ChessFType Type
         {
             get { return ChessFType.King; }
         }
-        public Color Color
+        public FColor Color
         {
             get { return color; }
         }
@@ -35,22 +36,7 @@ namespace GameTemplate.ChessGame.ChessFigures
         {
             return GetCells(from, field).Contains(to);
         }
-        public List<Point> GetAllCells(Point location)
-        {
-            List<Point> cells = new List<Point>();
-            if (location.X - 1 >= 0)
-            {
-                cells.Add(new Point(location.X - 1, location.Y));
-            }
-
-            if (location.X + 1 < 8)
-            {
-                cells.Add(new Point(location.X + 1, location.Y));
-            }
-            cells.AddRange(Cells(location, 1));
-            cells.AddRange(Cells(location, -1));
-            return cells;
-        }
+        
         public List<Point> GetCells(Point location, IReadOnlyField field)
         {
             List<Point> cells = GetAllCells(location);
@@ -66,7 +52,22 @@ namespace GameTemplate.ChessGame.ChessFigures
 
             return cells;
         }
+        private List<Point> GetAllCells(Point location)
+        {
+            List<Point> cells = new List<Point>();
+            if (location.X - 1 >= 0)
+            {
+                cells.Add(new Point(location.X - 1, location.Y));
+            }
 
+            if (location.X + 1 < 8)
+            {
+                cells.Add(new Point(location.X + 1, location.Y));
+            }
+            cells.AddRange(Cells(location, 1));
+            cells.AddRange(Cells(location, -1));
+            return cells;
+        }
         private List<Point> Cells(Point start, int stepY)
         {
             List<Point> temp = new List<Point>();

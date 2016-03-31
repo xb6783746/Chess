@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using GameTemplate.ChessGame.ChessEnums;
 using System.Drawing;
 using GameTemplate.Interfaces;
+using GameTemplate.ChessEnums;
 
 namespace GameTemplate.ChessGame.ChessFigures
 {
@@ -14,14 +15,14 @@ namespace GameTemplate.ChessGame.ChessFigures
     /// </summary>
     class Pawn : IChessFigure
     {
-        public Pawn(Color color)
+        public Pawn(FColor color)
         {
             this.color = color;
         }
 
-        private Color color;
+        private FColor color;
 
-        public Color Color
+        public FColor Color
         {
             get { return color; }
         }
@@ -33,15 +34,6 @@ namespace GameTemplate.ChessGame.ChessFigures
         public bool Step(Point from, Point to, IReadOnlyField field)
         {
             return GetCells(from, field).Contains(to);
-        }
-        public List<Point> GetAllCells(Point location)
-        {
-            List<Point> cells = new List<Point>();
-
-            if (location.X + 1 < 8)
-                cells.Add(new Point(location.X + 1, location.Y));
-
-            return cells;
         }
         public List<Point> GetCells(Point location, IReadOnlyField field)
         {
@@ -58,6 +50,15 @@ namespace GameTemplate.ChessGame.ChessFigures
 
             Cell(ref cells, location, field, -1);
             Cell(ref cells, location, field, 1);
+
+            return cells;
+        }
+        private List<Point> GetAllCells(Point location)
+        {
+            List<Point> cells = new List<Point>();
+
+            if (location.X + 1 < 8)
+                cells.Add(new Point(location.X + 1, location.Y));
 
             return cells;
         }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using GameTemplate.ChessGame.ChessEnums;
 using System.Drawing;
 using GameTemplate.Interfaces;
+using GameTemplate.ChessEnums;
 
 namespace GameTemplate.ChessGame.ChessFigures
 {
@@ -14,18 +15,18 @@ namespace GameTemplate.ChessGame.ChessFigures
     /// </summary>
     class Queen : IChessFigure
     {
-        public Queen(Color color)
+        public Queen(FColor color)
         {
             this.color = color;
         }
 
-        private Color color;
+        private FColor color;
 
         public ChessFType Type
         {
             get { return ChessFType.Queen; }
         }
-        public Color Color
+        public FColor Color
         {
             get { return color; }
         }
@@ -33,22 +34,6 @@ namespace GameTemplate.ChessGame.ChessFigures
         public bool Step(Point from, Point to, IReadOnlyField field)
         {
             return GetCells(from, field).Contains(to);
-        }
-        public List<Point> GetAllCells(Point location)
-        {
-            List<Point> cells = new List<Point>();
-
-            cells.AddRange(Cells(location, 0, 1));
-            cells.AddRange(Cells(location, 1, 0));
-            cells.AddRange(Cells(location, 0, -1));
-            cells.AddRange(Cells(location, -1, 0));
-
-            cells.AddRange(Cells(location, 1, 1));
-            cells.AddRange(Cells(location, -1, 1));
-            cells.AddRange(Cells(location, -1, -1));
-            cells.AddRange(Cells(location, 1, -1));
-
-            return cells;
         }
         public List<Point> GetCells(Point location, IReadOnlyField field)
         {
@@ -62,6 +47,22 @@ namespace GameTemplate.ChessGame.ChessFigures
                     cells.Remove(temp);
                 }
             }
+
+            return cells;
+        }
+        private List<Point> GetAllCells(Point location)
+        {
+            List<Point> cells = new List<Point>();
+
+            cells.AddRange(Cells(location, 0, 1));
+            cells.AddRange(Cells(location, 1, 0));
+            cells.AddRange(Cells(location, 0, -1));
+            cells.AddRange(Cells(location, -1, 0));
+
+            cells.AddRange(Cells(location, 1, 1));
+            cells.AddRange(Cells(location, -1, 1));
+            cells.AddRange(Cells(location, -1, -1));
+            cells.AddRange(Cells(location, 1, -1));
 
             return cells;
         }

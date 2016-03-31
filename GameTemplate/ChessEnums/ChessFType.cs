@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameTemplate.ChessGame.ChessEnums
 {
+    [Serializable]
     public enum ChessFType
     {
         King, //Король

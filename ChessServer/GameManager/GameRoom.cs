@@ -9,8 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChessServer.GameManager
+namespace ChessServer.Managers
 {
+    [Serializable]
     class GameRoom
     {
         public GameRoom(IGamer first, IGamer second, IClientFacade facade, 
@@ -45,7 +46,7 @@ namespace ChessServer.GameManager
                 foreach (var item in watchers)
                 {
                     clientFacade.Update(
-                        game.Field, 
+                        game.Field.GetFiguresOnBoard(), 
                         new StepInfo(new Point(), new Point()), 
                         item.Id);
                 }

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace ChessServer.Clients
 {
+    [Serializable]
     class RemoteGamer :IGamer
     {
         public RemoteGamer()
@@ -20,6 +21,7 @@ namespace ChessServer.Clients
         private IGame game;
         private Color color;
         private StepInfo step;
+        [NonSerialized]
         private EventWaitHandle wait;
         private bool isWait;
 

@@ -37,7 +37,7 @@ namespace ChessClient.Network
 
         public void StartRandomGame()
         {
-            Message mesg = new Message("StartGame", null);
+            Message mesg = new Message("RandomGame");
 
             SendMessage(mesg);
         }
@@ -47,7 +47,9 @@ namespace ChessClient.Network
         }
         public void MakeStep(StepInfo step)
         {
-            throw new NotImplementedException();
+            Message m = new Message("NewStep", step);
+
+            SendMessage(m);
         }
         public void SendMessage(ChatMessage msg)
         {

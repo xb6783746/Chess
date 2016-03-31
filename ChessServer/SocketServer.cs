@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace ChessServer
 {
+    [Serializable]
     class SocketServer : IServer
     {
         public SocketServer(IClientManager clientManager, IIDManager idManager)
@@ -81,17 +82,17 @@ namespace ChessServer
             byte[] arr = new byte[packetLenght];
             int len;
 
-            try
-            {
+           // try
+           // {
                 while (true)
                 {
                     len = socket.Receive(arr);
 
                     Receive(arr.Take(len).ToArray(), id);
                 }
-            }
-            catch
-            {
+           // }
+            //catch
+           // {
                 clientManager.Disconnect(id);
 
                 lock (lck)
@@ -99,7 +100,7 @@ namespace ChessServer
                     clients.Remove(id);
                 }
                 idManager.Delete(id);
-            }
+           // }
 
         }
 

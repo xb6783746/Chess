@@ -12,6 +12,7 @@ namespace GameTemplate.ChessGame.ChessFigures
     /// <summary>
     /// Класс Ладьи
     /// </summary>
+    [Serializable]
     class Rook : IChessFigure
     {
         public Rook(Color color)

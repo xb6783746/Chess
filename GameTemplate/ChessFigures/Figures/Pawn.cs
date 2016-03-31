@@ -12,6 +12,7 @@ namespace GameTemplate.ChessGame.ChessFigures
     /// <summary>
     /// Класс пешки
     /// </summary>
+    [Serializable]
     class Pawn : IChessFigure
     {
         public Pawn(Color color)
@@ -38,8 +39,14 @@ namespace GameTemplate.ChessGame.ChessFigures
         {
             List<Point> cells = new List<Point>();
 
-            if (location.X + 1 < 8)
-                cells.Add(new Point(location.X + 1, location.Y));
+            if (location.Y - 1 >= 0)
+            {
+                cells.Add(new Point(location.X, location.Y - 1));
+            }
+            if (location.Y + 1 <= 7)
+            {
+                cells.Add(new Point(location.X, location.Y + 1));
+            }
 
             return cells;
         }
@@ -47,17 +54,18 @@ namespace GameTemplate.ChessGame.ChessFigures
         {
             List<Point> cells = GetAllCells(location);
             Point temp;
+
             for (int i = 0; i < cells.Count; i++)
             {
-                temp = new Point(cells[i].X, cells[i].Y);
-                if (field[temp].Color == color)
+                temp = cells[i];
+                if (field[temp] != null && field[temp].Color == color)
                 {
                     cells.Remove(temp);
                 }
             }
 
-            Cell(ref cells, location, field, -1);
-            Cell(ref cells, location, field, 1);
+            //Cell(ref cells, location, field, -1);
+            //Cell(ref cells, location, field, 1);
 
             return cells;
         }

@@ -38,7 +38,7 @@ namespace ChessClient.Controllers
             screens.Add(ScreenType.LogIn, login);
             this.LoginController = login;
 
-            var wait = new WaitScreenController();
+            var wait = new WaitScreenController(mainForm, facade);
             screens.Add(ScreenType.Wait, wait);
         }
 

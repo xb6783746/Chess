@@ -10,9 +10,10 @@ namespace ChessServer.Facade
 {
     class ServerFacade :IServerFacade
     {
-        public ServerFacade(IChatManager chatManager, IClientManager clientManager)
+        public ServerFacade(IChatManager chatManager, IClientManager clientManager, IGameManager gameManager)
         {
             this.chatManager = chatManager;
+            this.gameManager = gameManager;
             this.clientManager = clientManager;
         }
 
@@ -44,7 +45,11 @@ namespace ChessServer.Facade
 
         public void RandomGame(int id)
         {
-            gameManager.RandomGame(id);
+            var gamer = clientManager.GetClient(id);
+            if (gamer != null)
+            {
+                gameManager.RandomGame(gamer);
+            }
         }
     }
 }

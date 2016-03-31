@@ -12,6 +12,7 @@ using GameTemplate;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using Network;
+using GameTemplate.ChessGame.ChessField;
 
 namespace GameScreen
 {
@@ -22,6 +23,7 @@ namespace GameScreen
         private Point? from;
         private Point? to;
         private Bitmap picture;
+        private int cellSize = 600 / 8;
 
         public GameScreen()
         {
@@ -41,12 +43,12 @@ namespace GameScreen
         {
             if (from == null)
             {
-                from = e.Location;
+                from = new Point(e.X / cellSize, e.Y / cellSize);
                 return;
             }
             if (to == null)
             {
-                to = e.Location;
+                to = new Point(e.X / cellSize, e.Y / cellSize);
             }
 
             Step(new StepInfo(from.Value, to.Value));
@@ -77,9 +79,11 @@ namespace GameScreen
         public void StartGame(Color color)
         {
             MessageBox.Show("Вы играете за {0} цвет", color.ToString());
+
+            UpdateField(ChessField.Empty.GetFiguresOnBoard());
         }
 
-        public void UpdateField(IReadOnlyField f)
+        public void UpdateField(IReadOnlyList<FigureOnBoard> f)
         {
             render.UpdateField(picture, f);
             GameBox.Image = picture;

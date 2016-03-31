@@ -12,6 +12,7 @@ namespace GameTemplate.ChessGame.ChessFigures
     /// <summary>
     /// Класс Ферзя
     /// </summary>
+    [Serializable] 
     class Queen : IChessFigure
     {
         public Queen(Color color)

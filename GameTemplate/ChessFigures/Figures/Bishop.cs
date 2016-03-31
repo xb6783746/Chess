@@ -13,6 +13,7 @@ namespace GameTemplate.ChessGame.ChessFigures
     /// <summary>
     /// Класс Слона
     /// </summary>
+    [Serializable]
     class Bishop : IChessFigure
     {
         public Bishop(Color color)

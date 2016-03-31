@@ -12,6 +12,7 @@ namespace GameTemplate.Game
     /// Представление фигуры в контексте игрового поля
     /// </summary>
     /// <typeparam name="T">Интерфейс фигур на доске</typeparam>
+    [Serializable]
     public struct FigureOnBoard
     {
         public FigureOnBoard(IChessFigure figure, Point location)

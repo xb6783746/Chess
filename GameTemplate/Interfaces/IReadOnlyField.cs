@@ -26,10 +26,5 @@ namespace GameTemplate.Interfaces
         /// Получить все вышедшие из игры фигуры
         /// </summary>
         IReadOnlyDictionary<IChessFigure, int> GetDiedFigures();
-
-        /// <summary>
-        /// Событие завершения игры
-        /// </summary>
-        event Action<FColor> GameOver;
     }
 }

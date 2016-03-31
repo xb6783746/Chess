@@ -86,7 +86,7 @@ namespace GameScreen
 
         public void UpdateField(ChessState state)
         {
-            render.UpdateField(picture, state.Figures);
+            render.UpdateField(picture, state.Figures.GetFiguresOnBoard());
             GameBox.Image = picture;
         }
 

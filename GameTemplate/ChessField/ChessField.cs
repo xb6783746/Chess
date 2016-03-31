@@ -1,4 +1,5 @@
 ﻿using GameTemplate.ChessEnums;
+using GameTemplate.ChessField;
 using GameTemplate.ChessGame.ChessEnums;
 using GameTemplate.ChessGame.ChessFigures;
 using GameTemplate.Game;
@@ -105,7 +106,7 @@ namespace GameTemplate.ChessGame.ChessField
         }
         public IReadOnlyField GetReadOnlyField()
         {
-            return this;
+            return new ROField(field, diedFigures);
         }
 
         public event Action<FColor> GameOver;

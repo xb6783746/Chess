@@ -1,4 +1,5 @@
 ﻿using ChessServer.Interfaces;
+using GameTemplate.ChessEnums;
 using GameTemplate.ChessGame.ChessField;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
@@ -52,7 +53,7 @@ namespace ChessServer.Managers
                 }
             }
         }
-        private void GameOver(Color color)
+        private void GameOver(FColor color)
         {
             //послать сообщение об конце игры
 
@@ -60,7 +61,10 @@ namespace ChessServer.Managers
         }
         private ChessState GetState()
         {
-            return new ChessState(game.Field.GetFiguresOnBoard(), new StepInfo(new Point(), new Point()));
+            return new ChessState(
+                game.Field.GetFiguresOnBoard(), 
+                game.LastStep, 
+                game.Turn);
         }
 
         public event Action<int> RoomClosed;

@@ -1,4 +1,5 @@
 ﻿using GameTemplate.ChessEnums;
+using GameTemplate.Game;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -22,6 +23,8 @@ namespace GameTemplate.Interfaces
         /// Игровое поле
         /// </summary>
         IReadOnlyField Field { get; }
+        FColor Turn { get; }
+        StepInfo LastStep { get; }
 
         /// <summary>
         /// Событие изменения состояния игры

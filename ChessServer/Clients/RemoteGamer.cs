@@ -1,4 +1,5 @@
 ﻿using ChessServer.Interfaces;
+using GameTemplate.ChessEnums;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using System;
@@ -20,7 +21,7 @@ namespace ChessServer.Clients
         }
 
         private IGame game;
-        private Color color;
+        private FColor color;
         private StepInfo step;
         [NonSerialized]
         private EventWaitHandle wait;
@@ -37,12 +38,12 @@ namespace ChessServer.Clients
             }
         }
 
-        public System.Drawing.Color Color
+        public FColor Color
         {
             get { return color; }
         }
 
-        public void Init(IGame game, System.Drawing.Color color)
+        public void Init(IGame game, FColor color)
         {
             this.game = game;
             this.color = color;

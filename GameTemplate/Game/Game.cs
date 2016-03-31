@@ -63,6 +63,8 @@ namespace GameTemplate.Game
         {
             get { return field.GetReadOnlyField(); }
         }
+        public FColor Turn { get; private set; }
+        public StepInfo LastStep { get; private set; }
 
         /// <summary>
         /// Запуск игры
@@ -77,6 +79,10 @@ namespace GameTemplate.Game
                 NextStep(current);
 
                 gamerQueue.Enqueue(current);
+
+                Turn = gamerQueue.Peek().Color;
+
+                Change();
             }
 
         }
@@ -94,10 +100,7 @@ namespace GameTemplate.Game
             } 
             while (!field.MakeStep(step));
 
-            if (Change != null)
-            {
-                Change();
-            }
+            LastStep = step;           
         }
         /// <summary>
         /// Обработчик события завершения игры (из игрового поля)

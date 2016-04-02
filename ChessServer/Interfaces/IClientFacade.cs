@@ -1,4 +1,5 @@
-﻿using GameTemplate.Game;
+﻿using GameTemplate.ChessEnums;
+using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using Network;
 using System;
@@ -16,7 +17,7 @@ namespace ChessServer.Interfaces
         void LoginResult(bool result, string message, int id);
 
         void Wait(int id);
-        void StartGame(IReadOnlyField field, Color color, int id);
+        void StartGame(IReadOnlyField field, FColor color, int id);
         void Update(ChessState state, int id);
     }
 }

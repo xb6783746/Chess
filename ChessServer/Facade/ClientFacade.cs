@@ -1,4 +1,5 @@
 ﻿using ChessServer.Interfaces;
+using GameTemplate.ChessEnums;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using Network;
@@ -68,7 +69,7 @@ namespace ChessServer.Facade
 
             SendMessage(m, id);
         }
-        public void StartGame(IReadOnlyField field, Color color, int id)
+        public void StartGame(IReadOnlyField field, FColor color, int id)
         {
             Message m = new Message("StartGame", field, color);
 

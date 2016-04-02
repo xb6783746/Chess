@@ -1,4 +1,5 @@
 ﻿using ChessServer.Interfaces;
+using GameTemplate.ChessEnums;
 using GameTemplate.ChessGame.ChessField;
 using GameTemplate.ChessGame.ChessFigures;
 using GameTemplate.Interfaces;
@@ -67,8 +68,8 @@ namespace ChessServer.Managers
         {
             lock (key)
             {
-                clientFacade.StartGame(startField, Color.White, first.Id);
-                clientFacade.StartGame(startField, Color.Black, second.Id);
+                clientFacade.StartGame(startField, FColor.White, first.Id);
+                clientFacade.StartGame(startField, FColor.Black, second.Id);
 
                 var room = new GameRoom(first.Gamer, second.Gamer, clientFacade, chessPool, gameRooms.Count + 1);
                 room.AddWatcher(first);

@@ -13,7 +13,7 @@ namespace GameTemplate.ChessGame.ChessFigures
     /// <summary>
     /// Класс коня
     /// </summary>
-    [Serializable] 
+    [Serializable]
     class Knight : IChessFigure
     {
         public Knight(FColor color)
@@ -31,12 +31,12 @@ namespace GameTemplate.ChessGame.ChessFigures
         {
             get { return color; }
         }
-    
+
         public bool Step(Point from, Point to, IReadOnlyField field)
         {
             return GetCells(from, field).Contains(to);
         }
-        
+
         public List<Point> GetCells(Point location, IReadOnlyField field)
         {
             List<Point> cells = GetAllCells(location);
@@ -67,7 +67,7 @@ namespace GameTemplate.ChessGame.ChessFigures
         private List<Point> Cells(Point start, int stepX, int shift) /// ????
         {
             List<Point> temp = new List<Point>();
-            if (start.X + stepX < 8)
+            if (start.X + stepX < 8 && start.X + stepX >= 0)
             {
                 if (start.Y + shift < 8)
                 {

@@ -48,7 +48,7 @@ namespace ChessClient.Facade.States
         {
             throw new NotImplementedException();
         }
-        public void GameOver(bool win)
+        public void GameOver(FColor win)
         {
             throw new NotImplementedException();
         }

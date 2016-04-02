@@ -40,5 +40,11 @@ namespace GameTemplate.Game
 
             throw new Exception();
         }
+
+
+        public void GameOver(FColor winner)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

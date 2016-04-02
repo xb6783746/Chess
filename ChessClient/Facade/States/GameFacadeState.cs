@@ -49,9 +49,11 @@ namespace ChessClient.Facade.States
         {
             manager.GameController.Step(state);
         }
-        public void GameOver(bool win)
+        public void GameOver(FColor win)
         {
             manager.GameController.GameOver(win);
+
+            Switch(ClientState.Online);
         }
         public void Waiting()
         {

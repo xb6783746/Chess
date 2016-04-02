@@ -19,5 +19,6 @@ namespace ChessServer.Interfaces
         void Wait(int id);
         void StartGame(IReadOnlyField field, FColor color, int id);
         void Update(ChessState state, int id);
+        void GameOver(FColor win, int id);
     }
 }

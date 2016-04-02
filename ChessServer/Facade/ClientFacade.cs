@@ -75,6 +75,12 @@ namespace ChessServer.Facade
 
             SendMessage(m, id);
         }
+        public void GameOver(FColor win, int id)
+        {
+            var m = new Message("GameOver", win);
+
+            SendMessage(m, id);
+        }
         public void Wait(int id)
         {
             Message m = new Message("Waiting");

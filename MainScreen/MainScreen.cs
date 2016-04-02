@@ -64,9 +64,9 @@ namespace MainScreen
             this.gameWithButton = new System.Windows.Forms.Button();
             this.watchForButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.chatScreen = new ClientAPI.ChatScreen();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.window = new tmp.ModalWindow();
+            this.chatScreen = new ClientAPI.ChatScreen();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -110,22 +110,15 @@ namespace MainScreen
             this.panel1.Controls.Add(this.watchForButton);
             this.panel1.Controls.Add(this.gameWithButton);
             this.panel1.Controls.Add(this.startRandomGameButton);
-            this.panel1.Location = new System.Drawing.Point(0, 3);
+            this.panel1.Location = new System.Drawing.Point(19, 17);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(503, 456);
+            this.panel1.Size = new System.Drawing.Size(479, 453);
             this.panel1.TabIndex = 7;
-            // 
-            // chatScreen
-            // 
-            this.chatScreen.Location = new System.Drawing.Point(14, 247);
-            this.chatScreen.Name = "chatScreen";
-            this.chatScreen.Size = new System.Drawing.Size(301, 206);
-            this.chatScreen.TabIndex = 8;
             // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(16, 13);
+            this.listBox1.Location = new System.Drawing.Point(3, 3);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(299, 225);
             this.listBox1.TabIndex = 7;
@@ -134,19 +127,26 @@ namespace MainScreen
             // 
             this.window.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.window.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.window.Location = new System.Drawing.Point(26, 27);
+            this.window.Location = new System.Drawing.Point(41, 32);
             this.window.Name = "window";
             this.window.Size = new System.Drawing.Size(437, 377);
             this.window.TabIndex = 8;
             this.window.Visible = false;
             this.window.Load += new System.EventHandler(this.window_Load);
             // 
+            // chatScreen
+            // 
+            this.chatScreen.Location = new System.Drawing.Point(3, 234);
+            this.chatScreen.Name = "chatScreen";
+            this.chatScreen.Size = new System.Drawing.Size(301, 206);
+            this.chatScreen.TabIndex = 8;
+            // 
             // MainScreen
             // 
             this.Controls.Add(this.window);
             this.Controls.Add(this.panel1);
             this.Name = "MainScreen";
-            this.Size = new System.Drawing.Size(510, 468);
+            this.Size = new System.Drawing.Size(525, 485);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -189,14 +189,14 @@ namespace MainScreen
             selectedEvent = GameWith;
 
             window.Visible = true;
-            panel1.Enabled = false;
+            panel1.Visible = false;
         }
         private void watchForButton_Click(object sender, EventArgs e)
         {
             selectedEvent = WatchForGamer;
 
             window.Visible = true;
-            panel1.Enabled = false;
+            panel1.Visible = false;
         }
         private void startRandomGameButton_Click(object sender, EventArgs e)
         {
@@ -212,14 +212,14 @@ namespace MainScreen
 
             selectedEvent = null;
 
-            panel1.Enabled = true;
+            panel1.Visible = true;
             window.Visible = false;
         }
         private void Cancel()
         {
             selectedEvent = null;
 
-            panel1.Enabled = true;
+            panel1.Visible = true;
             window.Visible = false;
         }
 

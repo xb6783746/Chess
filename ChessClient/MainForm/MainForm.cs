@@ -18,7 +18,16 @@ namespace ChessClient
             InitializeComponent();
 
             clearAction = () => Controls.Clear();
-            addAction = () => Controls.Add(control);
+            addAction = () =>
+            {
+                this.Width = control.Width;
+                this.Height = control.Height + 20;
+
+                //Position(control);
+
+                Controls.Add(control);
+                
+            };
         }
 
         private UserControl control;
@@ -39,8 +48,6 @@ namespace ChessClient
                 control = value;
                 if (control != null)
                 {
-                    Position(control);
-
                     IfInvoke(addAction);
                 }
 

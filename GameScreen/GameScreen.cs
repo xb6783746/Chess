@@ -96,18 +96,10 @@ namespace GameScreen
         }
 
 
-        public void GameOver(bool win)
+        public void GameOver(FColor win)
         {
-            string end;
-            if (win)
-            {
-                end = "Выиграли";
-            }
-            else
-            {
-                end = "Проиграли";
-            }
-            MessageBox.Show("Вы " + end);
+            string end = win == FColor.Black ? "Черные" : "Белые";
+            MessageBox.Show("Победили " + end);
         }
 
         public void SetRender(IRender r)

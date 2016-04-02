@@ -62,7 +62,7 @@ namespace ChessClient.Controllers
         {
             current.UpdateField(state);
         }
-        public void GameOver(bool win)
+        public void GameOver(FColor win)
         {
             current.GameOver(win);
         }

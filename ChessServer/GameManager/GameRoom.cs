@@ -57,7 +57,10 @@ namespace ChessServer.Managers
         }
         private void GameOver(FColor color)
         {
-            //послать сообщение об конце игры
+            foreach (var item in watchers)
+            {
+                clientFacade.GameOver(color, item.Id);
+            }
 
             RoomClosed(RoomId);
         }

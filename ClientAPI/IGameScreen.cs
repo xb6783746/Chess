@@ -20,7 +20,7 @@ namespace ClientAPI
         void StartGame(IReadOnlyField figures, FColor color);
         void UpdateField(ChessState state);
         void SetRender(IRender r);
-        void GameOver(bool win);
+        void GameOver(FColor win);
     }
 
     //public abstract class AbstractGameScreen : UserControl, IMessenger

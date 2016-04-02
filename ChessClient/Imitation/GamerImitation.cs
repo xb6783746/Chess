@@ -55,5 +55,11 @@ namespace ChessClient.Imitation
         public event Action InitAction;
         public event Action Step;
 
+
+
+        public void GameOver(FColor winner)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -87,7 +87,7 @@ namespace ChessClient.Network
         }
         public void Surrender()
         {
-            clientFacade.GameOver(false);
+            //clientFacade.GameOver(false);
         }
         public void Accept()
         {

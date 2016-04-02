@@ -21,7 +21,7 @@ namespace ChessClient.Interfaces
 
         void UpdateField(ChessState state);
 
-        void GameOver(bool win);
+        void GameOver(FColor winner);
         void Waiting();
     }
 }

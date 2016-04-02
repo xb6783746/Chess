@@ -34,7 +34,7 @@ namespace GameScreen
         {
             InitializeComponent();
 
-            chatScreen1.Send += Send;
+            chatScreen1.Send += (x) => Send(x);
             from = new Point();
             picture = new Bitmap(GameBox.Height, GameBox.Width);
         }

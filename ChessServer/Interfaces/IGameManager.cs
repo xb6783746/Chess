@@ -8,6 +8,8 @@ namespace ChessServer.Interfaces
 {
     interface IGameManager
     {
+        List<IClient> Watchers(int roomId);
+
         void RandomGame(IClient gamer);
         void RequestGame(IClient who, IClient gamer);
         void WatchFor(IClient gamer, int game);

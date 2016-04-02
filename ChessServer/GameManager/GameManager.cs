@@ -19,6 +19,7 @@ namespace ChessServer.Managers
             playerWait = new List<IClient>();
             gameRooms = new List<GameRoom>();
             this.chessPool = new ChessFiguresPool();
+
             this.clientFacade = clientFacade;
             key = new object();
         }
@@ -30,6 +31,12 @@ namespace ChessServer.Managers
         private IReadOnlyField startField = ChessField.Empty;
         private object key;
 
+        public List<IClient> Watchers(int roomId)
+        {
+            var room = gameRooms.FirstOrDefault((x) => x.RoomId == roomId);
+
+            return room == null ? null : room.Watchers;
+        }
         public void RandomGame(IClient gamer)
         {
             playerWait.Add(gamer);
@@ -42,12 +49,10 @@ namespace ChessServer.Managers
                 playerWait.Clear();
             }
         }
-
         public void RequestGame(IClient who, IClient gamer)
         {
            // CreateRoom(who, gamer);
         }
-
         public void WatchFor(IClient gamerId, int gameId)
         {
             if (gameId < gameRooms.Count)
@@ -77,10 +82,9 @@ namespace ChessServer.Managers
 
                 gameRooms.Add(room);
 
-                GameStart(first.Id);
-                GameStart(second.Id);
+                GameStart(room.RoomId);
             }
         }
-
+       
     }
 }

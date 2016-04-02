@@ -36,10 +36,12 @@ namespace ChessServer.Managers
 
         public int RoomId { get; private set; }
 
+        public List<IClient> Watchers { get { return watchers; } }
         public void AddWatcher(IClient watcher)
         {
             watchers.Add(watcher);
         }
+        public event Action<int> RoomClosed;
 
         private void Update()
         {
@@ -65,8 +67,6 @@ namespace ChessServer.Managers
                 game.Field, 
                 game.LastStep, 
                 game.Turn);
-        }
-
-        public event Action<int> RoomClosed;
+        }       
     }
 }

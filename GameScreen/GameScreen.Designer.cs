@@ -308,7 +308,7 @@
             this.Controls.Add(this.ConcedeButton);
             this.Controls.Add(this.GameBox);
             this.Name = "GameScreen";
-            this.Size = new System.Drawing.Size(974, 653);
+            this.Size = new System.Drawing.Size(1000, 653);
             ((System.ComponentModel.ISupportInitialize)(this.GameBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -117,9 +117,7 @@ namespace GameScreen
 
         public void StartGame(IReadOnlyField figures, FColor color)
         {
-            string cl = color.ToString();
-            MessageBox.Show("Вы играете за" + cl + "цвет");
-            this.color = color;
+            Color(color);
             YourTurn = (this.color == FColor.White);
 
             field = figures;
@@ -156,6 +154,11 @@ namespace GameScreen
         {
             render.UpdateField(picture, field.GetFiguresOnBoard());
             GameBox.Image = picture;
+        }
+        private void Color(FColor color)
+        {
+            this.color = color;
+            YourColor.Text += color.ToString();
         }
     }
 }

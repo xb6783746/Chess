@@ -51,6 +51,7 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.chatScreen1 = new ClientAPI.ChatScreen();
+            this.YourColor = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.GameBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -280,10 +281,21 @@
             this.chatScreen1.Size = new System.Drawing.Size(304, 215);
             this.chatScreen1.TabIndex = 28;
             // 
+            // YourColor
+            // 
+            this.YourColor.AutoSize = true;
+            this.YourColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.YourColor.Location = new System.Drawing.Point(647, 596);
+            this.YourColor.Name = "YourColor";
+            this.YourColor.Size = new System.Drawing.Size(90, 20);
+            this.YourColor.TabIndex = 29;
+            this.YourColor.Text = "Ваш цвет: ";
+            // 
             // GameScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.YourColor);
             this.Controls.Add(this.chatScreen1);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.listBox1);
@@ -340,5 +352,6 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ListBox listBox2;
         private ClientAPI.ChatScreen chatScreen1;
+        private System.Windows.Forms.Label YourColor;
     }
 }

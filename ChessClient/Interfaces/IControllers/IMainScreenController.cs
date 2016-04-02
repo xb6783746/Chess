@@ -11,5 +11,6 @@ namespace ChessClient.Interfaces.IControllers
     {
         void Challenge(string from);
         void Message(ChatMessage msg);
+        void SetNick(string nick);
     }
 }

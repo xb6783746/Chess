@@ -9,30 +9,37 @@ namespace ChessServer.IdManager
 {
     public class IDManager : IIDManager
     {
-        private int count;
-        private Stack<int> freedID;
-
         public IDManager()
         {
             count = 0;
             freedID = new Stack<int>();
         }
 
+        private int count;
+        private Stack<int> freedID;
+        private object lck = new object();
+
         public int GetId()
         {
-            if (freedID.Count != 0)
+            lock (lck)
             {
-                return freedID.Pop();
-            }
-            else
-            {
-                count++;
-                return count;
+                if (freedID.Count != 0)
+                {
+                    return freedID.Pop();
+                }
+                else
+                {
+                    count++;
+                    return count;
+                }
             }
         }
         public void Delete(int id)
         {
-            freedID.Push(id);
+            lock (lck)
+            {
+                freedID.Push(id);
+            }
         }
     }
 }

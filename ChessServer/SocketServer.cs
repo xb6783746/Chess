@@ -29,7 +29,7 @@ namespace ChessServer
         private object lck = new object();
 
         private int max = 10;
-        private int packetLenght = 1024;
+        private int packetLenght = 5024;
         private int port = 8888;
 
         public void Start()
@@ -77,6 +77,7 @@ namespace ChessServer
                 }
             }
         }
+
         private void Listen(int id, Socket socket)
         {
             byte[] arr = new byte[packetLenght];
@@ -99,6 +100,7 @@ namespace ChessServer
                 {
                     clients.Remove(id);
                 }
+
                 idManager.Delete(id);
             }
 

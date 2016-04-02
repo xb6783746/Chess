@@ -135,58 +135,54 @@ namespace ChessServer.Chat
 
         public void Message(ChatMessage message, int id)
         {
+            var sender = rooms.FirstOrDefault((x) => x.Client.Id == id);
+            if (sender == null)
+            {
+                return;
+            }
+
             if (message.Type == ChatMessageType.Private)
             {
-                PrivateMessage(message, id);
+                PrivateMessage(sender, message, id);
             }
             else
             {
-                PublicMessage(message, id);
+                PublicMessage(sender, message, id);
             }
         }
 
-        private void PrivateMessage(ChatMessage message, int id)
+        private void PrivateMessage(ClientInChat sender, ChatMessage message, int id)
         {
-            var sender = rooms.FirstOrDefault((x) => x.Client.Id == id);
             var to = rooms.FirstOrDefault((x) => x.Client.Nick == message.To);
+            message.From = sender.Client.Nick;
 
-            if (sender != null)
+            if (to == null)
             {
-                message.From = sender.Client.Nick;
+                var sysMess = new ChatMessage(
+                    "System",
+                    sender.Client.Nick,
+                    ChatMessageType.System,
+                    "Игрок с таким ником не существует"
+                    );
 
-                if (to == null)
-                {
-                    var sysMess = new ChatMessage(
-                        "System",
-                        sender.Client.Nick,
-                        ChatMessageType.System,
-                        "Игрок с таким ником не существует"
-                        );
-
-                    clientFacade.Message(sysMess, sender.Client.Id);
-                }
-                else
-                {
-                    clientFacade.Message(message, to.Client.Id);
-                }
+                clientFacade.Message(sysMess, sender.Client.Id);
             }
-
+            else
+            {
+                clientFacade.Message(message, to.Client.Id);
+            }
         }
-        private void PublicMessage(ChatMessage message, int id)
+        private void PublicMessage(ClientInChat sender, ChatMessage message, int id)
         {
-            var sender = rooms.FirstOrDefault((x) => x.Client.Id == id);
+            message.From = sender.Client.Nick;
 
-            if (sender != null)
+            var clients = rooms.Where((x) => x.RoomId == sender.RoomId && x.Client.Id != id);
+
+            foreach (var client in clients)
             {
-                message.From = sender.Client.Nick;
-
-                var clients = rooms.Where((x) => x.RoomId == sender.RoomId && x.Client.Id != id);
-
-                foreach (var client in clients)
-                {
-                    clientFacade.Message(message, client.Client.Id);
-                }
+                clientFacade.Message(message, client.Client.Id);
             }
+
         }
         private void NewClient(IClient client)
         {
@@ -195,6 +191,20 @@ namespace ChessServer.Chat
                 rooms.Add(
                     new ClientInChat(client, mainRoomId)
                     );
+
+                var clients = rooms.Where((x) => x.RoomId == mainRoomId);
+
+                ChatMessage m = new ChatMessage(
+                    "System",
+                    "",
+                    ChatMessageType.System,
+                    client.Nick + " вошел в игру"
+                    );
+
+                foreach (var cl in clients)
+                {
+                    clientFacade.Message(m, cl.Client.Id);
+                }
             }
         }
         private void Disconnected(IClient client)

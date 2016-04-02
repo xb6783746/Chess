@@ -26,6 +26,10 @@ namespace ChessClient.Controllers
         {
             mainScreen.Receive(msg);
         }
+        public void SetNick(string nick)
+        {
+            mainScreen.Nick = nick;
+        }
 
 
         private IMainScreen mainScreen;

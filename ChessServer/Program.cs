@@ -18,7 +18,6 @@ namespace ChessServer
     {
         static void Main(string[] args)
         {
-            //Test();
 
             var idManager = new IDManager();
             var clientFacade = new ClientFacade();
@@ -30,19 +29,10 @@ namespace ChessServer
 
             clientFacade.Init(server, serverFacade);
 
-            server.Start();
+            Task.Run(() => server.Start());
+
+            while (Console.ReadLine().ToLower() != "stop") ;
            
-        }
-
-        static void Test()
-        {
-            var field = new ChessField(new ChessFiguresPool());
-
-            using (var stream = new MemoryStream())
-            {
-                var formatter = new BinaryFormatter();
-                formatter.Serialize(stream, field);
-            }
         }
     }
 }

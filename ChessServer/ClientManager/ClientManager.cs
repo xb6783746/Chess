@@ -15,9 +15,12 @@ namespace ChessServer.Managers
         public ClientManager(IClientFacade clientFacade)
         {
             clients = new Dictionary<int, IClient>();
+            withoutNick = new Dictionary<int, IClient>();
+
             this.clientFacade = clientFacade;
         }
 
+        private Dictionary<int, IClient> withoutNick;
         private Dictionary<int, IClient> clients;
         private IClientFacade clientFacade;
         private object lck = new object();
@@ -27,14 +30,9 @@ namespace ChessServer.Managers
             IClient client = new Client(id, clientFacade);
             lock (lck)
             {
-                clients.Add(id, client);
+                withoutNick.Add(id, client);
             }
-
-            client.LoginResult(true, "");
-
-            Connected(client);
         }
-
         public void Disconnect(int id)
         {           
             Disconnected(clients[id]);
@@ -44,18 +42,24 @@ namespace ChessServer.Managers
                 clients.Remove(id);
             }
         }
-
-        public event Action<IClient> Connected = (x) => { };
-
-        public event Action<IClient> Disconnected = (x) => { };
-
-
         public void ChangeNick(string nick, int id)
         {
-            clients[id].Nick = nick;
+            lock (lck)
+            {
+                if (withoutNick.ContainsKey(id))
+                {
+                    clients.Add(id, withoutNick[id]);
+                    withoutNick.Remove(id);
+
+                    clients[id].Nick = nick;
+
+                    clients[id].LoginResult(true, nick);
+                    Connected(clients[id]);                   
+                }
+
+                clients[id].Nick = nick;
+            }
         }
-
-
         public IClient GetClient(int id)
         {
             if (clients.ContainsKey(id))
@@ -65,5 +69,8 @@ namespace ChessServer.Managers
 
             return null;
         }
+
+        public event Action<IClient> Connected = (x) => { };
+        public event Action<IClient> Disconnected = (x) => { };
     }
 }

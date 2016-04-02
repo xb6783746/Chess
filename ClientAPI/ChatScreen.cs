@@ -39,7 +39,7 @@ namespace ClientAPI
 
         private Brush selectBrush;
 
-        void chatWindow_DrawItem(object sender, DrawItemEventArgs e)
+        private void chatWindow_DrawItem(object sender, DrawItemEventArgs e)
         {
             e.DrawBackground();
             if(e.Index < 0)
@@ -65,6 +65,7 @@ namespace ClientAPI
                 );
         }
 
+        public string Nick { get; set; }
         public void Receive(ChatMessage message)
         {
             lock (lck)
@@ -88,7 +89,7 @@ namespace ClientAPI
                     m = new ChatMessage("", nick, ChatMessageType.Private, messageBox.Text.Substring(nick.Length));
                    
                     self = m.Copy();
-                    self.From = "Вы -> " + nick;
+                    self.From = Nick + " -> " + nick;
 
                 }
                 else
@@ -96,7 +97,7 @@ namespace ClientAPI
                     m = new ChatMessage("", "", ChatMessageType.Public, messageBox.Text);     
            
                     self = m.Copy();
-                    self.From = "Вы";
+                    self.From = Nick;
                    
                 }
                 messageBox.Text = "";
@@ -107,7 +108,6 @@ namespace ClientAPI
                
             }
         }
-
         private void messageBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -115,7 +115,6 @@ namespace ClientAPI
                 sendButton.PerformClick();
             }
         }
-
         private void InvokeAdd(string text)
         {
             if (chatWindow.InvokeRequired)
@@ -127,7 +126,6 @@ namespace ClientAPI
                 chatWindow.Items.Add(text);
             }
         }
-
 
         public event Action<ChatMessage> Send = (x) => { };
     }

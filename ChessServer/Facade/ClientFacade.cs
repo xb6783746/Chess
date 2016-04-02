@@ -35,28 +35,34 @@ namespace ChessServer.Facade
 
             server.Receive += Parse;
         }
+
+        public void Parse(byte[] msg, int id)
+        {
+            try
+            {
+                using (var stream = new MemoryStream(msg))
+                {
+                    var mesg = formatter.Deserialize(stream) as Message;
+
+                    var args = new object[mesg.Arguments.Length + 1];
+                    mesg.Arguments.CopyTo(args, 0);
+                    args[args.Length - 1] = id;
+
+                    serverFacade.GetType().GetMethod(mesg.Method).Invoke(serverFacade, args);
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
         public void Message(ChatMessage msg, int id)
         {
             var message = new Message("Message", msg);
 
             SendMessage(message, id);
         }
-
-        public void Parse(byte[] msg, int id)
-        {
-            using (var stream = new MemoryStream(msg))
-            {
-                var mesg = formatter.Deserialize(stream) as Message;
-
-                var args = new object[mesg.Arguments.Length + 1];
-                mesg.Arguments.CopyTo(args, 0);
-                args[ args.Length - 1] = id;
-
-                serverFacade.GetType().GetMethod(mesg.Method).Invoke(serverFacade, args);
-            }
-        }
-
-
         public void LoginResult(bool result, string message, int id)
         {
             Message m = new Message("LoginResult", result, message);

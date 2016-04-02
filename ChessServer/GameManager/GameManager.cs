@@ -19,6 +19,7 @@ namespace ChessServer.Managers
             gameRooms = new List<GameRoom>();
             this.chessPool = new ChessFiguresPool();
             this.clientFacade = clientFacade;
+            key = new object();
         }
 
         private IChessFigureFactory chessPool;
@@ -26,6 +27,7 @@ namespace ChessServer.Managers
         private List<IClient> playerWait;
         private List<GameRoom> gameRooms;
         private IReadOnlyField startField = ChessField.Empty;
+        private object key;
 
         public void RandomGame(IClient gamer)
         {
@@ -63,17 +65,20 @@ namespace ChessServer.Managers
 
         private void CreateRoom(IClient first, IClient second)
         {
-            clientFacade.StartGame(startField, Color.White, first.Id);
-            clientFacade.StartGame(startField, Color.Black, second.Id);
+            lock (key)
+            {
+                clientFacade.StartGame(startField, Color.White, first.Id);
+                clientFacade.StartGame(startField, Color.Black, second.Id);
 
-            var room = new GameRoom(first.Gamer, second.Gamer, clientFacade, chessPool, gameRooms.Count + 1);
-            room.AddWatcher(first);
-            room.AddWatcher(second);
+                var room = new GameRoom(first.Gamer, second.Gamer, clientFacade, chessPool, gameRooms.Count + 1);
+                room.AddWatcher(first);
+                room.AddWatcher(second);
 
-            gameRooms.Add(room);
+                gameRooms.Add(room);
 
-            GameStart(first.Id);
-            GameStart(second.Id);
+                GameStart(first.Id);
+                GameStart(second.Id);
+            }
         }
 
     }

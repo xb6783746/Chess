@@ -21,11 +21,13 @@ namespace GameTemplate.Game
             gamerQueue = new Queue<IGamer>();
             ok = true;
 
-            gamerQueue.Enqueue(first);
             gamerQueue.Enqueue(second);
+            gamerQueue.Enqueue(first);
 
             first.Init(this, FColor.Black);
             second.Init(this, FColor.White);
+
+            Turn = gamerQueue.Peek().Color;
 
             this.field = field;
 
@@ -98,7 +100,7 @@ namespace GameTemplate.Game
             {
                 step = gamer.MakeStep();
             } 
-            while (!field.MakeStep(step));
+            while (field[step.From] == null || field[step.From].Color != Turn || !field.MakeStep(step));
 
             LastStep = step;           
         }

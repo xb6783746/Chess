@@ -45,11 +45,13 @@ namespace Rendering
                 {FColor.Black, Color.Black},
                 {FColor.White, Color.White}
             };
+            penGreen = new Pen(Color.LightGreen, 3.0f);
         }
 
         private Dictionary<Type, Image> figurePictures;
         private Dictionary<FColor, Color> fColor;
         private float blockSize;
+        private Pen penGreen;
 
         public void UpdateField(Bitmap bitmap, IReadOnlyList<FigureOnBoard> field)
         {
@@ -61,7 +63,7 @@ namespace Rendering
                 DrawFigures(g, field);
             }
         }
-        public void DrawCells(Bitmap bitmap, IReadOnlyList<FigureOnBoard> field, List<Point> cells)
+        public void DrawCells(Bitmap bitmap, IReadOnlyField field, List<Point> cells)
         {
             blockSize = bitmap.Size.Height / 8 - 0.1f;
             using (Graphics g = Graphics.FromImage(bitmap))
@@ -69,16 +71,22 @@ namespace Rendering
                 g.Clear(Color.White);
                 DrawGrid(g);
                 DrawFigures(g, field);
+                DrawCells(g, field, cells);
             }
         }
 
-        private void DrawCells(Graphics g, IReadOnlyList<FigureOnBoard> field, List<Point> cell)
+
+
+
+
+
+        private void DrawCells(Graphics g, IReadOnlyField field, List<Point> cell)
         {
             for (int i = 0; i < cell.Count; i++)
             {
-                if (field.Where((x) => x.Location == cell[i]) == null)
+                if (field[cell[i]] == null)
                 {
-                    g.DrawRectangle(Pens.LightGreen, cell[i].X * blockSize, cell[i].Y * blockSize, blockSize, blockSize);
+                    g.DrawRectangle(penGreen, cell[i].X * blockSize, cell[i].Y * blockSize, blockSize, blockSize);
                 }
                 else
                 {
@@ -115,6 +123,12 @@ namespace Rendering
 
 
 
+
+
+
+
+
+
         private void DrawFigures(Graphics g, IReadOnlyField field)
         {
             for (int i = 0; i < 8; i++)
@@ -135,10 +149,6 @@ namespace Rendering
 
 
 
-        public void DrawCells(IReadOnlyList<FigureOnBoard> field, List<Point> cells)
-        {
-            throw new NotImplementedException();
-        }
     }
 
     public struct Type

@@ -22,19 +22,20 @@ namespace GameScreen
 
         private IRender render;
         private Point from;
-        private Point to;
+        //private Point to;
         private Bitmap picture;
         private int cellSize = 600 / 8;
         private IReadOnlyField field;
         private FColor color;
         private bool YourTurn;
+        private Point temp;
 
         public GameScreen()
         {
             InitializeComponent();
 
             chatScreen1.Send += Send;
-            from = to = new Point();
+            from = new Point();
             picture = new Bitmap(GameBox.Height, GameBox.Width);
         }
 
@@ -47,23 +48,19 @@ namespace GameScreen
         {
             if (YourTurn)
             {
-                if (from.IsEmpty)
+                temp = GetGamePoint(e.Location);
+                if (from.IsEmpty && field[temp] != null)
                 {
-                    from = GetGamePoint(e.Location);
-                    var figure = field[from]; // )))))))))))))))))))))))))))))))))))))))0
-                   
-                   // render.DrawCells(field, q[0].Figure.GetCells(from, field) );
+                    from = temp;
+
+                    render.DrawCells(picture, field, field[from].GetCells(from, field));
                     UpdatePic();
+
                     return;
                 }
-                if (to.IsEmpty)
-                {
-                    to = GetGamePoint(e.Location);
-                }
 
-                Step(new StepInfo(from, to));
-
-                from = to = new Point();
+                Step(new StepInfo(from, temp));
+                from = new Point();
             }
         }
 
@@ -92,6 +89,7 @@ namespace GameScreen
             string cl = color.ToString();
             MessageBox.Show("Вы играете за" + cl + "цвет");
             this.color = color;
+            YourTurn = (color == FColor.White);
 
             render.UpdateField(picture, figures.GetFiguresOnBoard());
             GameBox.Image = picture;

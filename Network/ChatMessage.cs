@@ -9,7 +9,7 @@ namespace Network
     [Serializable]
     public enum ChatMessageType
     {
-        Public, Private, System
+        Public, Private, System, Info
     }
 
     [Serializable]

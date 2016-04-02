@@ -23,7 +23,8 @@ namespace ClientAPI
             {
                 {ChatMessageType.Private, Brushes.Purple},
                 {ChatMessageType.Public, Brushes.Black},
-                {ChatMessageType.System, Brushes.Red}
+                {ChatMessageType.System, Brushes.Red},
+                {ChatMessageType.Info, new SolidBrush(Color.FromArgb(60,100,100))}
             };
 
             selectBrush = new SolidBrush(Color.FromArgb(255, 250, 240));

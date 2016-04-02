@@ -197,7 +197,7 @@ namespace ChessServer.Chat
                 ChatMessage m = new ChatMessage(
                     "System",
                     "",
-                    ChatMessageType.System,
+                    ChatMessageType.Info,
                     client.Nick + " вошел в игру"
                     );
 
@@ -212,6 +212,19 @@ namespace ChessServer.Chat
             lock (lck)
             {
                 rooms.RemoveAll((x) => x.Client == client);
+
+                ChatMessage m = new ChatMessage(
+                    "System",
+                    "",
+                    ChatMessageType.Info,
+                    client.Nick + " вышел из игры"
+                    );
+
+                var clients = rooms.Where((x) => x.RoomId == mainRoomId);
+                foreach (var cl in clients)
+                {
+                    clientFacade.Message(m, cl.Client.Id);
+                }
             }
         }
 

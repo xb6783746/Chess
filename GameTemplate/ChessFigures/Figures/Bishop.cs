@@ -69,7 +69,7 @@ namespace GameTemplate.ChessGame.ChessFigures
             start.X += stepX;
             start.Y += stepY;
 
-            while (start.X < 8 && start.X >= 0 && start.Y < 8 && start.Y >= 0)
+            while (start.X + stepX < 8 && start.X + stepX >= 0 && start.Y + stepY < 8 && start.Y + stepY >= 0)
             {
                 start.X += stepX;
                 start.Y += stepY;

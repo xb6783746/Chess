@@ -22,7 +22,6 @@ namespace GameScreen
 
         private IRender render;
         private Point from;
-        //private Point to;
         private Bitmap picture;
         private int cellSize = 600 / 8;
         private IReadOnlyField field;
@@ -48,20 +47,52 @@ namespace GameScreen
         {
             if (YourTurn)
             {
-                temp = GetGamePoint(e.Location);
-                if (from.IsEmpty && field[temp] != null)
+                if (e.Button == System.Windows.Forms.MouseButtons.Left)
                 {
-                    from = temp;
+                    temp = GetGamePoint(e.Location);
 
-                    render.DrawCells(picture, field, field[from].GetCells(from, field));
+                    if (field[temp] != null )
+                    {
+                        if (from.IsEmpty && field[temp].Color == this.color) // если пустой 1 клик
+                        {
+                            SelectFigure();
+                            return;
+                        }
+                        else
+                        {
+                            if (field[temp].Color == this.color) // если кликнули по своей
+                            {
+                                SelectFigure();
+                                return;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (!from.IsEmpty && !field[from].Step(from, temp, field)) // активной фигурой пытаемся пойти в пустоту
+                        {
+                            UpdatePic();
+                        }
+                    }
+
+
+                    Step(new StepInfo(from, temp));
+                    from = new Point();
+                }
+                else
+                {
+                    from = new Point();
                     UpdatePic();
-
-                    return;
                 }
 
-                Step(new StepInfo(from, temp));
-                from = new Point();
+
             }
+        }
+        private void SelectFigure()
+        {
+            from = temp;
+            render.DrawCells(picture, field, from, field[from].GetCells(from, field));
+            GameBox.Image = picture;
         }
 
 
@@ -89,19 +120,16 @@ namespace GameScreen
             string cl = color.ToString();
             MessageBox.Show("Вы играете за" + cl + "цвет");
             this.color = color;
-            YourTurn = (color == FColor.White);
+            YourTurn = (this.color == FColor.White);
 
-            render.UpdateField(picture, figures.GetFiguresOnBoard());
-            GameBox.Image = picture;
             field = figures;
+            UpdatePic();
         }
 
         public void UpdateField(ChessState state)
         {
-            render.UpdateField(picture, state.Figures.GetFiguresOnBoard());
-            UpdatePic();
-
             field = state.Figures;
+            UpdatePic();
             YourTurn = (color == state.Turn);
         }
 
@@ -126,6 +154,7 @@ namespace GameScreen
         }
         private void UpdatePic()
         {
+            render.UpdateField(picture, field.GetFiguresOnBoard());
             GameBox.Image = picture;
         }
     }

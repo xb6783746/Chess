@@ -21,8 +21,6 @@ namespace GameTemplate.ChessGame.ChessFigures
             this.color = color;
         }
 
-        private FColor color;
-
         public ChessFType Type
         {
             get { return ChessFType.Knight; }
@@ -32,6 +30,9 @@ namespace GameTemplate.ChessGame.ChessFigures
             get { return color; }
         }
 
+        private FColor color;
+        private Point temp;
+
         public bool Step(Point from, Point to, IReadOnlyField field)
         {
             return GetCells(from, field).Contains(to);
@@ -39,48 +40,35 @@ namespace GameTemplate.ChessGame.ChessFigures
 
         public List<Point> GetCells(Point location, IReadOnlyField field)
         {
-            List<Point> cells = GetAllCells(location);
-            Point temp;
-            for (int i = 0; i < cells.Count; i++)
-            {
-                temp = new Point(cells[i].X, cells[i].Y);
-                if (field[temp] != null && field[temp].Color == color)
-                {
-                    cells.Remove(temp);
-                }
-            }
-
-            return cells;
-        }
-        private List<Point> GetAllCells(Point location)
-        {
             List<Point> cells = new List<Point>();
 
-            cells.AddRange(Cells(location, 2, 1));
-            cells.AddRange(Cells(location, 1, 2));
-            cells.AddRange(Cells(location, -1, 2));
-            cells.AddRange(Cells(location, -2, 1));
+            Cells(ref cells, location, -2, 1, field);
+            Cells(ref cells, location, -1, 2, field);
+            Cells(ref cells, location,  1, 2, field);
+            Cells(ref cells, location,  2, 1, field);
 
             return cells;
         }
 
-        private List<Point> Cells(Point start, int stepX, int shift) /// ????
+        private void Cells(ref List<Point> cells, Point start, int stepX, int stepY, IReadOnlyField field)
         {
-            List<Point> temp = new List<Point>();
-            if (start.X + stepX < 8 && start.X + stepX >= 0)
+            temp = new Point(start.X + stepX, start.Y + stepY);
+            if (TestPoint(temp) && (field[temp] == null || (field[temp] != null && field[temp].Color != this.color)))
             {
-                if (start.Y + shift < 8)
-                {
-                    temp.Add(new Point(start.X + stepX, start.Y + shift));
-                }
-
-                if (start.Y - shift >= 0)
-                {
-                    temp.Add(new Point(start.X + stepX, start.Y - shift));
-                }
+                cells.Add(temp);
             }
 
-            return temp;
+            temp = new Point(start.X + stepX, start.Y - stepY);
+            if (TestPoint(temp) && (field[temp] == null || (field[temp] != null && field[temp].Color != this.color)))
+            {
+                cells.Add(temp);
+            }
+
+        }
+
+        private bool TestPoint(Point temp)
+        {
+            return temp.X >= 0 && temp.X < 8 && temp.Y >= 0 && temp.Y < 8;
         }
     }
 }

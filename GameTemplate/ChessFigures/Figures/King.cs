@@ -74,7 +74,7 @@ namespace GameTemplate.ChessGame.ChessFigures
         private void Straight(ref List<Point> cells, Point start, int stepX, int stepY, IReadOnlyField field)
         {
             temp = new Point(start.X + stepX, start.Y + stepY);
-            if (TestPoint(temp) && (field[temp] == null || field[temp].Color != this.color))
+            if (TestPoint(temp) && (field[temp] == null || ( field[temp] != null && field[temp].Color != this.color)))
             {
                 cells.Add(temp);    
             }

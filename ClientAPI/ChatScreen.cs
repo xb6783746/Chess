@@ -29,8 +29,16 @@ namespace ClientAPI
             };
 
             selectBrush = new SolidBrush(Color.FromArgb(255, 250, 240));
-
+            messCount = chatWindow.Height / chatWindow.ItemHeight;
             regex = new Regex(pattern);
+            addAction = new Action<string>((x) =>
+            {
+                chatWindow.Items.Add(x);
+                if (chatWindow.TopIndex >= chatWindow.Items.Count - messCount - 1)
+                {
+                    chatWindow.TopIndex = chatWindow.Items.Count - 1;
+                }
+            });
 
             chatWindow.DrawMode = DrawMode.OwnerDrawFixed;
 
@@ -42,8 +50,9 @@ namespace ClientAPI
         private Dictionary<ChatMessageType, Brush> brushes;
         private Regex regex;
         private const string pattern = @"^/(\w+) (\w+)";
-
+        private int messCount;
         private Brush selectBrush;
+        Action<string> addAction;
 
         private void chatWindow_DrawItem(object sender, DrawItemEventArgs e)
         {
@@ -164,11 +173,11 @@ namespace ClientAPI
         {
             if (chatWindow.InvokeRequired)
             {
-                chatWindow.Invoke( new Action( () => chatWindow.Items.Add(text)) );
+                chatWindow.Invoke(addAction, text);
             }
             else
             {
-                chatWindow.Items.Add(text);
+                addAction(text);
             }
         }
 

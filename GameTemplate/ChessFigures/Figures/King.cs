@@ -21,8 +21,6 @@ namespace GameTemplate.ChessGame.ChessFigures
             this.color = color;
         }
 
-        private FColor color;
-
         public ChessFType Type
         {
             get { return ChessFType.King; }
@@ -32,60 +30,68 @@ namespace GameTemplate.ChessGame.ChessFigures
             get { return color; }
         }
 
+        private FColor color;
+        private Point temp;
+
         public bool Step(Point from, Point to, IReadOnlyField field)
         {
             return GetCells(from, field).Contains(to);
         }
-        
+
         public List<Point> GetCells(Point location, IReadOnlyField field)
         {
-            List<Point> cells = GetAllCells(location);
-            Point temp;
-            for (int i = 0; i < cells.Count; i++)
-            {
-                temp = new Point(cells[i].X, cells[i].Y);
-                if (field[temp] != null && field[temp].Color == color)
-                {
-                    cells.Remove(temp);
-                }
-            }
+            List<Point> cells = GetAllCells(location, field);
+            //Point temp;
+            //for (int i = 0; i < cells.Count; i++)
+            //{
+            //    temp = new Point(cells[i].X, cells[i].Y);
+            //    if (field[temp] != null && field[temp].Color == color)
+            //    {
+            //        cells.Remove(temp);
+            //    }
+            //}
 
             return cells;
         }
 
-        private List<Point> GetAllCells(Point location)
+        private List<Point> GetAllCells(Point location, IReadOnlyField field)
         {
             List<Point> cells = new List<Point>();
-            if (location.X - 1 >= 0)
-            {
-                cells.Add(new Point(location.X - 1, location.Y));
-            }
+            Straight(ref cells, location, 0, -1, field);
+            Straight(ref cells, location, 1, 0, field);
+            Straight(ref cells, location, 0, 1, field);
+            Straight(ref cells, location, -1, 0, field);
 
-            if (location.X + 1 < 8)
-            {
-                cells.Add(new Point(location.X + 1, location.Y));
-            }
-            cells.AddRange(Cells(location, 1));
-            cells.AddRange(Cells(location, -1));
+            Obliquely(ref cells, location, 1, -1, field);
+            Obliquely(ref cells, location, 1, 1, field);
+            Obliquely(ref cells, location, -1, 1, field);
+            Obliquely(ref cells, location, -1, -1, field);
+            
+
             return cells;
         }
-        private List<Point> Cells(Point start, int stepY)
+
+        private void Straight(ref List<Point> cells, Point start, int stepX, int stepY, IReadOnlyField field)
         {
-            List<Point> temp = new List<Point>();
-            if (start.Y + stepY < 0 || start.Y + stepY > 7)
+            temp = new Point(start.X + stepX, start.Y + stepY);
+            if (TestPoint(temp) && (field[temp] == null || field[temp].Color != this.color))
             {
-                return temp;
+                cells.Add(temp);    
             }
-
-            for (int i = -1; i < 2; i += 2)
+        }
+        private void Obliquely(ref List<Point> cells, Point start, int stepX, int stepY, IReadOnlyField field)
+        {
+            temp = new Point(start.X + stepX, start.Y + stepY);
+            if (TestPoint(temp) && field[temp] != null && field[temp].Color != this.color)
             {
-                if (start.X + i >= 0 && start.X + i < 8)
-                {
-                    temp.Add(new Point(start.X + i, start.Y + stepY));
-                }
+                cells.Add(temp);
             }
+        }
 
-            return temp;
+
+        private bool TestPoint(Point temp)
+        {
+            return temp.X >= 0 && temp.X < 8 && temp.Y >= 0 && temp.Y < 8;
         }
     }
 }

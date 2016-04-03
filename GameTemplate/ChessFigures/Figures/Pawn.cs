@@ -21,8 +21,6 @@ namespace GameTemplate.ChessGame.ChessFigures
             this.color = color;
         }
 
-        private FColor color;
-
         public FColor Color
         {
             get { return color; }
@@ -32,28 +30,16 @@ namespace GameTemplate.ChessGame.ChessFigures
             get { return ChessFType.Pawn; }
         }
 
+        private FColor color;
+        private Point temp;
+
         public bool Step(Point from, Point to, IReadOnlyField field)
         {
             return GetCells(from, field).Contains(to);
         }
-        private List<Point> GetAllCells(Point location)
-        {
-            List<Point> cells = new List<Point>();
-
-            if (location.Y - 1 >= 0)
-            {
-                cells.Add(new Point(location.X, location.Y - 1));
-            }
-            if (location.Y + 1 <= 7)
-            {
-                cells.Add(new Point(location.X, location.Y + 1));
-            }
-
-            return cells;
-        }
         public List<Point> GetCells(Point location, IReadOnlyField field)
         {
-            List<Point> cells = GetAllCells(location);
+            List<Point> cells = this.color == FColor.White ? GetTurnOfWhite(location, field) : GetTurnOfBlack(location, field);
             Point temp;
 
             for (int i = 0; i < cells.Count; i++)
@@ -65,16 +51,40 @@ namespace GameTemplate.ChessGame.ChessFigures
                 }
             }
 
-            //Cell(ref cells, location, field, -1);
-            //Cell(ref cells, location, field, 1);
+            return cells;
+        }
+
+        private List<Point> GetTurnOfWhite(Point location, IReadOnlyField field)
+        {
+            List<Point> cells = new List<Point>();
+
+            if (location.Y - 1 <= 7)
+            {
+                cells.Add(new Point(location.X, location.Y - 1));
+                EnemyFigure(ref cells, location, field, -1, -1);
+                EnemyFigure(ref cells, location, field, 1, -1);
+            }
+
+            return cells;
+        }
+        private List<Point> GetTurnOfBlack(Point location, IReadOnlyField field)
+        {
+            List<Point> cells = new List<Point>();
+
+            if (location.Y + 1 >= 0)
+            {
+                cells.Add(new Point(location.X, location.Y + 1));
+                EnemyFigure(ref cells, location, field, -1, 1);
+                EnemyFigure(ref cells, location, field, 1, 1);
+            }
 
             return cells;
         }
 
-        private void Cell(ref List<Point> cells, Point location, IReadOnlyField field, int stepX)
+        private void EnemyFigure(ref List<Point> cells, Point location, IReadOnlyField field, int stepX, int stepY)
         {
-            Point temp = new Point(location.X + stepX, location.Y + 1);
-            if (temp.X >= 0 && temp.Y < 8 && field[temp].Color != color)
+            temp = new Point(location.X + stepX, location.Y + stepY);
+            if (temp.X >= 0 && temp.X < 8 && temp.Y < 8 && temp.Y >= 0 && field[temp] != null && field[temp].Color != this.color)
             {
                 cells.Add(temp);
             }

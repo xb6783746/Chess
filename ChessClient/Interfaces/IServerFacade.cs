@@ -20,6 +20,6 @@ namespace ChessClient.Interfaces
         void SendMessage(ChatMessage msg);
         void Surrender();
         void Accept();
-
+        void Disconnect();
     }
 }

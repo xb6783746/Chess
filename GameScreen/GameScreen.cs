@@ -19,82 +19,23 @@ namespace GameScreen
 {
     public partial class GameScreen : UserControl, IGameScreen
     {
-
-        private IRender render;
-        private Point from;
-        private Bitmap picture;
-        private int cellSize = 600 / 8;
-        private IReadOnlyField field;
-        private FColor color;
-        private bool YourTurn;
-        private Point temp;
-
         public GameScreen()
         {
             InitializeComponent();
-
+            cellSize = 600 / 8;
             chatScreen1.Send += (x) => Send(x);
             from = new Point();
             picture = new Bitmap(GameBox.Height, GameBox.Width);
         }
 
-        private void Concede_Click(object sender, EventArgs e)
-        {
-            Concede();
-        }
-
-        private void GameBox_Click(object sender, MouseEventArgs e)
-        {
-            if (YourTurn)
-            {
-                if (e.Button == System.Windows.Forms.MouseButtons.Left)
-                {
-                    temp = GetGamePoint(e.Location);
-
-                    if (field[temp] != null )
-                    {
-                        if (from.IsEmpty && field[temp].Color == this.color) // если пустой 1 клик
-                        {
-                            SelectFigure();
-                            return;
-                        }
-                        else
-                        {
-                            if (field[temp].Color == this.color) // если кликнули по своей
-                            {
-                                SelectFigure();
-                                return;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (!from.IsEmpty && !field[from].Step(from, temp, field)) // активной фигурой пытаемся пойти в пустоту
-                        {
-                            UpdatePic();
-                        }
-                    }
-
-
-                    Step(new StepInfo(from, temp));
-                    from = new Point();
-                }
-                else
-                {
-                    from = new Point();
-                    UpdatePic();
-                }
-
-
-            }
-        }
-        private void SelectFigure()
-        {
-            from = temp;
-            render.DrawCells(picture, field, from, field[from].GetCells(from, field));
-            GameBox.Image = picture;
-        }
-
+        private IRender render;
+        private Point from;
+        private Bitmap picture;
+        private int cellSize;
+        private IReadOnlyField field;
+        private FColor color;
+        private bool YourTurn;
+        private Point temp;
 
         public void GameOver(FColor win)
         {
@@ -138,6 +79,62 @@ namespace GameScreen
         public event Action<StepInfo> Step;
         public event Action Concede;
 
+
+        private void Concede_Click(object sender, EventArgs e)
+        {
+            Concede();
+        }
+        private void GameBox_Click(object sender, MouseEventArgs e)
+        {
+            if (YourTurn)
+            {
+                if (e.Button == System.Windows.Forms.MouseButtons.Left)
+                {
+                    temp = GetGamePoint(e.Location);
+
+                    if (field[temp] != null)
+                    {
+                        if (from.IsEmpty && field[temp].Color == this.color) // если пустой 1 клик
+                        {
+                            SelectFigure();
+                            return;
+                        }
+                        else
+                        {
+                            if (field[temp].Color == this.color) // если кликнули по своей
+                            {
+                                SelectFigure();
+                                return;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (!from.IsEmpty && !field[from].Step(from, temp, field)) // активной фигурой пытаемся пойти в пустоту
+                        {
+                            UpdatePic();
+                        }
+                    }
+
+
+                    Step(new StepInfo(from, temp));
+                    from = new Point();
+                }
+                else
+                {
+                    from = new Point();
+                    UpdatePic();
+                }
+
+
+            }
+        }
+        private void SelectFigure()
+        {
+            from = temp;
+            render.DrawCells(picture, field, from, field[from].GetCells(from, field));
+            GameBox.Image = picture;
+        }
         private Point GetGamePoint(Point systemPoint)
         {
             return new Point(systemPoint.X / cellSize, systemPoint.Y / cellSize);

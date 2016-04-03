@@ -76,5 +76,17 @@ namespace ChessClient.Controllers
         {
             gameScreen.GameClosed(msg);
         }
+
+        public string Nick
+        {
+            get
+            {
+                return gameScreen.Nick;
+            }
+            set
+            {
+                gameScreen.Nick = value;
+            }
+        }
     }
 }

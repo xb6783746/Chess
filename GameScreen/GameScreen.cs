@@ -165,5 +165,17 @@ namespace GameScreen
         {
             MessageBox.Show(msg);
         }
+
+        public string Nick
+        {
+            get
+            {
+                return chatScreen1.Nick;
+            }
+            set
+            {
+                chatScreen1.Nick = value;
+            }
+        }
     }
 }

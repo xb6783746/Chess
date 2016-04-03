@@ -58,6 +58,7 @@
             this.chatWindow.Name = "chatWindow";
             this.chatWindow.Size = new System.Drawing.Size(301, 173);
             this.chatWindow.TabIndex = 9;
+            this.chatWindow.SelectedIndexChanged += new System.EventHandler(this.chatWindow_SelectedIndexChanged);
             // 
             // ChatScreen
             // 

@@ -28,6 +28,7 @@ namespace ChessClient.Facade.States
         {
             if (result)
             {
+                manager.GameController.Nick = message;
                 manager.MainController.SetNick(message);
                 Switch(ClientState.Online);
             }

@@ -29,7 +29,13 @@ namespace Network
         public string To { get; set; }
         public string Text { get; set; }
 
-        public string Message { get { return From + ": " + Text; } }
+        public string Message 
+        { 
+            get 
+            { 
+                return From + ": " + Text; 
+            } 
+        }
 
         public ChatMessage Copy()
         {

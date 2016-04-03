@@ -9,6 +9,8 @@ namespace ClientAPI
 {
     public interface IMessenger
     {
+        string Nick { get; set; }
+
         event Action<ChatMessage> Send;
         void Receive(ChatMessage message);
     }

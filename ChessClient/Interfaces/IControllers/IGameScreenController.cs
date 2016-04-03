@@ -13,6 +13,8 @@ namespace ChessClient.Interfaces.IControllers
 {
     interface IGameScreenController
     {
+        string Nick { get; set; }
+
         void Message(ChatMessage msg);
         void StartGame(IReadOnlyField figures, FColor color);
         void Step(ChessState state);

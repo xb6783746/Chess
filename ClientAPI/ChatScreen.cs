@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClientAPI;
 using Network;
+using System.Text.RegularExpressions;
 
 namespace ClientAPI
 {
@@ -29,6 +30,8 @@ namespace ClientAPI
 
             selectBrush = new SolidBrush(Color.FromArgb(255, 250, 240));
 
+            regex = new Regex(pattern);
+
             chatWindow.DrawMode = DrawMode.OwnerDrawFixed;
 
             chatWindow.DrawItem += chatWindow_DrawItem;
@@ -36,13 +39,15 @@ namespace ClientAPI
 
         private List<ChatMessage> messages;
         private object lck = new object();
-        Dictionary<ChatMessageType, Brush> brushes;
+        private Dictionary<ChatMessageType, Brush> brushes;
+        private Regex regex;
+        private const string pattern = @"^/(\w+) (\w+)";
 
         private Brush selectBrush;
 
         private void chatWindow_DrawItem(object sender, DrawItemEventArgs e)
         {
-            e.DrawBackground();
+           // e.DrawBackground();
             if(e.Index < 0)
             {
                 return;
@@ -55,6 +60,10 @@ namespace ClientAPI
             if (chatWindow.SelectedIndex == e.Index)
             {
                 e.Graphics.FillRectangle(selectBrush, e.Bounds);
+            }
+            else
+            {
+                e.Graphics.FillRectangle(Brushes.White, e.Bounds);
             }
 
             e.Graphics.DrawString(
@@ -75,38 +84,73 @@ namespace ClientAPI
                 
                 InvokeAdd(message.Message);
             }
-        }
+        }  
+        public event Action<ChatMessage> Send = (x) => { };
 
+        //private void sendButton_Click(object sender, EventArgs e)
+        //{
+        //    if (messageBox.Text != "")
+        //    {
+        //        ChatMessage m, self;
+
+        //        if (messageBox.Text[0] == '/')
+        //        {
+        //            messageBox.Text = messageBox.Text.Substring(1);
+        //            string nick = messageBox.Text.Substring(0, messageBox.Text.IndexOf(' '));
+        //            m = new ChatMessage("", nick, ChatMessageType.Private, messageBox.Text.Substring(nick.Length));
+                   
+        //            self = m.Copy();
+        //            self.From = Nick + " -> " + nick;
+
+        //        }
+        //        else
+        //        {
+        //            m = new ChatMessage("", "", ChatMessageType.Public, messageBox.Text);     
+           
+        //            self = m.Copy();
+        //            self.From = Nick;
+                   
+        //        }
+        //        messageBox.Text = "";
+
+        //        Receive(self);
+
+        //        Send(m);
+               
+        //    }
+        //}
         private void sendButton_Click(object sender, EventArgs e)
         {
             if (messageBox.Text != "")
             {
                 ChatMessage m, self;
 
-                if (messageBox.Text[0] == '/')
+                var privateMessage = regex.Match(messageBox.Text);
+                if (privateMessage.Success)
                 {
-                    messageBox.Text = messageBox.Text.Substring(1);
-                    string nick = messageBox.Text.Substring(0, messageBox.Text.IndexOf(' '));
-                    m = new ChatMessage("", nick, ChatMessageType.Private, messageBox.Text.Substring(nick.Length));
-                   
-                    self = m.Copy();
-                    self.From = Nick + " -> " + nick;
+                    m = new ChatMessage(
+                        Nick, 
+                        privateMessage.Groups[1].Value, 
+                        ChatMessageType.Private, 
+                        privateMessage.Groups[2].Value
+                        );
 
+                    self = m.Copy();
+                    self.From = Nick + " -> " + m.To;
                 }
                 else
                 {
-                    m = new ChatMessage("", "", ChatMessageType.Public, messageBox.Text);     
-           
+                    m = new ChatMessage(Nick, "", ChatMessageType.Public, messageBox.Text);
+
                     self = m.Copy();
-                    self.From = Nick;
-                   
                 }
+
                 messageBox.Text = "";
 
                 Receive(self);
 
                 Send(m);
-               
+
             }
         }
         private void messageBox_KeyDown(object sender, KeyEventArgs e)
@@ -128,6 +172,13 @@ namespace ClientAPI
             }
         }
 
-        public event Action<ChatMessage> Send = (x) => { };
+        private void chatWindow_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            chatWindow.Invalidate();
+
+            messageBox.Text = "/" + messages[chatWindow.SelectedIndex].From + " ";
+            messageBox.Focus();
+            messageBox.SelectionStart = messageBox.Text.Length;
+        }
     }
 }

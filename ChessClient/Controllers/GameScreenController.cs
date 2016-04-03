@@ -70,5 +70,11 @@ namespace ChessClient.Controllers
         {
             facade.Disconnect();
         }
+
+
+        public void GameClosed(string msg)
+        {
+            gameScreen.GameClosed(msg);
+        }
     }
 }

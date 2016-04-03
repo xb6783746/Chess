@@ -14,18 +14,24 @@ namespace ChessServer.Managers
 {
     class GameManager : IGameManager
     {
-        public GameManager(IClientFacade clientFacade)
+        public GameManager(IClientFacade clientFacade, IClientManager clientManager)
         {
             playerWait = new List<IClient>();
             gameRooms = new List<GameRoom>();
             this.chessPool = new ChessFiguresPool();
 
             this.clientFacade = clientFacade;
+            this.clientManager = clientManager;
+
+            clientManager.Disconnected += Disconnected;
+            clientManager.Connected += Connected;
+
             key = new object();
         }
 
         private IChessFigureFactory chessPool;
         private IClientFacade clientFacade;
+        private IClientManager clientManager;
         private List<IClient> playerWait;
         private List<GameRoom> gameRooms;
         private IReadOnlyField startField = ChessField.Empty;
@@ -76,7 +82,14 @@ namespace ChessServer.Managers
                 clientFacade.StartGame(startField, FColor.Black, first.Id);
                 clientFacade.StartGame(startField, FColor.White, second.Id);
 
-                var room = new GameRoom(first.Gamer, second.Gamer, clientFacade, chessPool, gameRooms.Count + 1);
+                var room = new GameRoom(
+                    first, 
+                    second, 
+                    clientFacade, 
+                    chessPool, 
+                    gameRooms.Count + 1
+                    );
+
                 room.AddWatcher(first);
                 room.AddWatcher(second);
 
@@ -84,6 +97,23 @@ namespace ChessServer.Managers
 
                 GameStart(room.RoomId);
             }
+        }
+        private void Disconnected(IClient client)
+        {
+            //поиск в очереди
+
+
+            //поиск в игровых комнатах
+
+            var room = gameRooms.FirstOrDefault((x) => x.Gamers.Contains(client));
+            if (room != null)
+            {
+                room.CloseRoom(client);
+            }
+        }
+        private void Connected(IClient client)
+        {
+
         }
        
     }

@@ -26,6 +26,7 @@ namespace GameTemplate.Interfaces
         FColor Turn { get; }
         StepInfo LastStep { get; }
 
+        void StopGame();
         /// <summary>
         /// Событие изменения состояния игры
         /// </summary>

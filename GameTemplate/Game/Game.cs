@@ -19,7 +19,6 @@ namespace GameTemplate.Game
         public SimpleGame(IGamer first, IGamer second, IField field)
         {
             gamerQueue = new Queue<IGamer>();
-            ok = true;
 
             gamerQueue.Enqueue(second);
             gamerQueue.Enqueue(first);
@@ -48,7 +47,7 @@ namespace GameTemplate.Game
         /// <summary>
         /// Маркер ошибок
         /// </summary>
-        protected bool ok;
+        protected bool error;
 
         /// <summary>
         /// Цвет игрока, который ходит в данный момент
@@ -74,7 +73,7 @@ namespace GameTemplate.Game
         protected virtual void StartGame()
         {
             IGamer current;
-            while (!field.IsGameOver && ok)
+            while (!field.IsGameOver && !error)
             {
                 current = gamerQueue.Dequeue();
 
@@ -100,7 +99,7 @@ namespace GameTemplate.Game
             {
                 step = gamer.MakeStep();
             } 
-            while (field[step.From] == null || field[step.From].Color != Turn || !field.MakeStep(step));
+            while (!error && field[step.From] == null || field[step.From].Color != Turn || !field.MakeStep(step));
 
             LastStep = step;           
         }
@@ -122,6 +121,9 @@ namespace GameTemplate.Game
         /// </summary>
         public event Action<FColor> GameOver = (x) => { };
 
-
+        public void StopGame()
+        {
+            error = true;
+        }
     }
 }

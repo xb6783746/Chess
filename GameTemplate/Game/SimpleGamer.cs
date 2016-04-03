@@ -46,5 +46,11 @@ namespace GameTemplate.Game
         {
             throw new NotImplementedException();
         }
+
+
+        public void GameOver()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

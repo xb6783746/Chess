@@ -70,5 +70,11 @@ namespace ChessClient.Facade.States
         {
             manager.Switch(Enums.ScreenType.LogIn);
         }
+
+
+        public void GameClosed(string msg)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

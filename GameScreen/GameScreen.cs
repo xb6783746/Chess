@@ -159,5 +159,11 @@ namespace GameScreen
         {
             
         }
+
+
+        public void GameClosed(string msg)
+        {
+            MessageBox.Show(msg);
+        }
     }
 }

@@ -16,17 +16,36 @@ namespace ChessServer.Managers
     [Serializable]
     class GameRoom
     {
-        public GameRoom(IGamer first, IGamer second, IClientFacade facade, 
-            IChessFigureFactory figFactory, int roomid)
+        private GameRoom(IClientFacade facade, int roomid)
         {
             this.RoomId = roomid;
             this.clientFacade = facade;
 
+            Gamers = new List<IClient>();
             watchers = new List<IClient>();
-            game = new SimpleGame(first, second, new ChessField(figFactory));
+        }
+
+        public GameRoom(IClient first, IGamer second, IClientFacade facade, 
+            IChessFigureFactory figFactory, int roomid) :this(facade, roomid)
+        {
+           
+            game = new SimpleGame(first.Gamer, second, new ChessField(figFactory));
 
             game.Change += Update;
             game.GameOver += GameOver;
+
+            Gamers.Add(first);
+        }
+        public GameRoom(IClient first, IClient second, IClientFacade facade,
+            IChessFigureFactory figFactory, int roomid) : this(facade, roomid)
+        {
+            game = new SimpleGame(first.Gamer, second.Gamer, new ChessField(figFactory));
+
+            game.Change += Update;
+            game.GameOver += GameOver;
+
+            Gamers.Add(first);
+            Gamers.Add(second);
         }
 
         private IGame game;
@@ -34,6 +53,7 @@ namespace ChessServer.Managers
         private IClientFacade clientFacade;
         private object lck = new object();
 
+        public List<IClient> Gamers { get; private set; }
         public int RoomId { get; private set; }
 
         public List<IClient> Watchers { get { return watchers; } }
@@ -41,7 +61,19 @@ namespace ChessServer.Managers
         {
             watchers.Add(watcher);
         }
-        public event Action<int> RoomClosed;
+        public void CloseRoom(IClient disconnected)
+        {
+            game.StopGame();
+
+            var clients = watchers.Where((x) => x != disconnected);
+            foreach (var client in clients)
+            {
+                clientFacade.GameClosed(disconnected.Nick + " вышел из игры", client.Id);
+            }
+
+            RoomClosed(this.RoomId);
+        }
+        public event Action<int> RoomClosed = (x) => { };
 
         private void Update()
         {

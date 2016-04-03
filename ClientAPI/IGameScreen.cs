@@ -21,6 +21,7 @@ namespace ClientAPI
         void UpdateField(ChessState state);
         void SetRender(IRender r);
         void GameOver(FColor win);
+        void GameClosed(string msg);
     }
 
     //public abstract class AbstractGameScreen : UserControl, IMessenger

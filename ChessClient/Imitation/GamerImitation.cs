@@ -61,5 +61,11 @@ namespace ChessClient.Imitation
         {
             throw new NotImplementedException();
         }
+
+
+        public void GameOver()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -65,5 +65,13 @@ namespace ChessClient.Facade.States
         {
             manager.Switch(ScreenType.Game);
         }
+
+
+        public void GameClosed(string msg)
+        {
+            manager.GameController.GameClosed(msg);
+
+            Switch(ClientState.Online);
+        }
     }
 }

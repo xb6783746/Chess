@@ -31,5 +31,7 @@ namespace GameTemplate.Interfaces
         /// </summary>
         /// <returns>StepInfo, содержащий информацию о сделанном ходе</returns>
         StepInfo MakeStep();
+
+        void GameOver();
     }
 }

@@ -17,5 +17,6 @@ namespace ChessClient.Interfaces.IControllers
         void StartGame(IReadOnlyField figures, FColor color);
         void Step(ChessState state);
         void GameOver(FColor win);
+        void GameClosed(string msg);
     }
 }

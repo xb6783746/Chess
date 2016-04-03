@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 
 namespace ChessServer.Clients
 {
-    [Serializable]
     class RemoteGamer :IGamer
     {
         public RemoteGamer()
@@ -23,13 +22,13 @@ namespace ChessServer.Clients
         private IGame game;
         private FColor color;
         private StepInfo step;
-        [NonSerialized]
         private EventWaitHandle wait;
         private bool isWait;
+        private bool inGame;
 
         public void Step(StepInfo step)
         {
-            if (isWait)
+            if (inGame && isWait)
             {
                 this.step = step;
                 isWait = false;
@@ -47,6 +46,8 @@ namespace ChessServer.Clients
         {
             this.game = game;
             this.color = color;
+            this.inGame = true;
+            this.isWait = false;
 
         }
 
@@ -57,6 +58,20 @@ namespace ChessServer.Clients
             wait.WaitOne();
 
             return step;
+        }
+
+
+        public void GameOver()
+        {
+            inGame = false;
+            if (isWait)
+            {
+                wait.Set();
+            }
+
+            isWait = false;
+
+            
         }
     }
 }

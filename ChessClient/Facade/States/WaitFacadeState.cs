@@ -27,7 +27,7 @@ namespace ChessClient.Facade.States
         }
         public void Message(ChatMessage msg)
         {
-            throw new NotImplementedException();
+            
         }
         public void Disconnected()
         {
@@ -60,6 +60,12 @@ namespace ChessClient.Facade.States
         public void Enable()
         {
             manager.Switch(Enums.ScreenType.Wait);
+        }
+
+
+        public void GameClosed(string msg)
+        {
+            throw new NotImplementedException();
         }
     }
 }

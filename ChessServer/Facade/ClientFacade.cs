@@ -87,6 +87,12 @@ namespace ChessServer.Facade
 
             SendMessage(m, id);
         }
+        public void GameClosed(string message, int id)
+        {
+            Message m = new Message("GameClosed", message);
+
+            SendMessage(m, id);
+        }
         public void Wait(int id)
         {
             Message m = new Message("Waiting");
@@ -110,5 +116,6 @@ namespace ChessServer.Facade
                 }
             }
         }
+
     }
 }

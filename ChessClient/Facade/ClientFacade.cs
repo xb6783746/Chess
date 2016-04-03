@@ -77,5 +77,10 @@ namespace ChessClient.Controllers
             current.Enable();
           
         }
+
+        public void GameClosed(string msg)
+        {
+            current.GameClosed(msg);
+        }
     }
 }

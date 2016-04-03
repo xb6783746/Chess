@@ -44,12 +44,16 @@
     <Compile Include="MainScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MainScreen.Designer.cs" />
+    <Compile Include="MainScreen.Designer.cs">
+      <DependentUpon>MainScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ModalWindow.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ModalWindow.Designer.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ModalWindow.Designer.cs">
+      <DependentUpon>ModalWindow.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClientAPI\ClientAPI.csproj">
@@ -62,8 +66,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MainScreen.resx" />
-    <EmbeddedResource Include="ModalWindow.resx" />
+    <EmbeddedResource Include="MainScreen.resx">
+      <DependentUpon>MainScreen.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

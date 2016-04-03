@@ -10,5 +10,8 @@ namespace ClientAPI
     public interface IScreen
     {
         UserControl GetScreen();
+
+        void Enable();
+        void Disable();
     }
 }

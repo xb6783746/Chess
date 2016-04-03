@@ -32,7 +32,7 @@ namespace ChessClient.Controllers
             var screen = GetScreenType("/Screens", typeof(ILoginScreen));
 
             loginScreen = Activator.CreateInstance(screen) as ILoginScreen;
-            this.screen = loginScreen.GetScreen();
+            this.screen = loginScreen;
 
             loginScreen.LogIn += LogIn;
 

@@ -51,7 +51,7 @@ namespace ChessClient.Controllers
             gameScreen = Activator.CreateInstance(gScreen) as IGameScreen;
             gameScreen.SetRender(render);
 
-            this.screen = gameScreen.GetScreen();
+            this.screen = gameScreen;
 
             gameScreen.Send += Send;
             gameScreen.Step += Step;

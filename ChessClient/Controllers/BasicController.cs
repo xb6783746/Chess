@@ -1,4 +1,5 @@
 ﻿using ChessClient.Interfaces;
+using ClientAPI;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,17 +23,20 @@ namespace ChessClient.Controllers
 
         public virtual void Enable()
         {
-            mainForm.Screen = screen;
+            screen.Enable();
+            mainForm.Screen = screen.GetScreen();
+
         }
 
         public virtual void Disable()
         {
+            screen.Disable();
             mainForm.Screen = null;
         }
 
         protected IMainForm mainForm;
         protected IServerFacade facade;
-        protected UserControl screen;
+        protected IScreen screen;
 
         protected virtual void LoadScreen()
         {

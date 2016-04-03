@@ -44,21 +44,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LogInScreen.cs">
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="LoginScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="LoginScreen.Designer.cs">
+      <DependentUpon>LoginScreen.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClientAPI\ClientAPI.csproj">
       <Project>{60c609fd-bd7f-4b8e-9028-91052bc34fd4}</Project>
       <Name>ClientAPI</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="LogInScreen.resx">
-      <DependentUpon>LogInScreen.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

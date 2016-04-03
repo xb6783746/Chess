@@ -39,7 +39,7 @@ namespace ChessClient.Controllers
             var screen = GetScreenType("/Screens", typeof(IMainScreen));
 
             mainScreen = Activator.CreateInstance(screen) as IMainScreen;
-            this.screen = mainScreen.GetScreen();
+            this.screen = mainScreen;
 
             mainScreen.ChangeNick += ChangeNick;
             mainScreen.GameWith += GameWith;

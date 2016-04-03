@@ -22,7 +22,7 @@ namespace ChessClient.Controllers
 
             waitScreen = Activator.CreateInstance(type) as IWaitingScreen;
 
-            this.screen = waitScreen.GetScreen();
+            this.screen = waitScreen;
         }
     }
 }

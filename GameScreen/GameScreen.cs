@@ -152,5 +152,15 @@ namespace GameScreen
             this.color = color;
             YourColor.Text += color.ToString();
         }
+
+
+        public void Enable()
+        {
+           
+        }
+        public void Disable()
+        {
+            
+        }
     }
 }

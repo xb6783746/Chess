@@ -1,4 +1,4 @@
-﻿namespace tmp
+﻿namespace MainScreen
 {
     partial class ModalWindow
     {

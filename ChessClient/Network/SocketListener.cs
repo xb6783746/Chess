@@ -65,6 +65,7 @@ namespace ChessClient.Network
             catch
             {
                 IsRunning = false;
+                socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             }
         }
 

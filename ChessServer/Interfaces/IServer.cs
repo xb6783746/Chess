@@ -12,7 +12,10 @@ namespace ChessServer.Interfaces
         void Stop();
 
         void Send(byte[] msg, int id);
+        void Disconnect(int id);
 
+        event Action<int> Connected;
+        event Action<int> Disconnected;
         event Action<byte[], int> Receive;
     }
 }

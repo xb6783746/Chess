@@ -8,8 +8,8 @@ namespace ChessServer.Interfaces
 {
     interface IClientManager
     {
-        void Registration(int id);
-        void Disconnect(int id);
+        //void Registration(int id);
+        //void Disconnect(int id);
 
         IClient GetClient(int id);
 

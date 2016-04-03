@@ -13,16 +13,16 @@ namespace ChessServer
     [Serializable]
     class SocketServer : IServer
     {
-        public SocketServer(IClientManager clientManager, IIDManager idManager)
+        public SocketServer(IIDManager idManager)
         {
-            this.clientManager = clientManager;
+            //this.clientManager = clientManager;
             this.idManager = idManager;
 
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             clients = new Dictionary<int, Socket>();
         }
 
-        private IClientManager clientManager;
+       // private IClientManager clientManager;
         private IIDManager idManager;
         private Socket socket;
         private Dictionary<int, Socket> clients;
@@ -47,6 +47,13 @@ namespace ChessServer
                 clients[id].Send(msg);
             }
         }
+        public void Disconnect(int id)
+        {
+            if (clients.ContainsKey(id))
+            {
+                clients[id].Dispose();
+            }
+        }
 
         private void Accept()
         {
@@ -65,7 +72,7 @@ namespace ChessServer
                         clients.Add(id, client);
                     }
 
-                    clientManager.Registration(id);
+                    Connected(id);
 
 
                     ThreadPool.QueueUserWorkItem((x) => Listen(id, client));
@@ -94,7 +101,7 @@ namespace ChessServer
             }
             catch
             {
-                clientManager.Disconnect(id);
+                Disconnected(id);
 
                 lock (lck)
                 {
@@ -107,5 +114,8 @@ namespace ChessServer
         }
 
         public event Action<byte[], int> Receive = (x, y) => { };
+        public event Action<int> Connected = (x) => { };
+        public event Action<int> Disconnected = (x) => { };
+
     }
 }

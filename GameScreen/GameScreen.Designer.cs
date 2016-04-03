@@ -46,12 +46,9 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
             this.chatScreen1 = new ClientAPI.ChatScreen();
             this.YourColor = new System.Windows.Forms.Label();
+            this.Turn = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.GameBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,7 +65,7 @@
             // ConcedeButton
             // 
             this.ConcedeButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ConcedeButton.Location = new System.Drawing.Point(761, 16);
+            this.ConcedeButton.Location = new System.Drawing.Point(770, 106);
             this.ConcedeButton.Name = "ConcedeButton";
             this.ConcedeButton.Size = new System.Drawing.Size(88, 34);
             this.ConcedeButton.TabIndex = 6;
@@ -236,71 +233,41 @@
             this.label16.TabIndex = 21;
             this.label16.Text = "H";
             // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label17.Location = new System.Drawing.Point(696, 62);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(68, 24);
-            this.label17.TabIndex = 24;
-            this.label17.Text = "Белые";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label18.Location = new System.Drawing.Point(859, 62);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(78, 24);
-            this.label18.TabIndex = 25;
-            this.label18.Text = "Черные";
-            // 
-            // listBox1
-            // 
-            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(666, 89);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(129, 301);
-            this.listBox1.TabIndex = 26;
-            // 
-            // listBox2
-            // 
-            this.listBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(830, 89);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(129, 301);
-            this.listBox2.TabIndex = 27;
-            // 
             // chatScreen1
             // 
             this.chatScreen1.Location = new System.Drawing.Point(666, 401);
             this.chatScreen1.Name = "chatScreen1";
+            this.chatScreen1.Nick = null;
             this.chatScreen1.Size = new System.Drawing.Size(304, 215);
             this.chatScreen1.TabIndex = 28;
             // 
             // YourColor
             // 
             this.YourColor.AutoSize = true;
-            this.YourColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.YourColor.Location = new System.Drawing.Point(647, 596);
+            this.YourColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.YourColor.Location = new System.Drawing.Point(681, 374);
             this.YourColor.Name = "YourColor";
-            this.YourColor.Size = new System.Drawing.Size(90, 20);
+            this.YourColor.Size = new System.Drawing.Size(104, 24);
             this.YourColor.TabIndex = 29;
             this.YourColor.Text = "Ваш цвет: ";
+            // 
+            // Turn
+            // 
+            this.Turn.AutoSize = true;
+            this.Turn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Turn.Location = new System.Drawing.Point(681, 339);
+            this.Turn.Name = "Turn";
+            this.Turn.Size = new System.Drawing.Size(75, 24);
+            this.Turn.TabIndex = 30;
+            this.Turn.Text = "Ходят: ";
             // 
             // GameScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.Turn);
             this.Controls.Add(this.YourColor);
             this.Controls.Add(this.chatScreen1);
-            this.Controls.Add(this.listBox2);
-            this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.label18);
-            this.Controls.Add(this.label17);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label14);
@@ -347,11 +314,8 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.ListBox listBox2;
         private ClientAPI.ChatScreen chatScreen1;
         private System.Windows.Forms.Label YourColor;
+        private System.Windows.Forms.Label Turn;
     }
 }

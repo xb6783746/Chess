@@ -27,6 +27,17 @@ namespace GameScreen
             from = new Point();
             picture = new Bitmap(GameBox.Height, GameBox.Width);
         }
+        public string Nick
+        {
+            get
+            {
+                return chatScreen1.Nick;
+            }
+            set
+            {
+                chatScreen1.Nick = value;
+            }
+        }
 
         private IRender render;
         private Point from;
@@ -52,7 +63,7 @@ namespace GameScreen
         {
             Color(color);
             YourTurn = (this.color == FColor.White);
-
+            Turn.Text = "Ходят: Белые";
             field = figures;
             UpdatePic();
         }
@@ -62,6 +73,7 @@ namespace GameScreen
             field = state.Figures;
             UpdatePic();
             YourTurn = (color == state.Turn);
+            Turn.Text = "Ходят: " + GetTextColor(state.Turn);
         }
 
         public void Receive(ChatMessage message)
@@ -72,6 +84,21 @@ namespace GameScreen
         public UserControl GetScreen()
         {
             return this;
+        }
+
+        public void Enable()
+        {
+
+        }
+
+        public void Disable()
+        {
+
+        }
+
+        public void GameClosed(string msg)
+        {
+            MessageBox.Show(msg);
         }
 
 
@@ -151,33 +178,10 @@ namespace GameScreen
             this.color = color;
             YourColor.Text += color.ToString();
         }
-
-
-        public void Enable()
+        private string GetTextColor(FColor color)
         {
-           
-        }
-        public void Disable()
-        {
-            
+            return color == FColor.White ? "Белые" : "Черные";
         }
 
-
-        public void GameClosed(string msg)
-        {
-            MessageBox.Show(msg);
-        }
-
-        public string Nick
-        {
-            get
-            {
-                return chatScreen1.Nick;
-            }
-            set
-            {
-                chatScreen1.Nick = value;
-            }
-        }
     }
 }

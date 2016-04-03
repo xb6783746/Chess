@@ -99,7 +99,7 @@ namespace GameTemplate.Game
             {
                 step = gamer.MakeStep();
             } 
-            while (!error && field[step.From] == null || field[step.From].Color != Turn || !field.MakeStep(step));
+            while (!error && (field[step.From] == null || field[step.From].Color != Turn || !field.MakeStep(step)));
 
             LastStep = step;           
         }

@@ -15,7 +15,7 @@ namespace GameTemplate.ChessField
         public ROField(IChessFigure[,] board, Dictionary<IChessFigure, int> died)
         {
             this.board = board;
-            this.died = died;
+            this.died = new Dictionary<IChessFigure, int>();
         }
 
         private IChessFigure[,] board;

@@ -41,24 +41,8 @@ namespace GameTemplate.ChessGame.ChessFigures
         }
         public List<Point> GetCells(Point location, IReadOnlyField field)
         {
-            List<Point> cells = GetAllCells(location, field);
-            Point temp;
-            for (int i = 0; i < cells.Count; i++)
-            {
-                temp = new Point(cells[i].X, cells[i].Y);
-                if (field[temp] != null && field[temp].Color == color)
-                {
-                    cells.Remove(temp);
-                }
-            }
-
-            return cells;
-        }
-
-
-        private List<Point> GetAllCells(Point location, IReadOnlyField field)
-        {
             List<Point> cells = new List<Point>();
+
             Cells(ref cells, location, 1, 1, field);
             Cells(ref cells, location, -1, 1, field);
             Cells(ref cells, location, -1, -1, field);
@@ -66,7 +50,6 @@ namespace GameTemplate.ChessGame.ChessFigures
 
             return cells;
         }
-   
 
         private void Cells(ref List<Point> cells, Point start, int stepX, int stepY, IReadOnlyField field)
         {

@@ -52,6 +52,7 @@ namespace GameTemplate.ChessGame.ChessFigures
 
             return cells;
         }
+
         private List<Point> GetAllCells(Point location)
         {
             List<Point> cells = new List<Point>();

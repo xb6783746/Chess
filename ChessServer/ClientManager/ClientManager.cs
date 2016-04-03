@@ -12,49 +12,53 @@ namespace ChessServer.Managers
     class ClientManager : IClientManager
     {
 
-        public ClientManager(IClientFacade clientFacade)
+        public ClientManager(IClientFacade clientFacade, IServer server)
         {
             clients = new Dictionary<int, IClient>();
             withoutNick = new Dictionary<int, IClient>();
 
             this.clientFacade = clientFacade;
+            this.server = server;
+
+            server.Connected += Registration;
+            server.Disconnected += Disconnect;
+
+            forbidden = new string[] 
+            { 
+                "System"
+            };
         }
 
         private Dictionary<int, IClient> withoutNick;
         private Dictionary<int, IClient> clients;
         private IClientFacade clientFacade;
+        private IServer server;
+        private string[] forbidden;
         private object lck = new object();
 
-        public void Registration(int id)
-        {
-            IClient client = new Client(id, clientFacade);
-            lock (lck)
-            {
-                withoutNick.Add(id, client);
-            }
-        }
-        public void Disconnect(int id)
-        {           
-            Disconnected(clients[id]);
-
-            lock (lck)
-            {
-                clients.Remove(id);
-            }
-        }
         public void ChangeNick(string nick, int id)
         {
             lock (lck)
             {
                 if (withoutNick.ContainsKey(id))
                 {
+                    var tmp = clients.FirstOrDefault((x) => x.Value.Nick == nick).Value;
+                    if (tmp != null || forbidden.Contains(nick))
+                    {
+                        withoutNick.Remove(id);
+                        clientFacade.LoginResult(false, "Игрок с таким ником уже существует", id);
+                        server.Disconnect(id);
+
+                        return;
+                    }
+
                     clients.Add(id, withoutNick[id]);
                     withoutNick.Remove(id);
 
                     clients[id].Nick = nick;
 
                     clients[id].LoginResult(true, nick);
-                    Connected(clients[id]);                   
+                    Connected(clients[id]);
                 }
 
                 clients[id].Nick = nick;
@@ -72,5 +76,27 @@ namespace ChessServer.Managers
 
         public event Action<IClient> Connected = (x) => { };
         public event Action<IClient> Disconnected = (x) => { };
+
+        private void Registration(int id)
+        {
+            IClient client = new Client(id, clientFacade);
+            lock (lck)
+            {
+                withoutNick.Add(id, client);
+            }
+        }
+        private void Disconnect(int id)
+        {
+            if (clients.ContainsKey(id))
+            {
+                Disconnected(clients[id]);
+
+                lock (lck)
+                {
+                    clients.Remove(id);
+                }
+            }
+        }
+
     }
 }

@@ -21,8 +21,8 @@ namespace ChessServer
 
             var idManager = new IDManager();
             var clientFacade = new ClientFacade();
-            var clientManager = new ClientManager(clientFacade);
-            var server = new SocketServer(clientManager, idManager);
+            var server = new SocketServer(idManager);
+            var clientManager = new ClientManager(clientFacade, server);
             var gameManager = new GameManager(clientFacade, clientManager);
             var chatManager = new ChatManager(clientManager, gameManager, clientFacade);
             var serverFacade = new ServerFacade(chatManager, clientManager, gameManager);

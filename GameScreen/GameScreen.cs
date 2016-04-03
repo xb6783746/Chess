@@ -116,9 +116,11 @@ namespace GameScreen
                         }
                     }
 
-
-                    Step(new StepInfo(from, temp));
-                    from = new Point();
+                    if (!from.IsEmpty)
+                    {
+                        Step(new StepInfo(from, temp));
+                        from = new Point();
+                    }
                 }
                 else
                 {

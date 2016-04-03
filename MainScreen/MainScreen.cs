@@ -17,6 +17,8 @@ namespace MainScreen.NewFolder1
         public MainScreen()
         {
             InitializeComponent();
+
+            chatScreen.Send += (x) => Send(x);
         }
 
 

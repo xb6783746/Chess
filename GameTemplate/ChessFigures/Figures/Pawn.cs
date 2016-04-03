@@ -46,10 +46,25 @@ namespace GameTemplate.ChessGame.ChessFigures
         {
             List<Point> cells = new List<Point>();
             temp = new Point(location.X, location.Y - 1);
-            if (temp.Y >= 0 && field[temp] == null)
+
+            if (temp.Y >= 0)
             {
-                cells.Add(new Point(location.X, location.Y - 1));
+                do
+                {
+                    if (field[temp] == null)
+                    {
+                        cells.Add(temp);
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                    temp.Y--;
+
+                } while (temp.Y > 3);
             }
+
             EnemyFigure(ref cells, location, field, -1, -1);
             EnemyFigure(ref cells, location, field, 1, -1);
 
@@ -60,9 +75,22 @@ namespace GameTemplate.ChessGame.ChessFigures
         {
             List<Point> cells = new List<Point>();
             temp = new Point(location.X, location.Y + 1);
-            if (temp.Y < 8 && field[temp] == null)
+            if (temp.Y < 8)
             {
-                cells.Add(new Point(location.X, location.Y + 1));
+                do
+                {
+                    if (field[temp] == null)
+                    {
+                        cells.Add(temp);
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                    temp.Y++;
+
+                } while (temp.Y <= 3);
             }
 
             EnemyFigure(ref cells, location, field, -1, 1);

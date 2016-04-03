@@ -22,7 +22,10 @@ namespace ChessClient.Network
         public void LogIn(IPAddress ip, int port, string message)
         {
             socketListener.Connect(ip, port);
-            ChangeNick(message);
+            if (socketListener.IsRunning)
+            {
+                ChangeNick(message);
+            }
         }
         public void Init(IClientFacade clientFacade, ISocketListener socketListener)
         {

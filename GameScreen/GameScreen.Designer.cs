@@ -46,9 +46,9 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.chatScreen1 = new ClientAPI.ChatScreen();
             this.YourColor = new System.Windows.Forms.Label();
             this.Turn = new System.Windows.Forms.Label();
+            this.chatScreen1 = new ClientAPI.ChatScreen();
             ((System.ComponentModel.ISupportInitialize)(this.GameBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,12 +64,13 @@
             // 
             // ConcedeButton
             // 
+            this.ConcedeButton.Enabled = false;
             this.ConcedeButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ConcedeButton.Location = new System.Drawing.Point(770, 106);
+            this.ConcedeButton.Location = new System.Drawing.Point(867, 6);
             this.ConcedeButton.Name = "ConcedeButton";
             this.ConcedeButton.Size = new System.Drawing.Size(88, 34);
             this.ConcedeButton.TabIndex = 6;
-            this.ConcedeButton.Text = "Cдастся";
+            this.ConcedeButton.Text = "Cдаться";
             this.ConcedeButton.UseVisualStyleBackColor = true;
             this.ConcedeButton.Click += new System.EventHandler(this.Concede_Click);
             // 
@@ -233,19 +234,11 @@
             this.label16.TabIndex = 21;
             this.label16.Text = "H";
             // 
-            // chatScreen1
-            // 
-            this.chatScreen1.Location = new System.Drawing.Point(666, 401);
-            this.chatScreen1.Name = "chatScreen1";
-            this.chatScreen1.Nick = null;
-            this.chatScreen1.Size = new System.Drawing.Size(304, 215);
-            this.chatScreen1.TabIndex = 28;
-            // 
             // YourColor
             // 
             this.YourColor.AutoSize = true;
             this.YourColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.YourColor.Location = new System.Drawing.Point(681, 374);
+            this.YourColor.Location = new System.Drawing.Point(647, 16);
             this.YourColor.Name = "YourColor";
             this.YourColor.Size = new System.Drawing.Size(104, 24);
             this.YourColor.TabIndex = 29;
@@ -255,11 +248,19 @@
             // 
             this.Turn.AutoSize = true;
             this.Turn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Turn.Location = new System.Drawing.Point(681, 339);
+            this.Turn.Location = new System.Drawing.Point(647, 46);
             this.Turn.Name = "Turn";
             this.Turn.Size = new System.Drawing.Size(75, 24);
             this.Turn.TabIndex = 30;
             this.Turn.Text = "Ходят: ";
+            // 
+            // chatScreen1
+            // 
+            this.chatScreen1.Location = new System.Drawing.Point(651, 415);
+            this.chatScreen1.Name = "chatScreen1";
+            this.chatScreen1.Nick = null;
+            this.chatScreen1.Size = new System.Drawing.Size(304, 215);
+            this.chatScreen1.TabIndex = 28;
             // 
             // GameScreen
             // 
@@ -287,7 +288,7 @@
             this.Controls.Add(this.ConcedeButton);
             this.Controls.Add(this.GameBox);
             this.Name = "GameScreen";
-            this.Size = new System.Drawing.Size(1000, 653);
+            this.Size = new System.Drawing.Size(1000, 675);
             ((System.ComponentModel.ISupportInitialize)(this.GameBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

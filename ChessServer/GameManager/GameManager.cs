@@ -45,14 +45,17 @@ namespace ChessServer.Managers
         }
         public void RandomGame(IClient gamer)
         {
-            playerWait.Add(gamer);
-
-            clientFacade.Wait(gamer.Id);
-            if (playerWait.Count == 2)
+            lock (key)
             {
-                CreateRoom(playerWait[0], playerWait[1]);
+                playerWait.Add(gamer);
 
-                playerWait.Clear();
+                clientFacade.Wait(gamer.Id);
+                if (playerWait.Count == 2)
+                {
+                    CreateRoom(playerWait[0], playerWait[1]);
+
+                    playerWait.Clear();
+                }
             }
         }
         public void RequestGame(IClient who, IClient gamer)
@@ -69,7 +72,7 @@ namespace ChessServer.Managers
 
         public void GameWithComputer(IClient gamerId, IClient algId)
         {
-            CreateRoom(gamerId, algId);
+            //CreateRoom(gamerId, algId);
         }
 
         public event Action<int> GameOver = (x) => { };
@@ -101,14 +104,17 @@ namespace ChessServer.Managers
         private void Disconnected(IClient client)
         {
             //поиск в очереди
-
-
-            //поиск в игровых комнатах
-
-            var room = gameRooms.FirstOrDefault((x) => x.Gamers.Contains(client));
-            if (room != null)
+            lock (key)
             {
-                room.CloseRoom(client);
+                playerWait.RemoveAll((x) => x == client);
+
+                //поиск в игровых комнатах
+
+                var room = gameRooms.FirstOrDefault((x) => x.Gamers.Contains(client));
+                if (room != null)
+                {
+                    room.CloseRoom(client);
+                }
             }
         }
         private void Connected(IClient client)

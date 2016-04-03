@@ -55,7 +55,7 @@ namespace GameTemplate.ChessGame.ChessFigures
         {
             temp = new Point(start.X + stepX, start.Y + stepY);
 
-            while (temp.X < 8 && temp.X >= 0 && temp.Y < 8 && temp.Y >= 0 && field[temp] == null)
+            while (TestPoint(temp) && field[temp] == null)
             {
 
                 cells.Add(temp);
@@ -63,10 +63,14 @@ namespace GameTemplate.ChessGame.ChessFigures
                 temp.X += stepX;
                 temp.Y += stepY;
             }
-            if (temp.X < 8 && temp.X >= 0 && temp.Y < 8 && temp.Y >= 0 && field[temp] != null && field[temp].Color != this.Color)
+            if (TestPoint(temp) && field[temp] != null && field[temp].Color != this.Color)
             {
                 cells.Add(temp);
             }
+        }
+        private bool TestPoint(Point temp)
+        {
+            return temp.X >= 0 && temp.X < 8 && temp.Y < 8 && temp.Y >= 0;
         }
 
     }

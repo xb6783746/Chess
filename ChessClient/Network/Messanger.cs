@@ -83,11 +83,19 @@ namespace ChessClient.Network
         {
             lock(lck)
             {
-                using (var stream = new MemoryStream(message))
+                Message mesg;
+                try
                 {
-                    Message mesg = formatter.Deserialize(stream) as Message;
+                    using (var stream = new MemoryStream(message))
+                    {
+                        mesg = formatter.Deserialize(stream) as Message;
 
-                    clientFacade.GetType().GetMethod(mesg.Method).Invoke(clientFacade, mesg.Arguments);
+                        clientFacade.GetType().GetMethod(mesg.Method).Invoke(clientFacade, mesg.Arguments);
+                    }
+                }
+                catch(Exception e)
+                {
+
                 }
             }
         }

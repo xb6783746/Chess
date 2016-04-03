@@ -28,8 +28,8 @@ namespace MainScreen
 
         }
 
-        public event Action<string> Select;
-        public event Action Cancel;
+        public event Action<string> Select = (x) => { };
+        public event Action Cancel = () => { };
 
         private void acceptButton_Click(object sender, EventArgs e)
         {

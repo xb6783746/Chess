@@ -96,6 +96,8 @@ namespace ChessServer.Managers
                 room.AddWatcher(first);
                 room.AddWatcher(second);
 
+                room.RoomClosed += (x) => GameOver(x);
+
                 gameRooms.Add(room);
 
                 GameStart(room.RoomId);

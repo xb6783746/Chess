@@ -19,6 +19,9 @@ namespace MainScreen.NewFolder1
             InitializeComponent();
 
             chatScreen.Send += (x) => Send(x);
+
+            window.Select += UserSelect;
+            window.Cancel += Cancel;
         }
 
 

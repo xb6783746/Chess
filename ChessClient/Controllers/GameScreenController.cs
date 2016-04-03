@@ -23,12 +23,20 @@ namespace ChessClient.Controllers
 
         private IGameScreen gameScreen;
 
+        private Type screenType;
+        private Type renderType;
+
         public void Message(ChatMessage msg)
         {
             gameScreen.Receive(msg);
         }
         public void StartGame(IReadOnlyField figures, FColor color)
         {
+            gameScreen = Activator.CreateInstance(screenType) as IGameScreen;
+            var render = Activator.CreateInstance(renderType) as IRender;
+
+            Init(gameScreen, render);
+
             gameScreen.StartGame(figures, color);
         }
         public void Step(ChessState state)
@@ -42,16 +50,21 @@ namespace ChessClient.Controllers
 
         protected override void LoadScreen()
         {
-            var gScreen = this.GetScreenType("/Screens", typeof(IGameScreen));
-
-            var renderType = this.GetScreenType("/Screens", typeof(IRender));
+            screenType = this.GetScreenType("/Screens", typeof(IGameScreen));
+            renderType = this.GetScreenType("/Screens", typeof(IRender));
 
             var render = Activator.CreateInstance(renderType) as IRender;
+            gameScreen = Activator.CreateInstance(screenType) as IGameScreen;
 
-            gameScreen = Activator.CreateInstance(gScreen) as IGameScreen;
+            Init(gameScreen, render);
+        }
+
+        private void Init(IGameScreen screen, IRender render)
+        {
+            this.gameScreen = screen;
+            this.screen = screen;
+
             gameScreen.SetRender(render);
-
-            this.screen = gameScreen;
 
             gameScreen.Send += Send;
             gameScreen.Step += Step;

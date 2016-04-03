@@ -14,6 +14,7 @@ namespace ChessServer.Interfaces
         void ChangeNick(string nick, int id);
         void NewStep(StepInfo step, int id);
 
+
         void RandomGame(int id);
     }
 }

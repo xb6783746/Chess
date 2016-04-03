@@ -55,6 +55,7 @@ namespace ChessClient.Controllers
 
             gameScreen.Send += Send;
             gameScreen.Step += Step;
+            gameScreen.Concede += Concede;
         }
 
         private void Send(ChatMessage msg)
@@ -64,6 +65,10 @@ namespace ChessClient.Controllers
         private void Step(StepInfo step)
         {
             facade.MakeStep(step);
+        }
+        private void Concede()
+        {
+            facade.Disconnect();
         }
     }
 }

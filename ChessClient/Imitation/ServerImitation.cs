@@ -102,5 +102,11 @@ namespace ChessClient.Network
         {
             return new SimpleGame(first, second, new ChessField(new ChessFiguresPool()));
         }
+
+
+        public void Disconnect()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

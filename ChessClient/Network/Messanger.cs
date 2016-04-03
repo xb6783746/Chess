@@ -98,5 +98,12 @@ namespace ChessClient.Network
                 socketListener.Send(stream.GetBuffer());
             }
         }
+
+        public void Disconnect()
+        {
+            Message m = new Message("Disconnect", null);
+
+            SendMessage(m);
+        }
     }
 }

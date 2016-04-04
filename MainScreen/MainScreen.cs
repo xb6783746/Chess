@@ -129,10 +129,10 @@ namespace MainScreen.NewFolder1
         }
         private void SetList(string[] online)
         {
-            usersListBox.Text = "";
+            usersListBox.Items.Clear();
             for (int i = 0; i < online.Length; i++)
             {
-                usersListBox.Text += online[i];
+                usersListBox.Items.Add(online[i]);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using ChessServer.Interfaces;
+﻿using ChessServer.IdManager;
+using ChessServer.Interfaces;
 using GameTemplate.ChessEnums;
 using GameTemplate.ChessGame.ChessField;
 using GameTemplate.ChessGame.ChessFigures;
@@ -18,6 +19,7 @@ namespace ChessServer.Managers
         {
             playerWait = new List<IClient>();
             gameRooms = new List<GameRoom>();
+            idManager = new IDManager();
             this.chessPool = new ChessFiguresPool();
 
             this.clientFacade = clientFacade;
@@ -26,7 +28,8 @@ namespace ChessServer.Managers
             clientManager.Disconnected += Disconnected;
             clientManager.Connected += Connected;
 
-            key = new object();
+            waitLck = new object();
+            roomLck = new object();
         }
 
         private IChessFigureFactory chessPool;
@@ -34,8 +37,11 @@ namespace ChessServer.Managers
         private IClientManager clientManager;
         private List<IClient> playerWait;
         private List<GameRoom> gameRooms;
+        private IIDManager idManager;
         private IReadOnlyField startField = ChessField.Empty;
-        private object key;
+
+        private object waitLck;
+        private object roomLck;
 
         public List<IClient> Watchers(int roomId)
         {
@@ -45,16 +51,17 @@ namespace ChessServer.Managers
         }
         public void RandomGame(IClient gamer)
         {
-            lock (key)
+            clientFacade.Wait(gamer.Id);
+
+            lock (waitLck)
             {
                 playerWait.Add(gamer);
-
-                clientFacade.Wait(gamer.Id);
-                if (playerWait.Count == 2)
+             
+                while (playerWait.Count > 1)
                 {
                     CreateRoom(playerWait[0], playerWait[1]);
 
-                    playerWait.Clear();
+                    playerWait.RemoveRange(0, 2);
                 }
             }
         }
@@ -80,44 +87,49 @@ namespace ChessServer.Managers
 
         private void CreateRoom(IClient first, IClient second)
         {
-            lock (key)
-            {
-                clientFacade.StartGame(startField, FColor.Black, first.Id);
-                clientFacade.StartGame(startField, FColor.White, second.Id);
+            clientFacade.StartGame(startField, FColor.Black, first.Id);
+            clientFacade.StartGame(startField, FColor.White, second.Id);
 
-                var room = new GameRoom(
-                    first, 
-                    second, 
-                    clientFacade, 
-                    chessPool, 
-                    gameRooms.Count + 1
-                    );
+            var room = new GameRoom(
+                first,
+                second,
+                clientFacade,
+                chessPool,
+                idManager.GetId()
+                );
 
-                room.AddWatcher(first);
-                room.AddWatcher(second);
+            room.AddWatcher(first);
+            room.AddWatcher(second);
 
-                room.RoomClosed += (x) => GameOver(x);
+            room.RoomClosed += (x) => GameOver(x);
 
-                gameRooms.Add(room);
-
-                GameStart(room.RoomId);
+            lock (roomLck)
+            {             
+                gameRooms.Add(room);             
             }
+
+            GameStart(room.RoomId);
         }
         private void Disconnected(IClient client)
         {
             //поиск в очереди
-            lock (key)
+            lock (waitLck)
             {
                 playerWait.RemoveAll((x) => x == client);
-
-                //поиск в игровых комнатах
-
+            }
+            //поиск в игровых комнатах
+            lock (roomLck)
+            {
                 var room = gameRooms.FirstOrDefault((x) => x.Gamers.Contains(client));
                 if (room != null)
                 {
                     room.CloseRoom(client);
-                }
+                    gameRooms.Remove(room);
+
+                    idManager.Delete(room.RoomId);
+                }             
             }
+            
         }
         private void Connected(IClient client)
         {

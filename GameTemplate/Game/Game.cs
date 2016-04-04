@@ -119,7 +119,7 @@ namespace GameTemplate.Game
         /// <summary>
         /// Событие изменения состояния игры
         /// </summary>
-        public event Action Change;
+        public event Action Change = () => { };
         /// <summary>
         /// Событие завершения игры
         /// </summary>

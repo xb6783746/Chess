@@ -66,7 +66,7 @@ namespace GameScreen
             YourTurn = (this.color == FColor.White);
             IfInvoke(() =>
             {
-                Turn.Text = "Ходят: Белые";
+            Turn.Text = "Ходят: Белые";
             });
 
             field = figures;
@@ -81,7 +81,7 @@ namespace GameScreen
 
             IfInvoke(() =>
             {
-                Turn.Text = "Ходят: " + GetTextColor(state.Turn);
+            Turn.Text = "Ходят: " + GetTextColor(state.Turn);
             });
         }
 
@@ -194,18 +194,6 @@ namespace GameScreen
         private string GetTextColor(FColor color)
         {
             return color == FColor.White ? "Белые" : "Черные";
-        }
-
-        private void IfInvoke(Action action)
-        {
-            if (InvokeRequired)
-            {
-                Invoke(action);
-            }
-            else
-            {
-                action();
-            }
         }
 
     }

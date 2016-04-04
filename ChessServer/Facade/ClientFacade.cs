@@ -111,7 +111,7 @@ namespace ChessServer.Facade
             using (var stream = new MemoryStream())
             {
                 try
-                {
+                {   
                     formatter.Serialize(stream, m);
 
                     server.Send(stream.GetBuffer(), id);

@@ -37,7 +37,7 @@
             this.ClientSize = new System.Drawing.Size(1081, 652);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "GChess";
             this.ResumeLayout(false);
 
         }

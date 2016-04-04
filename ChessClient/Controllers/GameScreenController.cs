@@ -18,10 +18,12 @@ namespace ChessClient.Controllers
     {
 
         public GameScreenController(IMainForm form, IServerFacade facade):base(form, facade)
-        {              
+        {
+            nick = "";  
         }
 
         private IGameScreen gameScreen;
+        private string nick;
 
         private Type screenType;
         private Type renderType;
@@ -65,6 +67,7 @@ namespace ChessClient.Controllers
             this.screen = screen;
 
             gameScreen.SetRender(render);
+            gameScreen.Nick = nick;
 
             gameScreen.Send += Send;
             gameScreen.Step += Step;
@@ -94,11 +97,15 @@ namespace ChessClient.Controllers
         {
             get
             {
-                return gameScreen.Nick;
+                return nick;
             }
             set
             {
-                gameScreen.Nick = value;
+                nick = value;
+                if (gameScreen != null)
+                {
+                    gameScreen.Nick = value;
+                }
             }
         }
     }

@@ -71,7 +71,7 @@ namespace ChessServer
                     {
                         clients.Add(id, client);
                     }
-
+                    
                     Connected(id);
 
 
@@ -80,7 +80,7 @@ namespace ChessServer
                 catch
                 {
 
-                    throw;
+                    
                 }
             }
         }

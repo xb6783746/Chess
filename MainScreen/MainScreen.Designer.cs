@@ -1,8 +1,8 @@
 ﻿using ClientAPI;
 using System.Windows.Forms;
-namespace MainScreen.NewFolder1
+namespace MainScreen
 {
-    partial class MainScreen
+    partial class MainWindow
     {
         /// <summary> 
         /// Требуется переменная конструктора.
@@ -34,18 +34,18 @@ namespace MainScreen.NewFolder1
             this.gameWithButton = new System.Windows.Forms.Button();
             this.watchForButton = new System.Windows.Forms.Button();
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.UpdateUsers = new System.Windows.Forms.Button();
             this.nickLabel = new System.Windows.Forms.Label();
             this.chatScreen = new ClientAPI.ChatScreen();
             this.usersListBox = new System.Windows.Forms.ListBox();
-            this.window = new ModalWindow();
-            this.UpdateUsers = new System.Windows.Forms.Button();
+            this.window = new MainScreen.ModalWindow();
             this.mainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // startRandomGameButton
             // 
             this.startRandomGameButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.startRandomGameButton.Location = new System.Drawing.Point(322, 26);
+            this.startRandomGameButton.Location = new System.Drawing.Point(332, 46);
             this.startRandomGameButton.Name = "startRandomGameButton";
             this.startRandomGameButton.Size = new System.Drawing.Size(127, 44);
             this.startRandomGameButton.TabIndex = 3;
@@ -55,8 +55,9 @@ namespace MainScreen.NewFolder1
             // 
             // gameWithButton
             // 
+            this.gameWithButton.Enabled = false;
             this.gameWithButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.gameWithButton.Location = new System.Drawing.Point(322, 76);
+            this.gameWithButton.Location = new System.Drawing.Point(332, 96);
             this.gameWithButton.Name = "gameWithButton";
             this.gameWithButton.Size = new System.Drawing.Size(127, 44);
             this.gameWithButton.TabIndex = 5;
@@ -66,8 +67,9 @@ namespace MainScreen.NewFolder1
             // 
             // watchForButton
             // 
+            this.watchForButton.Enabled = false;
             this.watchForButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.watchForButton.Location = new System.Drawing.Point(322, 126);
+            this.watchForButton.Location = new System.Drawing.Point(332, 146);
             this.watchForButton.Name = "watchForButton";
             this.watchForButton.Size = new System.Drawing.Size(127, 44);
             this.watchForButton.TabIndex = 6;
@@ -78,7 +80,6 @@ namespace MainScreen.NewFolder1
             // mainPanel
             // 
             this.mainPanel.Controls.Add(this.UpdateUsers);
-            this.mainPanel.Controls.Add(this.window);
             this.mainPanel.Controls.Add(this.nickLabel);
             this.mainPanel.Controls.Add(this.chatScreen);
             this.mainPanel.Controls.Add(this.usersListBox);
@@ -87,21 +88,33 @@ namespace MainScreen.NewFolder1
             this.mainPanel.Controls.Add(this.startRandomGameButton);
             this.mainPanel.Location = new System.Drawing.Point(14, 12);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(529, 486);
+            this.mainPanel.Size = new System.Drawing.Size(502, 485);
             this.mainPanel.TabIndex = 7;
+            // 
+            // UpdateUsers
+            // 
+            this.UpdateUsers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.UpdateUsers.Location = new System.Drawing.Point(332, 227);
+            this.UpdateUsers.Name = "UpdateUsers";
+            this.UpdateUsers.Size = new System.Drawing.Size(127, 44);
+            this.UpdateUsers.TabIndex = 10;
+            this.UpdateUsers.Text = "Обновить список игроков";
+            this.UpdateUsers.UseVisualStyleBackColor = true;
+            this.UpdateUsers.Click += new System.EventHandler(this.UpdateUsers_Click);
             // 
             // nickLabel
             // 
             this.nickLabel.AutoSize = true;
+            this.nickLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.nickLabel.Location = new System.Drawing.Point(3, 10);
             this.nickLabel.Name = "nickLabel";
-            this.nickLabel.Size = new System.Drawing.Size(35, 13);
+            this.nickLabel.Size = new System.Drawing.Size(79, 29);
             this.nickLabel.TabIndex = 9;
             this.nickLabel.Text = "label1";
             // 
             // chatScreen
             // 
-            this.chatScreen.Location = new System.Drawing.Point(6, 257);
+            this.chatScreen.Location = new System.Drawing.Point(8, 273);
             this.chatScreen.Name = "chatScreen";
             this.chatScreen.Nick = null;
             this.chatScreen.Size = new System.Drawing.Size(301, 206);
@@ -110,39 +123,27 @@ namespace MainScreen.NewFolder1
             // usersListBox
             // 
             this.usersListBox.FormattingEnabled = true;
-            this.usersListBox.Location = new System.Drawing.Point(6, 26);
+            this.usersListBox.Location = new System.Drawing.Point(8, 42);
             this.usersListBox.Name = "usersListBox";
-            this.usersListBox.Size = new System.Drawing.Size(299, 225);
+            this.usersListBox.Size = new System.Drawing.Size(301, 225);
             this.usersListBox.TabIndex = 7;
             // 
             // window
             // 
             this.window.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.window.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.window.Location = new System.Drawing.Point(49, 26);
+            this.window.Location = new System.Drawing.Point(0, 0);
             this.window.Name = "window";
-            this.window.Size = new System.Drawing.Size(437, 377);
-            this.window.TabIndex = 8;
-            this.window.Visible = false;
+            this.window.Size = new System.Drawing.Size(434, 364);
+            this.window.TabIndex = 0;
             // 
-            // UpdateUsers
-            // 
-            this.UpdateUsers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UpdateUsers.Location = new System.Drawing.Point(322, 176);
-            this.UpdateUsers.Name = "UpdateUsers";
-            this.UpdateUsers.Size = new System.Drawing.Size(127, 44);
-            this.UpdateUsers.TabIndex = 10;
-            this.UpdateUsers.Text = "Обновить список игроков";
-            this.UpdateUsers.UseVisualStyleBackColor = true;
-            this.UpdateUsers.Click += new System.EventHandler(this.UpdateUsers_Click);
-            // 
-            // MainScreen
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.mainPanel);
-            this.Name = "MainScreen";
-            this.Size = new System.Drawing.Size(548, 501);
+            this.Name = "MainWindow";
+            this.Size = new System.Drawing.Size(530, 522);
             this.mainPanel.ResumeLayout(false);
             this.mainPanel.PerformLayout();
             this.ResumeLayout(false);

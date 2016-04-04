@@ -195,6 +195,17 @@ namespace GameScreen
         {
             return color == FColor.White ? "Белые" : "Черные";
         }
+        private void IfInvoke(Action action)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(action);
+            }
+            else
+            {
+                action();
+            }
+        }
 
     }
 }

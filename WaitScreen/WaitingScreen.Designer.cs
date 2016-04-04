@@ -41,6 +41,7 @@ namespace WaitScreen
             // 
             // cancelButton
             // 
+            this.cancelButton.Enabled = false;
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelButton.Location = new System.Drawing.Point(128, 197);
             this.cancelButton.Name = "cancelButton";
@@ -68,13 +69,13 @@ namespace WaitScreen
             this.animateBox.TabIndex = 2;
             this.animateBox.TabStop = false;
             // 
-            // WaitScreen
+            // WaitingScreen
             // 
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.animateBox);
             this.Controls.Add(this.waitLabel);
             this.Controls.Add(this.cancelButton);
-            this.Name = "WaitScreen";
+            this.Name = "WaitingScreen";
             this.Size = new System.Drawing.Size(415, 295);
             ((System.ComponentModel.ISupportInitialize)(this.animateBox)).EndInit();
             this.ResumeLayout(false);

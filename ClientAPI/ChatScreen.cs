@@ -185,9 +185,12 @@ namespace ClientAPI
         {
             chatWindow.Invalidate();
 
-            messageBox.Text = "/" + messages[chatWindow.SelectedIndex].From + " ";
-            messageBox.Focus();
-            messageBox.SelectionStart = messageBox.Text.Length;
+            if (chatWindow.SelectedIndex >= 0)
+            {
+                messageBox.Text = "/" + messages[chatWindow.SelectedIndex].From + " ";
+                messageBox.Focus();
+                messageBox.SelectionStart = messageBox.Text.Length;
+            }
         }
     }
 }

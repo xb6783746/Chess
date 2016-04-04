@@ -10,13 +10,17 @@ using System.Windows.Forms;
 using Network;
 using ClientAPI;
 
-namespace MainScreen.NewFolder1
+namespace MainScreen
 {
-    public partial class MainScreen : UserControl, IMainScreen
+    public partial class MainWindow : UserControl, IMainScreen
     {
-        public MainScreen()
+        public MainWindow()
         {
             InitializeComponent();
+
+            window.Location = new Point(49, 26);
+            window.Size = new Size(437, 377);
+            window.Visible = false;
 
             chatScreen.Send += (x) => Send(x);
 

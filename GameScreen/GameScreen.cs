@@ -44,6 +44,7 @@ namespace GameScreen
         private Bitmap picture;
         private int cellSize;
         private IReadOnlyField field;
+        private StepInfo step;
         private FColor color;
         private bool YourTurn;
         private Point temp;
@@ -74,7 +75,8 @@ namespace GameScreen
         public void UpdateField(ChessState state)
         {
             field = state.Figures;
-            UpdatePic();
+            step = state.LastStep;
+            UpdatePic(step);
             YourTurn = (color == state.Turn);
 
             IfInvoke(() =>
@@ -172,11 +174,18 @@ namespace GameScreen
         {
             return new Point(systemPoint.X / cellSize, systemPoint.Y / cellSize);
         }
+
         private void UpdatePic()
         {
             render.UpdateField(picture, field.GetFiguresOnBoard());
             GameBox.Image = picture;
         }
+        private void UpdatePic(StepInfo step)
+        {
+            render.UpdateField(picture, field.GetFiguresOnBoard(), step);
+            GameBox.Image = picture;
+        }
+
         private void Color(FColor color)
         {
             this.color = color;

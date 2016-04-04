@@ -79,11 +79,6 @@ namespace Rendering
             }
         }
 
-
-
-
-
-
         private void DrawCells(Graphics g, IReadOnlyField field, Point from, List<Point> cell)
         {
             for (int i = 0; i < cell.Count; i++)
@@ -126,14 +121,6 @@ namespace Rendering
             }
         }
 
-
-
-
-
-
-
-
-
         private void DrawFigures(Graphics g, IReadOnlyField field)
         {
             for (int i = 0; i < 8; i++)
@@ -152,8 +139,17 @@ namespace Rendering
             }
         }
 
+        public void UpdateField(Bitmap bitmap, IReadOnlyList<FigureOnBoard> field, StepInfo step)
+        {
+            UpdateField(bitmap, field);
 
-
+            using (Graphics g = Graphics.FromImage(bitmap))
+            using (SolidBrush brush = new SolidBrush(Color.FromArgb(50, Color.Purple)))
+            {
+                g.FillRectangle(brush, step.From.X * blockSize, step.From.Y * blockSize, blockSize, blockSize);
+                g.FillRectangle(brush, step.To.X * blockSize, step.To.Y * blockSize, blockSize, blockSize);
+            }
+        }
     }
 
     public struct Type

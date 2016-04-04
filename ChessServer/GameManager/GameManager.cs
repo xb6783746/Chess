@@ -1,4 +1,5 @@
-﻿using ChessServer.Interfaces;
+﻿using ChessServer.IdManager;
+using ChessServer.Interfaces;
 using GameTemplate.ChessEnums;
 using GameTemplate.ChessGame.ChessField;
 using GameTemplate.ChessGame.ChessFigures;
@@ -18,6 +19,7 @@ namespace ChessServer.Managers
         {
             playerWait = new List<IClient>();
             gameRooms = new List<GameRoom>();
+            idManager = new IDManager();
             this.chessPool = new ChessFiguresPool();
 
             this.clientFacade = clientFacade;
@@ -26,7 +28,8 @@ namespace ChessServer.Managers
             clientManager.Disconnected += Disconnected;
             clientManager.Connected += Connected;
 
-            key = new object();
+            waitLck = new object();
+            roomLck = new object();
         }
 
         private IChessFigureFactory chessPool;
@@ -34,8 +37,11 @@ namespace ChessServer.Managers
         private IClientManager clientManager;
         private List<IClient> playerWait;
         private List<GameRoom> gameRooms;
+        private IIDManager idManager;
         private IReadOnlyField startField = ChessField.Empty;
-        private object key;
+
+        private object waitLck;
+        private object roomLck;
 
         public List<IClient> Watchers(int roomId)
         {
@@ -45,14 +51,18 @@ namespace ChessServer.Managers
         }
         public void RandomGame(IClient gamer)
         {
-            playerWait.Add(gamer);
-
             clientFacade.Wait(gamer.Id);
-            if (playerWait.Count == 2)
-            {
-                CreateRoom(playerWait[0], playerWait[1]);
 
-                playerWait.Clear();
+            lock (waitLck)
+            {
+                playerWait.Add(gamer);
+             
+                while (playerWait.Count > 1)
+                {
+                    CreateRoom(playerWait[0], playerWait[1]);
+
+                    playerWait.RemoveRange(0, 2);
+                }
             }
         }
         public void RequestGame(IClient who, IClient gamer)
@@ -69,7 +79,7 @@ namespace ChessServer.Managers
 
         public void GameWithComputer(IClient gamerId, IClient algId)
         {
-            CreateRoom(gamerId, algId);
+            //CreateRoom(gamerId, algId);
         }
 
         public event Action<int> GameOver = (x) => { };
@@ -77,39 +87,49 @@ namespace ChessServer.Managers
 
         private void CreateRoom(IClient first, IClient second)
         {
-            lock (key)
-            {
-                clientFacade.StartGame(startField, FColor.Black, first.Id);
-                clientFacade.StartGame(startField, FColor.White, second.Id);
+            clientFacade.StartGame(startField, FColor.Black, first.Id);
+            clientFacade.StartGame(startField, FColor.White, second.Id);
 
-                var room = new GameRoom(
-                    first, 
-                    second, 
-                    clientFacade, 
-                    chessPool, 
-                    gameRooms.Count + 1
-                    );
+            var room = new GameRoom(
+                first,
+                second,
+                clientFacade,
+                chessPool,
+                idManager.GetId()
+                );
 
-                room.AddWatcher(first);
-                room.AddWatcher(second);
+            room.AddWatcher(first);
+            room.AddWatcher(second);
 
-                gameRooms.Add(room);
+            room.RoomClosed += (x) => GameOver(x);
 
-                GameStart(room.RoomId);
+            lock (roomLck)
+            {             
+                gameRooms.Add(room);             
             }
+
+            GameStart(room.RoomId);
         }
         private void Disconnected(IClient client)
         {
             //поиск в очереди
-
-
-            //поиск в игровых комнатах
-
-            var room = gameRooms.FirstOrDefault((x) => x.Gamers.Contains(client));
-            if (room != null)
+            lock (waitLck)
             {
-                room.CloseRoom(client);
+                playerWait.RemoveAll((x) => x == client);
             }
+            //поиск в игровых комнатах
+            lock (roomLck)
+            {
+                var room = gameRooms.FirstOrDefault((x) => x.Gamers.Contains(client));
+                if (room != null)
+                {
+                    room.CloseRoom(client);
+                    gameRooms.Remove(room);
+
+                    idManager.Delete(room.RoomId);
+                }             
+            }
+            
         }
         private void Connected(IClient client)
         {

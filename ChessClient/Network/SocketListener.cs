@@ -60,6 +60,8 @@ namespace ChessClient.Network
                     len = socket.Receive(buffer);
 
                     parser.Parse(buffer.Take(len).ToArray());
+
+                    
                 }
             }
             catch

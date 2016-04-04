@@ -38,7 +38,7 @@ namespace ChessServer
         }
         public void Stop()
         {
-            throw new NotImplementedException();
+            
         }
         public void Send(byte[] msg, int id)
         {

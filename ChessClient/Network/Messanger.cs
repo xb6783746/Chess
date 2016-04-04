@@ -22,7 +22,10 @@ namespace ChessClient.Network
         public void LogIn(IPAddress ip, int port, string message)
         {
             socketListener.Connect(ip, port);
-            ChangeNick(message);
+            if (socketListener.IsRunning)
+            {
+                ChangeNick(message);
+            }
         }
         public void Init(IClientFacade clientFacade, ISocketListener socketListener)
         {
@@ -80,11 +83,19 @@ namespace ChessClient.Network
         {
             lock(lck)
             {
-                using (var stream = new MemoryStream(message))
+                Message mesg;
+                try
                 {
-                    Message mesg = formatter.Deserialize(stream) as Message;
+                    using (var stream = new MemoryStream(message))
+                    {
+                        mesg = formatter.Deserialize(stream) as Message;
 
-                    clientFacade.GetType().GetMethod(mesg.Method).Invoke(clientFacade, mesg.Arguments);
+                        clientFacade.GetType().GetMethod(mesg.Method).Invoke(clientFacade, mesg.Arguments);
+                    }
+                }
+                catch(Exception e)
+                {
+
                 }
             }
         }

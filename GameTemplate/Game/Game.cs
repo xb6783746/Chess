@@ -17,11 +17,13 @@ namespace GameTemplate.Game
     public class SimpleGame :IGame
     {
         public SimpleGame(IGamer first, IGamer second, IField field)
-        {
+        {           
             gamerQueue = new Queue<IGamer>();
 
             gamerQueue.Enqueue(second);
             gamerQueue.Enqueue(first);
+
+            gamers = gamerQueue.ToArray();
 
             first.Init(this, FColor.Black);
             second.Init(this, FColor.White);
@@ -48,6 +50,8 @@ namespace GameTemplate.Game
         /// Маркер ошибок
         /// </summary>
         protected bool error;
+
+        private IGamer[] gamers;
 
         /// <summary>
         /// Цвет игрока, который ходит в данный момент
@@ -76,14 +80,14 @@ namespace GameTemplate.Game
             while (!field.IsGameOver && !error)
             {
                 current = gamerQueue.Dequeue();
+                Turn = current.Color;
+
+                Change();
 
                 NextStep(current);
 
-                gamerQueue.Enqueue(current);
-
-                Turn = gamerQueue.Peek().Color;
-
-                Change();
+                gamerQueue.Enqueue(current);             
+                          
             }
 
         }
@@ -115,7 +119,7 @@ namespace GameTemplate.Game
         /// <summary>
         /// Событие изменения состояния игры
         /// </summary>
-        public event Action Change;
+        public event Action Change = () => { };
         /// <summary>
         /// Событие завершения игры
         /// </summary>
@@ -124,6 +128,11 @@ namespace GameTemplate.Game
         public void StopGame()
         {
             error = true;
+
+            foreach (var gamer in gamers)
+            {
+                gamer.GameOver();
+            }
         }
     }
 }

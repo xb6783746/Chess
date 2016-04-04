@@ -50,7 +50,7 @@ namespace GameScreen
 
         public void GameOver(FColor win)
         {
-            string end = win == FColor.Black ? "Черные" : "Белые";
+            string end = win == FColor.Black ? "черные" : "белые";
             MessageBox.Show("Победили " + end);
         }
 
@@ -63,17 +63,24 @@ namespace GameScreen
         {
             Color(color);
             YourTurn = (this.color == FColor.White);
-            Turn.Text = "Ходят: Белые";
+            IfInvoke(() =>
+            {
+                Turn.Text = "Ходят: Белые";
+            });
+
             field = figures;
             UpdatePic();
         }
-
         public void UpdateField(ChessState state)
         {
             field = state.Figures;
             UpdatePic();
             YourTurn = (color == state.Turn);
-            Turn.Text = "Ходят: " + GetTextColor(state.Turn);
+
+            IfInvoke(() =>
+            {
+                Turn.Text = "Ходят: " + GetTextColor(state.Turn);
+            });
         }
 
         public void Receive(ChatMessage message)
@@ -85,12 +92,10 @@ namespace GameScreen
         {
             return this;
         }
-
         public void Enable()
         {
 
         }
-
         public void Disable()
         {
 
@@ -101,11 +106,9 @@ namespace GameScreen
             MessageBox.Show(msg);
         }
 
-
-
-        public event Action<ChatMessage> Send;
-        public event Action<StepInfo> Step;
-        public event Action Concede;
+        public event Action<ChatMessage> Send = (x) => { };
+        public event Action<StepInfo> Step = (x) => { };
+        public event Action Concede = () => { };
 
 
         private void Concede_Click(object sender, EventArgs e)
@@ -177,13 +180,24 @@ namespace GameScreen
         private void Color(FColor color)
         {
             this.color = color;
-            YourColor.Text += color.ToString();
+            YourColor.Text += color == FColor.White ? "Белый" : "Черный";
         }
         private string GetTextColor(FColor color)
         {
             return color == FColor.White ? "Белые" : "Черные";
         }
 
+        private void IfInvoke(Action action)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(action);
+            }
+            else
+            {
+                action();
+            }
+        }
 
     }
 }

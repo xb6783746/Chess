@@ -28,7 +28,8 @@ namespace LogInScreen
         }
         public void Enable()
         {
-
+            nickTextBox.Text = "";
+            nickTextBox.Focus();
         }
         public void Disable()
         {
@@ -52,6 +53,14 @@ namespace LogInScreen
         private void Message(string message)
         {
             MessageBox.Show(message);
+        }
+
+        private void nickTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                logInButton.PerformClick();
+            }
         }
        
     }

@@ -105,5 +105,12 @@ namespace ChessClient.Network
 
             SendMessage(m);
         }
+
+
+        public void GetOnline()
+        {
+            Message m = new Message("GetOnline");
+            SendMessage(m);
+        }
     }
 }

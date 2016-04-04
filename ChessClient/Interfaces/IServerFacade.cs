@@ -21,5 +21,6 @@ namespace ChessClient.Interfaces
         void Surrender();
         void Accept();
         void Disconnect();
+        void GetOnline();
     }
 }

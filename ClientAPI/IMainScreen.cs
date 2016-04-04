@@ -13,8 +13,10 @@ namespace ClientAPI
         event Action<string> GameWith;
         event Action<string> WatchForGamer;
         event Action<string> ChangeNick;
+        event Action GetOnline;
 
         bool Challenge(string from);
+        void SetOnlineList(string[] online);
 
         string Nick { get; set; }
     }

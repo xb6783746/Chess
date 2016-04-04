@@ -24,5 +24,6 @@ namespace ChessClient.Interfaces
         void GameOver(FColor winner);
         void GameClosed(string msg);
         void Waiting();
+        void GetListOnline(string[] online);
     }
 }

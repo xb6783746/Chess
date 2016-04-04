@@ -20,6 +20,7 @@ namespace ChessServer.Interfaces
         void StartGame(IReadOnlyField field, FColor color, int id);
         void Update(ChessState state, int id);
         void GameOver(FColor win, int id);
+        void SendOnlineList(string[] online, int id);
         void GameClosed(string message, int id);
     }
 }

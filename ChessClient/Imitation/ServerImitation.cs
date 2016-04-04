@@ -108,5 +108,11 @@ namespace ChessClient.Network
         {
             throw new NotImplementedException();
         }
+
+
+        public void GetOnline()
+        {
+            
+        }
     }
 }

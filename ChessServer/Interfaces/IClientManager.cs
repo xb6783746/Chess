@@ -14,6 +14,7 @@ namespace ChessServer.Interfaces
         IClient GetClient(int id);
 
         void ChangeNick(string nick, int id);
+        string[] GetOnlineClient(int id);
 
         event Action<IClient> Connected;
         event Action<IClient> Disconnected;

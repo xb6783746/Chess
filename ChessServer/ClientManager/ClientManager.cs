@@ -98,5 +98,17 @@ namespace ChessServer.Managers
             }
         }
 
+
+        public string[] GetOnlineClient(int id)
+        {
+            string[] online = new string[clients.Count];
+            List<IClient> temp = clients.Values.ToList();
+            for (int i = 0; i < online.Length; i++)
+            {
+                online[i] = temp[i].Nick;
+            }
+
+            return online;
+        }
     }
 }

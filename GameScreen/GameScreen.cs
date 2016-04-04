@@ -102,6 +102,7 @@ namespace GameScreen
         }
 
 
+
         public event Action<ChatMessage> Send;
         public event Action<StepInfo> Step;
         public event Action Concede;
@@ -182,6 +183,7 @@ namespace GameScreen
         {
             return color == FColor.White ? "Белые" : "Черные";
         }
+
 
     }
 }

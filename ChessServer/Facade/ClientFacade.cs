@@ -99,6 +99,12 @@ namespace ChessServer.Facade
 
             SendMessage(m, id);
         }
+        public void SendOnlineList(string[] online, int id)
+        {
+            Message m = new Message("GetListOnline", online);
+
+            SendMessage(m, id);
+        }
 
         private void SendMessage(Message m, int id)
         {

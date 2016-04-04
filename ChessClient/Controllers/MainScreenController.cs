@@ -16,6 +16,7 @@ namespace ChessClient.Controllers
     {
         public MainScreenController(IMainForm form, IServerFacade facade) :base(form, facade)
         {
+
         }
 
         public void Challenge(string from)
@@ -46,6 +47,7 @@ namespace ChessClient.Controllers
             mainScreen.RandomGame += RandomGame;
             mainScreen.Send += Send;
             mainScreen.WatchForGamer += Watch;
+            mainScreen.GetOnline += GetOnlineList;
         }
 
         private void ChangeNick(string nick)
@@ -68,6 +70,13 @@ namespace ChessClient.Controllers
         {
             facade.WatchFor(gamer);
         }
-
+        private void GetOnlineList()
+        {
+            facade.GetOnline(); 
+        }
+        public void SetOnlineList(string[] online)
+        {
+            mainScreen.SetOnlineList(online);   
+        }
     }
 }

@@ -67,5 +67,11 @@ namespace ChessClient.Facade.States
         {
             throw new NotImplementedException();
         }
+
+
+        public void GetListOnline(string[] online)
+        {
+           
+        }
     }
 }

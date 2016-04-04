@@ -82,5 +82,10 @@ namespace ChessClient.Controllers
         {
             current.GameClosed(msg);
         }
+
+        public void GetListOnline(string[] online)
+        {
+            current.GetListOnline(online);
+        }
     }
 }

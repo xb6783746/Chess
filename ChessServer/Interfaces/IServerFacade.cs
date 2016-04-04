@@ -13,7 +13,7 @@ namespace ChessServer.Interfaces
         void Message(ChatMessage message, int id);
         void ChangeNick(string nick, int id);
         void NewStep(StepInfo step, int id);
-
+        void GetOnline(int id);
 
         void RandomGame(int id);
     }

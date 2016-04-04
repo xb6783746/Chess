@@ -38,6 +38,7 @@ namespace MainScreen.NewFolder1
             this.chatScreen = new ClientAPI.ChatScreen();
             this.usersListBox = new System.Windows.Forms.ListBox();
             this.window = new ModalWindow();
+            this.UpdateUsers = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,6 +77,8 @@ namespace MainScreen.NewFolder1
             // 
             // mainPanel
             // 
+            this.mainPanel.Controls.Add(this.UpdateUsers);
+            this.mainPanel.Controls.Add(this.window);
             this.mainPanel.Controls.Add(this.nickLabel);
             this.mainPanel.Controls.Add(this.chatScreen);
             this.mainPanel.Controls.Add(this.usersListBox);
@@ -116,17 +119,27 @@ namespace MainScreen.NewFolder1
             // 
             this.window.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.window.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.window.Location = new System.Drawing.Point(50, 49);
+            this.window.Location = new System.Drawing.Point(49, 26);
             this.window.Name = "window";
             this.window.Size = new System.Drawing.Size(437, 377);
             this.window.TabIndex = 8;
             this.window.Visible = false;
             // 
+            // UpdateUsers
+            // 
+            this.UpdateUsers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.UpdateUsers.Location = new System.Drawing.Point(322, 176);
+            this.UpdateUsers.Name = "UpdateUsers";
+            this.UpdateUsers.Size = new System.Drawing.Size(127, 44);
+            this.UpdateUsers.TabIndex = 10;
+            this.UpdateUsers.Text = "Обновить список игроков";
+            this.UpdateUsers.UseVisualStyleBackColor = true;
+            this.UpdateUsers.Click += new System.EventHandler(this.UpdateUsers_Click);
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.window);
             this.Controls.Add(this.mainPanel);
             this.Name = "MainScreen";
             this.Size = new System.Drawing.Size(548, 501);
@@ -146,5 +159,6 @@ namespace MainScreen.NewFolder1
         private ChatScreen chatScreen;
         private Label nickLabel;
         private ModalWindow window;
+        private Button UpdateUsers;
     }
 }

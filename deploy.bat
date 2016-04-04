@@ -1,3 +1,4 @@
+%systemroot%\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe Chess.sln
 If Not Exist "Game" (
 	md Game
 )

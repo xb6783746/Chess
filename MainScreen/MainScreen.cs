@@ -63,9 +63,10 @@ namespace MainScreen.NewFolder1
 
         public event Action RandomGame = () => { };
         public event Action<string> GameWith = (x) => { };
-        public event Action<string> WatchForGamer = (x) => { };
+        public event Action<string> WatchForGamer = (x) => { }; 
         public event Action<string> ChangeNick = (x) => { };
         public event Action<ChatMessage> Send = (x) => { };
+        public event Action GetOnline = () => { };
 
         private event Action<string> selectedEvent;
 
@@ -118,5 +119,23 @@ namespace MainScreen.NewFolder1
             }
         }
 
+        public void SetOnlineList(string[] online)
+        {
+            Action q = () => { SetList(online); };
+            IfInvoke(q);
+        }
+        private void SetList(string[] online)
+        {
+            usersListBox.Text = "";
+            for (int i = 0; i < online.Length; i++)
+            {
+                usersListBox.Text += online[i];
+            }
+        }
+
+        private void UpdateUsers_Click(object sender, EventArgs e)
+        {
+            GetOnline();
+        }
     }
 }

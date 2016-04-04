@@ -101,7 +101,7 @@ namespace ChessServer.Facade
         }
         public void SendOnlineList(string[] online, int id)
         {
-            Message m = new Message("GetListOnline", online);
+            Message m = new Message("GetListOnline", new object[]{online});
 
             SendMessage(m, id);
         }

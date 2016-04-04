@@ -20,7 +20,9 @@ namespace ChessServer.Managers
             this.clientFacade = clientFacade;
             this.server = server;
 
-            server.Connected += Registration;
+            Connected += (x) => ConnectNotify();
+
+            server.Connected += NewSocketConnect;
             server.Disconnected += Disconnect;
 
             forbidden = new string[] 
@@ -73,11 +75,22 @@ namespace ChessServer.Managers
 
             return null;
         }
+        public string[] GetOnlineClient(int id)
+        {
+            string[] online = new string[clients.Count];
+            List<IClient> temp = clients.Values.ToList();
+            for (int i = 0; i < online.Length; i++)
+            {
+                online[i] = temp[i].Nick;
+            }
+
+            return online;
+        }
 
         public event Action<IClient> Connected = (x) => { };
         public event Action<IClient> Disconnected = (x) => { };
 
-        private void Registration(int id)
+        private void NewSocketConnect(int id)
         {
             IClient client = new Client(id, clientFacade);
             lock (lck)
@@ -98,17 +111,12 @@ namespace ChessServer.Managers
             }
         }
 
-
-        public string[] GetOnlineClient(int id)
+        private void ConnectNotify()
         {
-            string[] online = new string[clients.Count];
-            List<IClient> temp = clients.Values.ToList();
-            for (int i = 0; i < online.Length; i++)
+            foreach (var client in clients.Values)
             {
-                online[i] = temp[i].Nick;
+                clientFacade.SendOnlineList(GetOnlineClient(client.Id), client.Id);
             }
-
-            return online;
         }
     }
 }

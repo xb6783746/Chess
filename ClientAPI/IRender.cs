@@ -11,8 +11,9 @@ namespace ClientAPI
 {
     public interface IRender
     {
-        void UpdateField(Bitmap bitmap, IReadOnlyList<FigureOnBoard> field);
-        void UpdateField(Bitmap bitmap, IReadOnlyList<FigureOnBoard> field, StepInfo step);
-        void DrawCells(Bitmap bitmap, IReadOnlyField field, Point from, List<Point> cells);
+        void Init(int wh, int ht);
+        Bitmap UpdateField(IReadOnlyList<FigureOnBoard> field);
+        Bitmap UpdateField(IReadOnlyList<FigureOnBoard> field, StepInfo step);
+        Bitmap DrawCells(IReadOnlyField field, Point from, List<Point> cells);
     }
 }

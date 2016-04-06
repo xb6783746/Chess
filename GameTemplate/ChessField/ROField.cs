@@ -25,6 +25,10 @@ namespace GameTemplate.ChessField
         {
             get { return board[location.X, location.Y]; }
         }
+        public IChessFigure this[int x, int y]
+        {
+            get { return board[x, y]; }
+        }
         public bool IsGameOver
         {
             get;
@@ -50,6 +54,6 @@ namespace GameTemplate.ChessField
         public IReadOnlyDictionary<IChessFigure, int> GetDiedFigures()
         {
             throw new NotImplementedException();
-        }
+        }      
     }
 }

@@ -40,11 +40,11 @@ namespace WaitScreen
         }
         public void Enable()
         {
-            timer.Change(0, 100);
+            //timer.Change(0, 100);
         }
         public void Disable()
         {
-            timer.Change(Timeout.Infinite, Timeout.Infinite);
+            //timer.Change(Timeout.Infinite, Timeout.Infinite);
         }
         public event Action Close = () => { };
 

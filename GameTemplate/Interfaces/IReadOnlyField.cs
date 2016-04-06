@@ -13,6 +13,7 @@ namespace GameTemplate.Interfaces
     public interface IReadOnlyField
     {
         IChessFigure this[Point location] { get; }
+        IChessFigure this[int x, int y] { get; }
         /// <summary>
         /// Завершена ли игра
         /// </summary>

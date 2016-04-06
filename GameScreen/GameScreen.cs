@@ -46,7 +46,7 @@ namespace GameScreen
         private IReadOnlyField field;
         private StepInfo step;
         private FColor color;
-        private bool YourTurn;
+        private bool yourTurn;
         private Point temp;
 
         public void GameOver(FColor win)
@@ -54,20 +54,21 @@ namespace GameScreen
             string end = win == FColor.Black ? "черные" : "белые";
             MessageBox.Show("Победили " + end);
         }
-
         public void SetRender(IRender r)
         {
             render = r;
+            render.Init(GameBox.Width, GameBox.Height);
         }
-
         public void StartGame(IReadOnlyField figures, FColor color)
         {
             Color(color);
-            YourTurn = (this.color == FColor.White);
-            IfInvoke(() =>
-            {
-            Turn.Text = "Ходят: Белые";
-            });
+            yourTurn = (this.color == FColor.White);
+
+            //IfInvoke(() =>
+            //{
+            //Turn.Text = "Ход за белыми";
+            //});
+            SetTurnLabel(FColor.White);
 
             field = figures;
             UpdatePic();
@@ -75,21 +76,17 @@ namespace GameScreen
         public void UpdateField(ChessState state)
         {
             field = state.Figures;
-            step = state.LastStep;
+            step = state.LastStep;         
+            yourTurn = (color == state.Turn);
+
+            SetTurnLabel(state.Turn);
+
             UpdatePic(step);
-            YourTurn = (color == state.Turn);
-
-            IfInvoke(() =>
-            {
-            Turn.Text = "Ходят: " + GetTextColor(state.Turn);
-            });
         }
-
         public void Receive(ChatMessage message)
         {
             chatScreen1.Receive(message);
         }
-
         public UserControl GetScreen()
         {
             return this;
@@ -102,7 +99,6 @@ namespace GameScreen
         {
 
         }
-
         public void GameClosed(string msg)
         {
             MessageBox.Show(msg);
@@ -119,7 +115,7 @@ namespace GameScreen
         }
         private void GameBox_Click(object sender, MouseEventArgs e)
         {
-            if (YourTurn)
+            if (yourTurn)
             {
                 if (e.Button == System.Windows.Forms.MouseButtons.Left)
                 {
@@ -167,8 +163,7 @@ namespace GameScreen
         private void SelectFigure()
         {
             from = temp;
-            render.DrawCells(picture, field, from, field[from].GetCells(from, field));
-            GameBox.Image = picture;
+            GameBox.Image = render.DrawCells(field, from, field[from].GetCells(from, field));
         }
         private Point GetGamePoint(Point systemPoint)
         {
@@ -177,13 +172,11 @@ namespace GameScreen
 
         private void UpdatePic()
         {
-            render.UpdateField(picture, field.GetFiguresOnBoard());
-            GameBox.Image = picture;
+           GameBox.Image = render.UpdateField(field.GetFiguresOnBoard());
         }
         private void UpdatePic(StepInfo step)
         {
-            render.UpdateField(picture, field.GetFiguresOnBoard(), step);
-            GameBox.Image = picture;
+            GameBox.Image = render.UpdateField(field.GetFiguresOnBoard(), step);
         }
 
         private void Color(FColor color)
@@ -191,9 +184,14 @@ namespace GameScreen
             this.color = color;
             YourColor.Text += color == FColor.White ? "Белый" : "Черный";
         }
-        private string GetTextColor(FColor color)
+        private void SetTurnLabel(FColor color)
         {
-            return color == FColor.White ? "Белые" : "Черные";
+            var txt = color == FColor.White ? "белыми" : "черными";
+
+            IfInvoke(() =>
+            {
+                Turn.Text = "Ход за " + txt;
+            });
         }
         private void IfInvoke(Action action)
         {

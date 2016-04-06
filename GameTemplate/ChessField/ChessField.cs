@@ -47,6 +47,11 @@ namespace GameTemplate.ChessGame.ChessField
             get { return field[location.X, location.Y]; }
             private set { field[location.X, location.Y] = value; }
         }
+        public IChessFigure this[int x, int y]
+        {
+            get { return field[x, y]; }
+            private set { field[x, y] = value; }
+        }
         public bool IsGameOver
         {
             get;
@@ -143,8 +148,6 @@ namespace GameTemplate.ChessGame.ChessField
             }
 
             diedFigures[died]++;
-        }
-
-
+        }   
     }
 }

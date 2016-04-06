@@ -40,58 +40,93 @@ namespace Rendering
             {
                 throw new DataLoadException();
             }
+
             fColor = new Dictionary<FColor, Color>()
             {
                 {FColor.Black, Color.Black},
                 {FColor.White, Color.White}
             };
+
             penGreen = new Pen(Color.LightGreen, 3.0f);
             penRed = new Pen(Color.Red, 3.0f);
             penBlue = new Pen(Color.BlueViolet, 3.0f);
+            penPurple = new Pen(Color.Purple, 3.0f);
+                     
         }
 
         private Dictionary<Type, Image> figurePictures;
         private Dictionary<FColor, Color> fColor;
-        private float blockSize;
+        private int blockSize;
         private Pen penGreen;
         private Pen penRed;
         private Pen penBlue;
+        private Pen penPurple;
+        private Bitmap back;
+        private Bitmap tempField;
+        private Bitmap tempCells;
 
-        public void UpdateField(Bitmap bitmap, IReadOnlyList<FigureOnBoard> field)
+        public void Init(int wh, int ht)
         {
-            blockSize = bitmap.Size.Height / 8 - 0.1f;
-            using (Graphics g = Graphics.FromImage(bitmap))
+            blockSize = ht / 8;
+            back = new Bitmap(wh, ht);
+            tempField = new Bitmap(wh, ht);
+            tempCells = new Bitmap(wh, ht);
+
+            DrawGrid();
+        }
+        public Bitmap UpdateField(IReadOnlyList<FigureOnBoard> field)
+        {
+            using (Graphics g = Graphics.FromImage(tempField))
             {
                 g.Clear(Color.White);
-                DrawGrid(g);
+                g.DrawImage(back, 0, 0);
                 DrawFigures(g, field);
             }
+            return tempField;
         }
-        public void DrawCells(Bitmap bitmap, IReadOnlyField field, Point from, List<Point> cells)
+        public Bitmap DrawCells(IReadOnlyField field, Point from, List<Point> cells)
         {
-            blockSize = bitmap.Size.Height / 8 - 0.1f;
-            using (Graphics g = Graphics.FromImage(bitmap))
+            using (Graphics g = Graphics.FromImage(tempCells))
             {
                 g.Clear(Color.White);
-                DrawGrid(g);
-                DrawFigures(g, field);
+                g.DrawImage(tempField, 0, 0);
                 DrawCells(g, field, from, cells);
             }
+            return tempCells;
+            
+        }
+        public Bitmap UpdateField(IReadOnlyList<FigureOnBoard> field, StepInfo step)
+        {
+            
+            UpdateField(field);
+
+            using (Graphics g = Graphics.FromImage(tempField))
+            {
+               // g.DrawRectangle(penPurple, step.From.X * blockSize, step.From.Y * blockSize, blockSize, blockSize);
+                g.DrawRectangle(penPurple, GetCellRect(step.From));
+                g.DrawRectangle(penPurple, GetCellRect(step.To));
+            }
+            return tempField;
         }
 
         private void DrawCells(Graphics g, IReadOnlyField field, Point from, List<Point> cell)
         {
             for (int i = 0; i < cell.Count; i++)
             {
-                if (field[cell[i]] == null)
-                {
-                    g.DrawRectangle(penGreen, cell[i].X * blockSize, cell[i].Y * blockSize, blockSize, blockSize);
-                }
-                else
-                {
-                    g.DrawRectangle(penRed, cell[i].X * blockSize, cell[i].Y * blockSize, blockSize, blockSize);
-                }
+                //if (field[cell[i]] == null)
+                //{
+                //    g.DrawRectangle(penGreen, cell[i].X * blockSize, cell[i].Y * blockSize, blockSize, blockSize);
+                //}
+                //else
+                //{
+                //    g.DrawRectangle(penRed, cell[i].X * blockSize, cell[i].Y * blockSize, blockSize, blockSize);
+                //}
+                var tmp = field[cell[i]] == null ? penGreen : penRed;
+
+                g.DrawRectangle(tmp, GetCellRect(cell[i]));
+
             }
+
             g.DrawRectangle(penBlue, from.X * blockSize, from.Y * blockSize, blockSize, blockSize);
         }
         private void DrawFigures(Graphics g, IReadOnlyList<FigureOnBoard> field)
@@ -99,56 +134,63 @@ namespace Rendering
             foreach (var item in field)
             {
                 var type = new Type(item.Figure.Type, fColor[item.Figure.Color]);
-                g.DrawImage(figurePictures[type], new PointF(item.Location.X * blockSize, item.Location.Y * blockSize));
+                //g.DrawImage(figurePictures[type], item.Location.X * blockSize, item.Location.Y * blockSize);
+                g.DrawImage(figurePictures[type], GetCellRect(item.Location));
             }
 
         }
-        private void DrawGrid(Graphics g)
+        private void DrawGrid()
         {
-            for (int i = 0; i < 8; i++)
+            using (Graphics g = Graphics.FromImage(back))
             {
-                for (int j = 0; j < 8; j++)
+                for (int i = 0; i < 8; i++)
                 {
-                    if ((i % 2 != 0 && j % 2 == 0) || (i % 2 == 0 && j % 2 != 0))
+                    for (int j = 0; j < 8; j++)
                     {
-                        g.FillRectangle(Brushes.LightGray, i * blockSize, j * blockSize, blockSize, blockSize);
-                    }
-                    else
-                    {
-                        g.FillRectangle(Brushes.White, i * blockSize, j * blockSize, blockSize, blockSize);
+                        if ((i % 2 != 0 && j % 2 == 0) || (i % 2 == 0 && j % 2 != 0))
+                        {
+                            g.FillRectangle(Brushes.LightGray, i * blockSize, j * blockSize, blockSize, blockSize);
+                        }
+                        else
+                        {
+                            g.FillRectangle(Brushes.White, i * blockSize, j * blockSize, blockSize, blockSize);
+                        }
                     }
                 }
             }
         }
-
         private void DrawFigures(Graphics g, IReadOnlyField field)
         {
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    IChessFigure figure = field[new Point(i, j)];
+                    IChessFigure figure = field[i, j];
                     if (figure != null)
                     {
                         var type = new Type(figure.Type, fColor[figure.Color]);
-                        g.DrawImage(figurePictures[type], new PointF(i * blockSize, j * blockSize));
-
+                        g.DrawImage(figurePictures[type], i * blockSize, j * blockSize);
                     }
-
                 }
             }
         }
-
-        public void UpdateField(Bitmap bitmap, IReadOnlyList<FigureOnBoard> field, StepInfo step)
+        private Rectangle GetCellRect(Point location)
         {
-            UpdateField(bitmap, field);
-
-            using (Graphics g = Graphics.FromImage(bitmap))
-            using (SolidBrush brush = new SolidBrush(Color.FromArgb(50, Color.Purple)))
-            {
-                g.FillRectangle(brush, step.From.X * blockSize, step.From.Y * blockSize, blockSize, blockSize);
-                g.FillRectangle(brush, step.To.X * blockSize, step.To.Y * blockSize, blockSize, blockSize);
-            }
+            return new Rectangle(
+                location.X * blockSize,
+                location.Y * blockSize, 
+                blockSize, 
+                blockSize
+                );
+        }
+        private Rectangle GetCellRect(int x, int y)
+        {
+            return new Rectangle(
+                x * blockSize,
+                y * blockSize,
+                blockSize,
+                blockSize
+                );
         }
     }
 

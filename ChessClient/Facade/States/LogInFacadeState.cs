@@ -83,5 +83,11 @@ namespace ChessClient.Facade.States
         {
             
         }
+
+
+        public void Disconnect()
+        {
+            Switch(ClientState.Offline);
+        }
     }
 }

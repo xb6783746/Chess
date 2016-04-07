@@ -25,5 +25,7 @@ namespace ChessClient.Interfaces
         void GameClosed(string msg);
         void Waiting();
         void GetListOnline(string[] online);
+
+        void Disconnect();
     }
 }

@@ -87,5 +87,11 @@ namespace ChessClient.Controllers
         {
             current.GetListOnline(online);
         }
+
+
+        public void Disconnect()
+        {
+            current.Disconnect();
+        }
     }
 }

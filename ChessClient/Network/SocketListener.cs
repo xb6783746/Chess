@@ -12,7 +12,7 @@ namespace ChessClient.Network
     public class SocketListener : ISocketListener
     {
         public SocketListener(IClientFacade clientFacade)
-        {           
+        {
             this.clientFacade = clientFacade;
 
             this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -61,13 +61,14 @@ namespace ChessClient.Network
 
                     parser.Parse(buffer.Take(len).ToArray());
 
-                    
+
                 }
             }
             catch
             {
                 IsRunning = false;
                 socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                clientFacade.Disconnect();
             }
         }
 

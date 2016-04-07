@@ -77,5 +77,11 @@ namespace ChessClient.Facade.States
         public void GetListOnline(string[] online)
         {
         }
+
+
+        public void Disconnect()
+        {
+            Switch(ClientState.Offline);
+        }
     }
 }

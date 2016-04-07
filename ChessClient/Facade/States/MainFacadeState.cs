@@ -1,4 +1,5 @@
-﻿using ChessClient.Interfaces;
+﻿using ChessClient.Enums;
+using ChessClient.Interfaces;
 using GameTemplate.ChessEnums;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
@@ -73,6 +74,12 @@ namespace ChessClient.Facade.States
         public void GetListOnline(string[] online)
         {
             manager.MainController.SetOnlineList(online);
+        }
+
+
+        public void Disconnect()
+        {
+            Switch(ClientState.Offline);
         }
     }
 }

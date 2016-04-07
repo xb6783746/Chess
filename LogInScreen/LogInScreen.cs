@@ -28,8 +28,11 @@ namespace LogInScreen
         }
         public void Enable()
         {
-            nickTextBox.Text = "";
-            nickTextBox.Focus();
+            IfInvoke(() =>
+            {
+                nickTextBox.Text = "";
+                nickTextBox.Focus();
+            });
         }
         public void Disable()
         {
@@ -62,6 +65,17 @@ namespace LogInScreen
                 logInButton.PerformClick();
             }
         }
-       
+        private void IfInvoke(Action action)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(action);
+            }
+            else
+            {
+                action();
+            }
+        }
+
     }
 }

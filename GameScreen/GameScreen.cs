@@ -48,6 +48,7 @@ namespace GameScreen
         private FColor color;
         private bool yourTurn;
         private Point temp;
+        private int boardSize = 7;
 
         public void GameOver(FColor win)
         {
@@ -57,10 +58,12 @@ namespace GameScreen
         public void SetRender(IRender r)
         {
             render = r;
-            render.Init(GameBox.Width, GameBox.Height);
+            //render.Init(GameBox.Width, GameBox.Height);
         }
         public void StartGame(IReadOnlyField figures, FColor color)
         {
+            render.Init(GameBox.Width, GameBox.Height, color);
+
             Color(color);
             yourTurn = (this.color == FColor.White);
 
@@ -125,6 +128,7 @@ namespace GameScreen
                     {
                         if (from.IsEmpty && field[temp].Color == this.color) // если пустой 1 клик
                         {
+                            from = temp;
                             SelectFigure();
                             return;
                         }
@@ -132,6 +136,7 @@ namespace GameScreen
                         {
                             if (field[temp].Color == this.color) // если кликнули по своей
                             {
+                                from = temp;
                                 SelectFigure();
                                 return;
                             }
@@ -162,12 +167,15 @@ namespace GameScreen
         }
         private void SelectFigure()
         {
-            from = temp;
             GameBox.Image = render.DrawCells(field, from, field[from].GetCells(from, field));
         }
         private Point GetGamePoint(Point systemPoint)
         {
-            return new Point(systemPoint.X / cellSize, systemPoint.Y / cellSize);
+            Point p = color == FColor.White ? 
+                new Point(systemPoint.X / cellSize, systemPoint.Y / cellSize) :
+                new Point(systemPoint.X / cellSize, boardSize - systemPoint.Y / cellSize);
+
+            return p;
         }
 
         private void UpdatePic()

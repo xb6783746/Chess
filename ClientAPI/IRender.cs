@@ -1,4 +1,5 @@
-﻿using GameTemplate.Game;
+﻿using GameTemplate.ChessEnums;
+using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace ClientAPI
 {
     public interface IRender
     {
-        void Init(int wh, int ht);
+        void Init(int wh, int ht, FColor color);
         Bitmap UpdateField(IReadOnlyList<FigureOnBoard> field);
         Bitmap UpdateField(IReadOnlyList<FigureOnBoard> field, StepInfo step);
         Bitmap DrawCells(IReadOnlyField field, Point from, List<Point> cells);

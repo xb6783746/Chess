@@ -43,7 +43,7 @@ namespace WaitScreen
             // 
             this.cancelButton.Enabled = false;
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cancelButton.Location = new System.Drawing.Point(128, 197);
+            this.cancelButton.Location = new System.Drawing.Point(201, 286);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(157, 68);
             this.cancelButton.TabIndex = 0;
@@ -55,7 +55,7 @@ namespace WaitScreen
             // 
             this.waitLabel.AutoSize = true;
             this.waitLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.waitLabel.Location = new System.Drawing.Point(128, 25);
+            this.waitLabel.Location = new System.Drawing.Point(195, 18);
             this.waitLabel.Name = "waitLabel";
             this.waitLabel.Size = new System.Drawing.Size(157, 31);
             this.waitLabel.TabIndex = 1;
@@ -63,9 +63,9 @@ namespace WaitScreen
             // 
             // animateBox
             // 
-            this.animateBox.Location = new System.Drawing.Point(144, 71);
+            this.animateBox.Location = new System.Drawing.Point(176, 65);
             this.animateBox.Name = "animateBox";
-            this.animateBox.Size = new System.Drawing.Size(120, 120);
+            this.animateBox.Size = new System.Drawing.Size(203, 203);
             this.animateBox.TabIndex = 2;
             this.animateBox.TabStop = false;
             // 
@@ -76,7 +76,7 @@ namespace WaitScreen
             this.Controls.Add(this.waitLabel);
             this.Controls.Add(this.cancelButton);
             this.Name = "WaitingScreen";
-            this.Size = new System.Drawing.Size(415, 295);
+            this.Size = new System.Drawing.Size(569, 382);
             ((System.ComponentModel.ISupportInitialize)(this.animateBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

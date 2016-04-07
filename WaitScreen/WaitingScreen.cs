@@ -34,32 +34,42 @@ namespace WaitScreen
         private float startAngle1 = 10, startAngle2 = 20;
         private Point center;
 
+        private object lck = new object();
+
         public UserControl GetScreen()
         {
             return this;
         }
         public void Enable()
         {
-            //timer.Change(0, 100);
+            timer.Change(0, 100);
         }
         public void Disable()
         {
-            //timer.Change(Timeout.Infinite, Timeout.Infinite);
+            timer.Change(Timeout.Infinite, Timeout.Infinite);
         }
         public event Action Close = () => { };
 
         private void Tick()
         {
-            g.Clear(Color.White);
+            if (Monitor.IsEntered(lck))
+            {
+                return;
+            }
+            lock (lck)
+            {
+                g.Clear(Color.White);
 
-            DrawCircle(g, 50, startAngle1);
-            DrawCircle(g, 35, startAngle2);
+                DrawCircle(g, 100, startAngle1);
+                DrawCircle(g, 75, startAngle2);
+                DrawCircle(g, 50, startAngle1);
 
-            startAngle1 += 5;
-            startAngle2 -= 5;
+                startAngle1 += 5;
+                startAngle2 -= 5;
 
-            //animateBox.Image = bitmap;
-            animateBox.Invalidate();
+                //animateBox.Image = bitmap;
+                animateBox.Invalidate();
+            }
         }
         private void cancelClick(object sender, EventArgs e)
         {
@@ -68,16 +78,17 @@ namespace WaitScreen
         private void DrawCircle(Graphics g, int rad, float startAngle)
         {
             g.FillEllipse(Brushes.White, center.X - rad, center.Y - rad, 2 * rad, 2 * rad);
+            g.DrawEllipse(Pens.Black, center.X - rad, center.Y - rad, 2 * rad, 2 * rad);
 
             for (int i = 0; i < 4; i++)
             {
                 g.FillPie(
-                    Brushes.Black, 
-                    center.X - rad, 
-                    center.Y - rad, 
-                    2 * rad, 
-                    2 * rad, 
-                    startAngle + 90*i, 
+                    Brushes.Black,
+                    center.X - rad,
+                    center.Y - rad,
+                    2 * rad,
+                    2 * rad,
+                    startAngle + 90 * i,
                     45);
             }
         }

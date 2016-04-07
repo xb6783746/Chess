@@ -64,13 +64,15 @@ namespace Rendering
         private Bitmap back;
         private Bitmap tempField;
         private Bitmap tempCells;
+        private FColor color;
 
-        public void Init(int wh, int ht)
+        public void Init(int wh, int ht, FColor color)
         {
             blockSize = ht / 8;
             back = new Bitmap(wh, ht);
             tempField = new Bitmap(wh, ht);
             tempCells = new Bitmap(wh, ht);
+            this.color = color;
 
             DrawGrid();
         }
@@ -169,22 +171,23 @@ namespace Rendering
                     if (figure != null)
                     {
                         var type = new Type(figure.Type, fColor[figure.Color]);
-                        g.DrawImage(figurePictures[type], i * blockSize, j * blockSize);
+                        g.DrawImage(figurePictures[type], Transform(new Point(i * blockSize, j * blockSize)));
                     }
                 }
             }
         }
+
         private Rectangle GetCellRect(Point location)
         {
-            return new Rectangle(
-                location.X * blockSize,
-                location.Y * blockSize, 
-                blockSize, 
-                blockSize
-                );
+            return GetCellRect(location.X, location.Y);
         }
         private Rectangle GetCellRect(int x, int y)
         {
+            if (color == FColor.Black)
+            {
+                y = 7 - y;
+            }
+
             return new Rectangle(
                 x * blockSize,
                 y * blockSize,
@@ -192,6 +195,17 @@ namespace Rendering
                 blockSize
                 );
         }
+
+        private Point Transform(Point p)
+        {
+            if (color == FColor.Black)
+            {
+                p.Y = 7 - p.Y;
+            }
+
+            return p;
+        }
+
     }
 
     public struct Type

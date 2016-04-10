@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChessServer.AI
+namespace ChessServer.Algorithms
 {
     class AIRandom : IGamer
     {

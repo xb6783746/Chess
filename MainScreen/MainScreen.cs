@@ -71,7 +71,7 @@ namespace MainScreen
         }
         public void Enable()
         {
-            GetAlgos();
+            //GelAlgos();
         }
         public void Disable()
         {
@@ -85,7 +85,7 @@ namespace MainScreen
         public event Action<string> ChangeNick = (x) => { };
         public event Action<ChatMessage> Send = (x) => { };
         public event Action GetOnline = () => { };
-        public event Action GetAlgos = () => { };
+        //public event Action GetAlgos = () => { };
 
         private event Action<string> selectedEvent;
 
@@ -173,5 +173,8 @@ namespace MainScreen
         {
             this.algos = algos;
         }
+
+
+        public event Action GelAlgos = () => { };
     }
 }

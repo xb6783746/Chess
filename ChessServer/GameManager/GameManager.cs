@@ -204,7 +204,7 @@ namespace ChessServer.Managers
         }
         private void Connected(IClient client)
         {
-
+            clientFacade.SendAlgoList(algos.AllNames().ToArray(), client.Id);
         }
 
 

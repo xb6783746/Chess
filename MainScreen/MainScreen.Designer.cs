@@ -34,11 +34,11 @@ namespace MainScreen
             this.gameWithButton = new System.Windows.Forms.Button();
             this.watchForButton = new System.Windows.Forms.Button();
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.gameWithComputerButton = new System.Windows.Forms.Button();
             this.UpdateUsers = new System.Windows.Forms.Button();
             this.nickLabel = new System.Windows.Forms.Label();
             this.chatScreen = new ClientAPI.ChatScreen();
             this.usersListBox = new System.Windows.Forms.ListBox();
-            this.gameWithComputerButton = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -91,6 +91,17 @@ namespace MainScreen
             this.mainPanel.Size = new System.Drawing.Size(502, 485);
             this.mainPanel.TabIndex = 7;
             // 
+            // gameWithComputerButton
+            // 
+            this.gameWithComputerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.gameWithComputerButton.Location = new System.Drawing.Point(332, 146);
+            this.gameWithComputerButton.Name = "gameWithComputerButton";
+            this.gameWithComputerButton.Size = new System.Drawing.Size(127, 44);
+            this.gameWithComputerButton.TabIndex = 11;
+            this.gameWithComputerButton.Text = "Играть с компьютером";
+            this.gameWithComputerButton.UseVisualStyleBackColor = true;
+            this.gameWithComputerButton.Click += new System.EventHandler(this.gameWithComputerButton_Click);
+            // 
             // UpdateUsers
             // 
             this.UpdateUsers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -127,18 +138,6 @@ namespace MainScreen
             this.usersListBox.Name = "usersListBox";
             this.usersListBox.Size = new System.Drawing.Size(301, 225);
             this.usersListBox.TabIndex = 7;
-            // 
-            // gameWithComputerButton
-            // 
-            this.gameWithComputerButton.Enabled = false;
-            this.gameWithComputerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.gameWithComputerButton.Location = new System.Drawing.Point(332, 146);
-            this.gameWithComputerButton.Name = "gameWithComputerButton";
-            this.gameWithComputerButton.Size = new System.Drawing.Size(127, 44);
-            this.gameWithComputerButton.TabIndex = 11;
-            this.gameWithComputerButton.Text = "Играть с компьютером";
-            this.gameWithComputerButton.UseVisualStyleBackColor = true;
-            this.gameWithComputerButton.Click += new System.EventHandler(this.gameWithComputerButton_Click);
             // 
             // MainWindow
             // 

@@ -82,7 +82,7 @@ namespace ChessClient.Controllers
         }
         private void GetAlgos()
         {
-            facade.GetAlgoList();
+            facade.GetAlgos();
         }
         public void SetOnlineList(string[] online)
         {

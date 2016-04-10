@@ -70,6 +70,10 @@ namespace ChessClient.Controllers
         {
             current.Waiting();
         }
+        public void StopWait()
+        {
+            current.StopWait();
+        }
 
         private void Switch(ClientState state)
         {

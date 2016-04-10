@@ -69,6 +69,12 @@ namespace ChessServer.Facade
 
             SendMessage(m, id);
         }
+        public void Challenge(string from, int id)
+        {
+            var message = new Message("Challenge", from);
+            
+            SendMessage(message, id);
+        }
         public void GameClosed(string message, int id)
         {
             Message m = new Message("GameClosed", message);
@@ -105,5 +111,13 @@ namespace ChessServer.Facade
             }
         }
 
+
+
+        public void StopWait(int id)
+        {
+            Message m = new Message("StopWait");
+
+            SendMessage(m, id);
+        }
     }
 }

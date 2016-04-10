@@ -46,7 +46,9 @@ namespace ChessClient.Network
         }
         public void StartGameWith(string gamer)
         {
-            throw new NotImplementedException();
+            Message mesg = new Message("GameWith", gamer);
+
+            SendMessage(mesg);
         }
         public void MakeStep(StepInfo step)
         {
@@ -64,9 +66,11 @@ namespace ChessClient.Network
         {
             throw new NotImplementedException();
         }
-        public void Accept()
+        public void GameWithAnswer(bool ans)
         {
-            throw new NotImplementedException();
+            Message m = new Message("GameWithAnswer", ans);
+
+            SendMessage(m);
         }
         public void ChangeNick(string nick)
         {
@@ -123,6 +127,6 @@ namespace ChessClient.Network
             Message m = new Message("GetOnline");
 
             SendMessage(m);
-        }
+        }     
     }
 }

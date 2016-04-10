@@ -14,7 +14,8 @@ namespace ChessServer.Interfaces
         void ChangeNick(string nick, int id);
         void NewStep(StepInfo step, int id);
         void GetOnline(int id);
-
+        void GameWith(string with, int id);
+        void GameWithAnswer(bool ans, int id);
         void RandomGame(int id);
     }
 }

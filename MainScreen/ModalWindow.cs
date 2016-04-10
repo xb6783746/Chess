@@ -17,16 +17,15 @@ namespace MainScreen
             InitializeComponent();
         }
 
-        public void Activate(List<string> users)
+        public void Activate(string[] users)
         {
-            userBox.Items.Clear();
+            this.users = users;
 
-            foreach (var item in users)
-            {
-                userBox.Items.Add(item);
-            }
+            UpdateListBox(users);
 
         }
+
+        private string[] users;
 
         public event Action<string> Select = (x) => { };
         public event Action Cancel = () => { };
@@ -42,6 +41,26 @@ namespace MainScreen
         private void userBox_SelectedValueChanged(object sender, EventArgs e)
         {
             inputBox.Text = userBox.SelectedItem as string;
+        }
+        private void inputBox_TextChanged(object sender, EventArgs e)
+        {
+            //string[] match = users.Where((x) => x.Contains(inputBox.Text)).ToArray();
+
+            //if (match.Length == 0)
+            //{
+            //    match = users;
+            //}
+
+            //UpdateListBox(match);
+        }
+        private void UpdateListBox(string[] users)
+        {
+            userBox.Items.Clear();
+
+            foreach (var item in users)
+            {
+                userBox.Items.Add(item);
+            }
         }
     }
 }

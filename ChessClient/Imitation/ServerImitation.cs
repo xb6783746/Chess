@@ -114,5 +114,11 @@ namespace ChessClient.Network
         {
             
         }
+
+
+        public void GameWithAnswer(bool ans)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

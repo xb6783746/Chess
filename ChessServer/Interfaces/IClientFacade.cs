@@ -17,7 +17,9 @@ namespace ChessServer.Interfaces
         void LoginResult(bool result, string message, int id);
 
         void Wait(int id);
+        void StopWait(int id);
         void StartGame(IReadOnlyField field, FColor color, int id);
+        void Challenge(string from, int id);
         void Update(ChessState state, int id);
         void GameOver(FColor win, int id);
         void SendOnlineList(string[] online, int id);

@@ -80,5 +80,11 @@ namespace ChessClient.Facade.States
         {
             Switch(ClientState.Offline);
         }
+
+
+        public void StopWait()
+        {
+            Switch(ClientState.Online);
+        }
     }
 }

@@ -27,12 +27,10 @@ namespace ChessServer.Facade
         {
             chatManager.Message(message, id);
         }
-
         public void ChangeNick(string nick, int id)
         {
             clientManager.ChangeNick(nick, id);
         }
-
         public void NewStep(GameTemplate.Game.StepInfo step, int id)
         {
             var client = clientManager.GetClient(id);
@@ -42,7 +40,6 @@ namespace ChessServer.Facade
                 client.Step(step);
             }
         }
-
         public void RandomGame(int id)
         {
             var gamer = clientManager.GetClient(id);
@@ -51,10 +48,28 @@ namespace ChessServer.Facade
                 gameManager.RandomGame(gamer);
             }
         }
-
         public void GetOnline(int id)
         {
             clientFacade.SendOnlineList(clientManager.GetOnlineClient(id), id);
+        }
+        public void GameWith(string with, int id)
+        {
+            var gamer = clientManager.GetClient(with);
+            var who = clientManager.GetClient(id);
+
+            if (gamer != null && who != null)
+            {
+                gameManager.RequestGame(who, gamer);
+            }
+        }
+        public void GameWithAnswer(bool ans, int id)
+        {
+            var client = clientManager.GetClient(id);
+
+            if(client != null)
+            {
+                gameManager.GameWithAnswer(ans, client);
+            }
         }
     }
 }

@@ -15,11 +15,34 @@ namespace ChessServer.Managers
 {
     class GameManager : IGameManager
     {
+        private class Pair
+        {
+            public Pair(IClient who, IClient gamer)
+            {
+                this.who = who;
+                this.gamer = gamer;
+            }
+
+            private IClient who;
+            private IClient gamer;
+
+            public IClient Who
+            {
+                get { return who; }
+            }
+            public IClient Gamer
+            {
+                get { return gamer; }
+            }
+
+        }
         public GameManager(IClientFacade clientFacade, IClientManager clientManager)
         {
             playerWait = new List<IClient>();
             gameRooms = new List<GameRoom>();
             idManager = new IDManager();
+            friends = new List<Pair>();
+
             this.chessPool = new ChessFiguresPool();
 
             this.clientFacade = clientFacade;
@@ -30,6 +53,7 @@ namespace ChessServer.Managers
 
             waitLck = new object();
             roomLck = new object();
+            friendsLock = new object();
         }
 
         private IChessFigureFactory chessPool;
@@ -37,11 +61,13 @@ namespace ChessServer.Managers
         private IClientManager clientManager;
         private List<IClient> playerWait;
         private List<GameRoom> gameRooms;
+        private List<Pair> friends;
         private IIDManager idManager;
-        private IReadOnlyField startField = ChessField.Empty;
+        //private IReadOnlyField startField = ChessField.Empty;
 
         private object waitLck;
         private object roomLck;
+        private object friendsLock;
 
         public List<IClient> Watchers(int roomId)
         {
@@ -67,7 +93,34 @@ namespace ChessServer.Managers
         }
         public void RequestGame(IClient who, IClient gamer)
         {
-           // CreateRoom(who, gamer);
+            lock (friendsLock)
+            {
+                friends.Add(new Pair(who, gamer));
+            }
+
+            clientFacade.Wait(who.Id);
+            clientFacade.Challenge(who.Nick, gamer.Id);
+        }
+        public void GameWithAnswer(bool ans, IClient gamer)
+        {
+            lock (friendsLock)
+            {
+                var pair = friends.FirstOrDefault((x) => x.Gamer == gamer);
+
+                if (pair != null)
+                {
+                    if (ans)
+                    {
+                        clientFacade.Wait(gamer.Id);
+
+                        CreateRoom(pair.Who, pair.Gamer);
+                    }
+                    else
+                    {
+                        clientFacade.StopWait(pair.Who.Id);
+                    }
+                }
+            }
         }
         public void WatchFor(IClient gamerId, int gameId)
         {
@@ -128,6 +181,22 @@ namespace ChessServer.Managers
 
                     idManager.Delete(room.RoomId);
                 }             
+            
+            }
+            //поиск в списке приглашенных
+            lock (friendsLock)
+            {
+                var pair = friends.FirstOrDefault((x) => x.Who == client || x.Gamer == client);
+
+                if (pair != null)
+                {
+                    friends.Remove(pair);
+
+                    if (pair.Who != client)
+                    {
+                        clientFacade.StopWait(pair.Who.Id);
+                    }
+                }
             }
             
         }
@@ -135,6 +204,5 @@ namespace ChessServer.Managers
         {
 
         }
-       
     }
 }

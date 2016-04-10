@@ -12,6 +12,7 @@ namespace ChessServer.Interfaces
 
         void RandomGame(IClient gamer);
         void RequestGame(IClient who, IClient gamer);
+        void GameWithAnswer(bool ans, IClient gamer);
         void WatchFor(IClient gamer, int game);
 
         void GameWithComputer(IClient gamer, IClient alg);

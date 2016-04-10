@@ -36,14 +36,15 @@
             // 
             // inputBox
             // 
-            this.inputBox.Location = new System.Drawing.Point(0, 8);
+            this.inputBox.Location = new System.Drawing.Point(22, 23);
             this.inputBox.Name = "inputBox";
             this.inputBox.Size = new System.Drawing.Size(240, 20);
             this.inputBox.TabIndex = 1;
+            this.inputBox.TextChanged += new System.EventHandler(this.inputBox_TextChanged);
             // 
             // acceptButton
             // 
-            this.acceptButton.Location = new System.Drawing.Point(247, 179);
+            this.acceptButton.Location = new System.Drawing.Point(269, 194);
             this.acceptButton.Name = "acceptButton";
             this.acceptButton.Size = new System.Drawing.Size(176, 89);
             this.acceptButton.TabIndex = 2;
@@ -53,7 +54,7 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(247, 274);
+            this.cancelButton.Location = new System.Drawing.Point(269, 289);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(176, 89);
             this.cancelButton.TabIndex = 3;
@@ -64,7 +65,7 @@
             // userBox
             // 
             this.userBox.FormattingEnabled = true;
-            this.userBox.Location = new System.Drawing.Point(-1, 34);
+            this.userBox.Location = new System.Drawing.Point(21, 49);
             this.userBox.Name = "userBox";
             this.userBox.Size = new System.Drawing.Size(241, 329);
             this.userBox.TabIndex = 5;
@@ -81,7 +82,7 @@
             this.Controls.Add(this.acceptButton);
             this.Controls.Add(this.inputBox);
             this.Name = "ModalWindow";
-            this.Size = new System.Drawing.Size(434, 364);
+            this.Size = new System.Drawing.Size(468, 420);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -75,6 +75,10 @@ namespace ChessServer.Managers
 
             return null;
         }
+        public IClient GetClient(string nick)
+        {
+            return clients.FirstOrDefault((x) => x.Value.Nick == nick).Value;
+        }
         public string[] GetOnlineClient(int id)
         {
             string[] online = new string[clients.Count];

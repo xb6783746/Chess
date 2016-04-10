@@ -38,7 +38,6 @@ namespace MainScreen
             this.nickLabel = new System.Windows.Forms.Label();
             this.chatScreen = new ClientAPI.ChatScreen();
             this.usersListBox = new System.Windows.Forms.ListBox();
-            this.window = new MainScreen.ModalWindow();
             this.mainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,7 +54,6 @@ namespace MainScreen
             // 
             // gameWithButton
             // 
-            this.gameWithButton.Enabled = false;
             this.gameWithButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.gameWithButton.Location = new System.Drawing.Point(332, 96);
             this.gameWithButton.Name = "gameWithButton";
@@ -126,16 +124,7 @@ namespace MainScreen
             this.usersListBox.Location = new System.Drawing.Point(8, 42);
             this.usersListBox.Name = "usersListBox";
             this.usersListBox.Size = new System.Drawing.Size(301, 225);
-            this.usersListBox.TabIndex = 7;
-            // 
-            // window
-            // 
-            this.window.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.window.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.window.Location = new System.Drawing.Point(0, 0);
-            this.window.Name = "window";
-            this.window.Size = new System.Drawing.Size(434, 364);
-            this.window.TabIndex = 0;
+            this.usersListBox.TabIndex = 7;        
             // 
             // MainWindow
             // 
@@ -159,7 +148,6 @@ namespace MainScreen
         private ListBox usersListBox;
         private ChatScreen chatScreen;
         private Label nickLabel;
-        private ModalWindow window;
         private Button UpdateUsers;
     }
 }

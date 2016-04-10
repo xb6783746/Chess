@@ -18,9 +18,16 @@ namespace MainScreen
         {
             InitializeComponent();
 
-            window.Location = new Point(49, 26);
-            window.Size = new Size(437, 377);
+            this.window = new MainScreen.ModalWindow();
+            this.window.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.window.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.window.Location = new Point(25, 26);
+            this.window.Name = "window";
+            this.window.Size = new System.Drawing.Size(468, 420);
+            this.window.TabIndex = 0;
             window.Visible = false;
+
+            Controls.Add(window);
 
             chatScreen.Send += (x) => Send(x);
 
@@ -28,6 +35,7 @@ namespace MainScreen
             window.Cancel += Cancel;
         }
 
+        private ModalWindow window;
 
         public string Nick
         {
@@ -48,7 +56,7 @@ namespace MainScreen
                 MessageBox.Show(
                 "Игрок " + from + " приглашает вас в игру",
                 "",
-                MessageBoxButtons.OKCancel) == DialogResult.OK;
+                MessageBoxButtons.YesNo) == DialogResult.Yes;
 
         }
         public void Receive(ChatMessage message)
@@ -128,16 +136,19 @@ namespace MainScreen
 
         public void SetOnlineList(string[] online)
         {
-            Action q = () => { SetList(online); };
-            IfInvoke(q);
-        }
-        private void SetList(string[] online)
-        {
-            usersListBox.Items.Clear();
-            for (int i = 0; i < online.Length; i++)
+            var tmp = online.Where((x) => x != Nick).ToArray();
+            Action q = () => 
             {
-                usersListBox.Items.Add(online[i]);
-            }
+                usersListBox.Items.Clear();
+                for (int i = 0; i < tmp.Length; i++)
+                {
+                    usersListBox.Items.Add(tmp[i]);
+                }
+
+                window.Activate(tmp);
+            };
+
+            IfInvoke(q);
         }
 
         private void UpdateUsers_Click(object sender, EventArgs e)

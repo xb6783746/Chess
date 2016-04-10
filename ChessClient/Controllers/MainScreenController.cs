@@ -21,7 +21,7 @@ namespace ChessClient.Controllers
 
         public void Challenge(string from)
         {
-            mainScreen.Challenge(from);
+            facade.GameWithAnswer(mainScreen.Challenge(from));
         }
         public void Message(ChatMessage msg)
         {

@@ -2,6 +2,7 @@
 using ChessServer.Facade;
 using ChessServer.IdManager;
 using ChessServer.Managers;
+using ChessServer.Network;
 using GameTemplate.ChessGame.ChessField;
 using GameTemplate.ChessGame.ChessFigures;
 using System;
@@ -20,14 +21,18 @@ namespace ChessServer
         {
 
             var idManager = new IDManager();
-            var clientFacade = new ClientFacade();
-            var server = new SocketServer(idManager);
+            var parser = new Parser();
+            var server = new SocketServer(idManager, parser);
+            ClientFacade.Init(server);
+            var clientFacade = ClientFacade.Instance;
+            
             var clientManager = new ClientManager(clientFacade, server);
             var gameManager = new GameManager(clientFacade, clientManager);
             var chatManager = new ChatManager(clientManager, gameManager, clientFacade);
             var serverFacade = new ServerFacade(chatManager, clientManager, gameManager, clientFacade);
 
-            clientFacade.Init(server, serverFacade);
+            parser.SetFacade(serverFacade);
+            //clientFacade.Init(server);
 
             Task.Run(() => server.Start());
 

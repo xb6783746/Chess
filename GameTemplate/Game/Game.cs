@@ -23,16 +23,16 @@ namespace GameTemplate.Game
             gamerQueue.Enqueue(second);
             gamerQueue.Enqueue(first);
 
-            gamers = gamerQueue.ToArray();
-
-            first.Init(this, FColor.Black);
-            second.Init(this, FColor.White);
+            gamers = gamerQueue.ToArray();            
 
             Turn = gamerQueue.Peek().Color;
 
             this.field = field;
 
             field.GameOver += GameOverHandler;
+
+            first.Init(this, FColor.Black);
+            second.Init(this, FColor.White);
 
             Task.Run(() => StartGame());
 
@@ -76,17 +76,19 @@ namespace GameTemplate.Game
         /// </summary>
         protected virtual void StartGame()
         {
-            IGamer current;
+            IGamer current = gamerQueue.Dequeue();
             while (!field.IsGameOver && !error)
             {
+                NextStep(current);
+
+                gamerQueue.Enqueue(current);
                 current = gamerQueue.Dequeue();
                 Turn = current.Color;
 
-                Change();
-
-                NextStep(current);
-
-                gamerQueue.Enqueue(current);             
+                if (!field.IsGameOver)
+                {
+                    Change();
+                }          
                           
             }
 

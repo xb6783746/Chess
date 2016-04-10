@@ -14,47 +14,29 @@ using System.Threading.Tasks;
 
 namespace ChessServer.Facade
 {
-    [Serializable]
-    class ClientFacade : IClientFacade, IParser
+    class ClientFacade : IClientFacade
     {
-        public ClientFacade()
+        private ClientFacade(IServer server)
         {
-
             formatter = new BinaryFormatter();
+            this.server = server;
         }
 
         private IServer server;
-        private IServerFacade serverFacade;
-
         private BinaryFormatter formatter;
 
-        public void Init(IServer server, IServerFacade serverFacade)
-        {
-            this.server = server;
-            this.serverFacade = serverFacade;
+        private static ClientFacade _instance;
 
-            server.Receive += Parse;
+        public static IClientFacade Instance
+        {
+            get
+            {
+                return _instance;
+            }
         }
-
-        public void Parse(byte[] msg, int id)
+        public static void Init(IServer server)
         {
-            try
-            {
-                using (var stream = new MemoryStream(msg))
-                {
-                    var mesg = formatter.Deserialize(stream) as Message;
-
-                    var args = new object[mesg.Arguments.Length + 1];
-                    mesg.Arguments.CopyTo(args, 0);
-                    args[args.Length - 1] = id;
-
-                    serverFacade.GetType().GetMethod(mesg.Method).Invoke(serverFacade, args);
-                }
-            }
-            catch
-            {
-
-            }
+            _instance = new ClientFacade(server);
         }
 
         public void Message(ChatMessage msg, int id)

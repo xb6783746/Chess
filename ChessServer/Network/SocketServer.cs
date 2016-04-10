@@ -13,10 +13,11 @@ namespace ChessServer
     [Serializable]
     class SocketServer : IServer
     {
-        public SocketServer(IIDManager idManager)
+        public SocketServer(IIDManager idManager, IParser parser)
         {
             //this.clientManager = clientManager;
             this.idManager = idManager;
+            this.parser = parser;
 
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             clients = new Dictionary<int, Socket>();
@@ -26,6 +27,7 @@ namespace ChessServer
         private IIDManager idManager;
         private Socket socket;
         private Dictionary<int, Socket> clients;
+        private IParser parser;
         private object lck = new object();
 
         private int max = 10;
@@ -96,7 +98,7 @@ namespace ChessServer
                 {
                     len = socket.Receive(arr);
 
-                    Receive(arr.Take(len).ToArray(), id);
+                    parser.Parse(arr.Take(len).ToArray(), id);
                 }
             }
             catch
@@ -113,7 +115,6 @@ namespace ChessServer
 
         }
 
-        public event Action<byte[], int> Receive = (x, y) => { };
         public event Action<int> Connected = (x) => { };
         public event Action<int> Disconnected = (x) => { };
 

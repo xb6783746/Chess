@@ -1,4 +1,5 @@
-﻿using ChessServer.Interfaces;
+﻿using ChessServer.Facade;
+using ChessServer.Interfaces;
 using GameTemplate.ChessEnums;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
@@ -14,8 +15,10 @@ namespace ChessServer.Clients
 {
     class RemoteGamer :IGamer
     {
-        public RemoteGamer()
+        public RemoteGamer(int id)
         {
+            this.id = id;
+
             wait = new EventWaitHandle(false, EventResetMode.AutoReset);
         }
 
@@ -25,6 +28,7 @@ namespace ChessServer.Clients
         private EventWaitHandle wait;
         private bool isWait;
         private bool inGame;
+        private int id;
 
         public void Step(StepInfo step)
         {
@@ -49,6 +53,8 @@ namespace ChessServer.Clients
             this.inGame = true;
             this.isWait = false;
 
+            ClientFacade.Instance.StartGame(game.Field, color, id);
+
         }
 
         public GameTemplate.Game.StepInfo MakeStep()
@@ -69,9 +75,7 @@ namespace ChessServer.Clients
                 wait.Set();
             }
 
-            isWait = false;
-
-            
+            isWait = false;          
         }
     }
 }

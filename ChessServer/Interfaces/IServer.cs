@@ -16,6 +16,5 @@ namespace ChessServer.Interfaces
 
         event Action<int> Connected;
         event Action<int> Disconnected;
-        event Action<byte[], int> Receive;
     }
 }

@@ -16,7 +16,7 @@ namespace ChessServer.Clients
             this.Id = id;
             this.clientFacade = facade;
 
-            gamer = new RemoteGamer();
+            gamer = new RemoteGamer(id);
         }
 
         private IClientFacade clientFacade;

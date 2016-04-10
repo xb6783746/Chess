@@ -120,5 +120,11 @@ namespace ChessClient.Network
         {
             throw new NotImplementedException();
         }
+
+
+        public void StartGameWithComputer(string alg)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

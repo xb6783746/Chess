@@ -36,6 +36,8 @@ namespace MainScreen
         }
 
         private ModalWindow window;
+        private string[] algos;
+        private string[] users;
 
         public string Nick
         {
@@ -69,7 +71,7 @@ namespace MainScreen
         }
         public void Enable()
         {
-
+            GetAlgos();
         }
         public void Disable()
         {
@@ -78,16 +80,27 @@ namespace MainScreen
 
         public event Action RandomGame = () => { };
         public event Action<string> GameWith = (x) => { };
+        public event Action<string> GameWithComputer = (x) => { };
         public event Action<string> WatchForGamer = (x) => { }; 
         public event Action<string> ChangeNick = (x) => { };
         public event Action<ChatMessage> Send = (x) => { };
         public event Action GetOnline = () => { };
+        public event Action GetAlgos = () => { };
 
         private event Action<string> selectedEvent;
 
         private void gameWithButton_Click(object sender, EventArgs e)
         {
             selectedEvent = GameWith;
+            window.Activate(users);
+
+            window.Visible = true;
+            mainPanel.Visible = false;
+        }
+        private void gameWithComputerButton_Click(object sender, EventArgs e)
+        {
+            selectedEvent = GameWithComputer;
+            window.Activate(algos);
 
             window.Visible = true;
             mainPanel.Visible = false;
@@ -136,16 +149,15 @@ namespace MainScreen
 
         public void SetOnlineList(string[] online)
         {
-            var tmp = online.Where((x) => x != Nick).ToArray();
+            users = online.Where((x) => x != Nick).ToArray();
             Action q = () => 
             {
                 usersListBox.Items.Clear();
-                for (int i = 0; i < tmp.Length; i++)
+                for (int i = 0; i < users.Length; i++)
                 {
-                    usersListBox.Items.Add(tmp[i]);
+                    usersListBox.Items.Add(users[i]);
                 }
-
-                window.Activate(tmp);
+              
             };
 
             IfInvoke(q);
@@ -154,6 +166,12 @@ namespace MainScreen
         private void UpdateUsers_Click(object sender, EventArgs e)
         {
             GetOnline();
+        }
+
+
+        public void SetAlgoList(string[] algos)
+        {
+            this.algos = algos;
         }
     }
 }

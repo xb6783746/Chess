@@ -38,6 +38,7 @@ namespace MainScreen
             this.nickLabel = new System.Windows.Forms.Label();
             this.chatScreen = new ClientAPI.ChatScreen();
             this.usersListBox = new System.Windows.Forms.ListBox();
+            this.gameWithComputerButton = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,7 +68,7 @@ namespace MainScreen
             // 
             this.watchForButton.Enabled = false;
             this.watchForButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.watchForButton.Location = new System.Drawing.Point(332, 146);
+            this.watchForButton.Location = new System.Drawing.Point(332, 196);
             this.watchForButton.Name = "watchForButton";
             this.watchForButton.Size = new System.Drawing.Size(127, 44);
             this.watchForButton.TabIndex = 6;
@@ -77,6 +78,7 @@ namespace MainScreen
             // 
             // mainPanel
             // 
+            this.mainPanel.Controls.Add(this.gameWithComputerButton);
             this.mainPanel.Controls.Add(this.UpdateUsers);
             this.mainPanel.Controls.Add(this.nickLabel);
             this.mainPanel.Controls.Add(this.chatScreen);
@@ -92,7 +94,7 @@ namespace MainScreen
             // UpdateUsers
             // 
             this.UpdateUsers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UpdateUsers.Location = new System.Drawing.Point(332, 227);
+            this.UpdateUsers.Location = new System.Drawing.Point(332, 273);
             this.UpdateUsers.Name = "UpdateUsers";
             this.UpdateUsers.Size = new System.Drawing.Size(127, 44);
             this.UpdateUsers.TabIndex = 10;
@@ -124,7 +126,19 @@ namespace MainScreen
             this.usersListBox.Location = new System.Drawing.Point(8, 42);
             this.usersListBox.Name = "usersListBox";
             this.usersListBox.Size = new System.Drawing.Size(301, 225);
-            this.usersListBox.TabIndex = 7;        
+            this.usersListBox.TabIndex = 7;
+            // 
+            // gameWithComputerButton
+            // 
+            this.gameWithComputerButton.Enabled = false;
+            this.gameWithComputerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.gameWithComputerButton.Location = new System.Drawing.Point(332, 146);
+            this.gameWithComputerButton.Name = "gameWithComputerButton";
+            this.gameWithComputerButton.Size = new System.Drawing.Size(127, 44);
+            this.gameWithComputerButton.TabIndex = 11;
+            this.gameWithComputerButton.Text = "Играть с компьютером";
+            this.gameWithComputerButton.UseVisualStyleBackColor = true;
+            this.gameWithComputerButton.Click += new System.EventHandler(this.gameWithComputerButton_Click);
             // 
             // MainWindow
             // 
@@ -149,5 +163,6 @@ namespace MainScreen
         private ChatScreen chatScreen;
         private Label nickLabel;
         private Button UpdateUsers;
+        private Button gameWithComputerButton;
     }
 }

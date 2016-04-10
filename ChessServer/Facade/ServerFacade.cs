@@ -52,6 +52,12 @@ namespace ChessServer.Facade
         {
             clientFacade.SendOnlineList(clientManager.GetOnlineClient(id), id);
         }
+        public void GetAlgoList(int id)
+        {
+            var list = gameManager.GetAlgoList();
+
+            clientFacade.SendAlgoList(list, id);
+        }
         public void GameWith(string with, int id)
         {
             var gamer = clientManager.GetClient(with);

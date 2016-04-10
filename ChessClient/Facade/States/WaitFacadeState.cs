@@ -86,5 +86,11 @@ namespace ChessClient.Facade.States
         {
             Switch(ClientState.Online);
         }
+
+
+        public void SetAlgoList(string[] algos)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -29,7 +29,7 @@ namespace ChessServer.Managers
 
         public List<string> AllNames()
         {
-            return new List<string>() { "test" };
+            return algos.Keys.ToList();
         }
 
     }

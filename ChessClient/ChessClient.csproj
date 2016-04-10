@@ -79,7 +79,6 @@
     </Compile>
     <Compile Include="Network\Messanger.cs" />
     <Compile Include="Imitation\GamerImitation.cs" />
-    <Compile Include="Imitation\ServerImitation.cs" />
     <Compile Include="Network\SocketListener.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

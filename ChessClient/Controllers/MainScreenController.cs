@@ -44,10 +44,12 @@ namespace ChessClient.Controllers
 
             mainScreen.ChangeNick += ChangeNick;
             mainScreen.GameWith += GameWith;
+            mainScreen.GameWithComputer += GameWithComputer;
             mainScreen.RandomGame += RandomGame;
             mainScreen.Send += Send;
             mainScreen.WatchForGamer += Watch;
             mainScreen.GetOnline += GetOnlineList;
+            mainScreen.GelAlgos += GetAlgos;
         }
 
         private void ChangeNick(string nick)
@@ -57,6 +59,10 @@ namespace ChessClient.Controllers
         private void GameWith(string gamer)
         {
             facade.StartGameWith(gamer);
+        }
+        private void GameWithComputer(string alg)
+        {
+            facade.StartGameWithComputer(alg);
         }
         private void RandomGame()
         {
@@ -74,9 +80,18 @@ namespace ChessClient.Controllers
         {
             facade.GetOnline(); 
         }
+        private void GetAlgos()
+        {
+            facade.GetAlgoList();
+        }
         public void SetOnlineList(string[] online)
         {
             mainScreen.SetOnlineList(online);   
+        }
+
+        public void SetAlgoList(string[] algos)
+        {
+            mainScreen.SetAlgoList(algos);
         }
     }
 }

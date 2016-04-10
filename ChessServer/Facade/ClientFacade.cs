@@ -93,6 +93,12 @@ namespace ChessServer.Facade
 
             SendMessage(m, id);
         }
+        public void SendAlgoList(string[] algos, int id)
+        {
+            Message m = new Message("SetAlgoList", new object[] { algos });
+
+            SendMessage(m, id);
+        }
 
         private void SendMessage(Message m, int id)
         {

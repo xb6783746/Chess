@@ -10,6 +10,7 @@ namespace ChessServer.Interfaces
     {
         List<IClient> Watchers(int roomId);
 
+        string[] GetAlgoList();
         void RandomGame(IClient gamer);
         void RequestGame(IClient who, IClient gamer);
         void GameWithAnswer(bool ans, IClient gamer);

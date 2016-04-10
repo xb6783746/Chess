@@ -91,11 +91,16 @@ namespace ChessClient.Controllers
         {
             current.GetListOnline(online);
         }
+        public void SetAlgoList(string[] algos)
+        {
+            current.SetAlgoList(algos);
+        }
 
 
         public void Disconnect()
         {
             current.Disconnect();
         }
+
     }
 }

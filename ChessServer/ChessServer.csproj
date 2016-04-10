@@ -50,9 +50,11 @@
     <Compile Include="Clients\RemoteGamer.cs" />
     <Compile Include="Facade\ClientFacade.cs" />
     <Compile Include="Facade\ServerFacade.cs" />
+    <Compile Include="GameManager\AlgoRepo.cs" />
     <Compile Include="GameManager\GameManager.cs" />
     <Compile Include="GameManager\GameRoom.cs" />
     <Compile Include="IdManager\IDManager.cs" />
+    <Compile Include="Interfaces\IAlgoFactory.cs" />
     <Compile Include="Interfaces\IChatManager.cs" />
     <Compile Include="Interfaces\IClient.cs" />
     <Compile Include="Interfaces\IClientFacade.cs" />

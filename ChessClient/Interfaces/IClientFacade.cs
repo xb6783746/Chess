@@ -26,6 +26,7 @@ namespace ChessClient.Interfaces
         void Waiting();
         void StopWait();
         void GetListOnline(string[] online);
+        void SetAlgoList(string[] algos);
 
         void Disconnect();
     }

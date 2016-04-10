@@ -11,12 +11,15 @@ namespace ClientAPI
     {
         event Action RandomGame;
         event Action<string> GameWith;
+        event Action<string> GameWithComputer;
         event Action<string> WatchForGamer;
         event Action<string> ChangeNick;
         event Action GetOnline;
+        event Action GelAlgos;
 
         bool Challenge(string from);
         void SetOnlineList(string[] online);
+        void SetAlgoList(string[] algos);
 
         string Nick { get; set; }
     }

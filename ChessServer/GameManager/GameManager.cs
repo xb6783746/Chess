@@ -36,7 +36,7 @@ namespace ChessServer.Managers
             }
 
         }
-        public GameManager(IClientFacade clientFacade, IClientManager clientManager)
+        public GameManager(IClientFacade clientFacade, IClientManager clientManager, IAlgoFactory algos)
         {
             playerWait = new List<IClient>();
             gameRooms = new List<GameRoom>();
@@ -47,6 +47,7 @@ namespace ChessServer.Managers
 
             this.clientFacade = clientFacade;
             this.clientManager = clientManager;
+            this.algos = algos;
 
             clientManager.Disconnected += Disconnected;
             clientManager.Connected += Connected;
@@ -56,6 +57,7 @@ namespace ChessServer.Managers
             friendsLock = new object();
         }
 
+        private IAlgoFactory algos;
         private IChessFigureFactory chessPool;
         private IClientFacade clientFacade;
         private IClientManager clientManager;
@@ -203,6 +205,12 @@ namespace ChessServer.Managers
         private void Connected(IClient client)
         {
 
+        }
+
+
+        public string[] GetAlgoList()
+        {
+            return algos.AllNames().ToArray();
         }
     }
 }

@@ -23,6 +23,7 @@ namespace ChessServer.Interfaces
         void Update(ChessState state, int id);
         void GameOver(FColor win, int id);
         void SendOnlineList(string[] online, int id);
+        void SendAlgoList(string[] algos, int id);
         void GameClosed(string message, int id);
     }
 }

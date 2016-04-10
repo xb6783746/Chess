@@ -13,5 +13,6 @@ namespace ChessClient.Interfaces.IControllers
         void Message(ChatMessage msg);
         void SetNick(string nick);
         void SetOnlineList(string[] online);
+        void SetAlgoList(string[] algos);
     }
 }

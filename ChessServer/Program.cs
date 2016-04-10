@@ -19,15 +19,16 @@ namespace ChessServer
     {
         static void Main(string[] args)
         {
-
+            
             var idManager = new IDManager();
             var parser = new Parser();
             var server = new SocketServer(idManager, parser);
             ClientFacade.Init(server);
             var clientFacade = ClientFacade.Instance;
-            
+
+            var algoFactory = new AlgoRepo();
             var clientManager = new ClientManager(clientFacade, server);
-            var gameManager = new GameManager(clientFacade, clientManager);
+            var gameManager = new GameManager(clientFacade, clientManager, algoFactory);
             var chatManager = new ChatManager(clientManager, gameManager, clientFacade);
             var serverFacade = new ServerFacade(chatManager, clientManager, gameManager, clientFacade);
 

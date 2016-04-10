@@ -15,6 +15,7 @@ namespace ChessClient.Interfaces
         void ChangeNick(string nick);
         void StartRandomGame();
         void StartGameWith(string gamer);
+        void StartGameWithComputer(string alg);
         void WatchFor(string gamer);
         void MakeStep(StepInfo step);
         void SendMessage(ChatMessage msg);
@@ -22,5 +23,6 @@ namespace ChessClient.Interfaces
         void GameWithAnswer(bool ans);
         void Disconnect();
         void GetOnline();
+        void GetAlgos();
     }
 }

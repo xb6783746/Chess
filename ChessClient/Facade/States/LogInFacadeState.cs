@@ -95,5 +95,11 @@ namespace ChessClient.Facade.States
         {
             throw new NotImplementedException();
         }
+
+
+        public void SetAlgoList(string[] algos)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

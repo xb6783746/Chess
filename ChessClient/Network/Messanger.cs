@@ -50,6 +50,12 @@ namespace ChessClient.Network
 
             SendMessage(mesg);
         }
+        public void StartGameWithComputer(string alg)
+        {
+            Message mesg = new Message("GameWithComputer", alg);
+
+            SendMessage(mesg);
+        }
         public void MakeStep(StepInfo step)
         {
             Message m = new Message("NewStep", step);
@@ -127,6 +133,12 @@ namespace ChessClient.Network
             Message m = new Message("GetOnline");
 
             SendMessage(m);
-        }     
+        }
+        public void GetAlgos()
+        {
+            Message m = new Message("GetAlgoList");
+
+            SendMessage(m);
+        }
     }
 }

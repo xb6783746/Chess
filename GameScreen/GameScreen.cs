@@ -74,7 +74,7 @@ namespace GameScreen
             SetTurnLabel(FColor.White);
 
             field = figures;
-            UpdatePic();
+            GameBox.Image = render.UpdateField(figures.GetFiguresOnBoard());
         }
         public void UpdateField(ChessState state)
         {

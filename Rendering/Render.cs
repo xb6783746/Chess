@@ -129,7 +129,7 @@ namespace Rendering
 
             }
 
-            g.DrawRectangle(penBlue, from.X * blockSize, from.Y * blockSize, blockSize, blockSize);
+            g.DrawRectangle(penBlue, GetCellRect(from));
         }
         private void DrawFigures(Graphics g, IReadOnlyList<FigureOnBoard> field)
         {

@@ -56,6 +56,10 @@ namespace MainScreen
         private void UpdateListBox(string[] users)
         {
             userBox.Items.Clear();
+            if (users == null)
+            {
+                return;
+            }
 
             foreach (var item in users)
             {

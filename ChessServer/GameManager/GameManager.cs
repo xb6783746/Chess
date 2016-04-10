@@ -132,9 +132,14 @@ namespace ChessServer.Managers
             }
         }
 
-        public void GameWithComputer(IClient gamerId, IClient algId)
+        public void GameWithComputer(IClient gamer, string algName)
         {
-            //CreateRoom(gamerId, algId);
+            var algo = algos.GetAlgo(algName);
+
+            if (algo != null)
+            {
+                CreateRoom(gamer, algo);
+            }
         }
 
         public event Action<int> GameOver = (x) => { };
@@ -142,9 +147,6 @@ namespace ChessServer.Managers
 
         private void CreateRoom(IClient first, IClient second)
         {
-           // clientFacade.StartGame(startField, FColor.Black, first.Id);
-           // clientFacade.StartGame(startField, FColor.White, second.Id);
-
             var room = new GameRoom(
                 first,
                 second,
@@ -153,14 +155,28 @@ namespace ChessServer.Managers
                 idManager.GetId()
                 );
 
-            room.AddWatcher(first);
-            room.AddWatcher(second);
+            AddRoom(room);
+        }
+        private void CreateRoom(IClient first, IGamer second)
+        {
+            var room = new GameRoom(
+                first,
+                second,
+                clientFacade,
+                chessPool,
+                idManager.GetId()
+                );
 
+            AddRoom(room);
+        }
+
+        private void AddRoom(GameRoom room)
+        {
             room.RoomClosed += (x) => GameOver(x);
 
             lock (roomLck)
-            {             
-                gameRooms.Add(room);             
+            {
+                gameRooms.Add(room);
             }
 
             GameStart(room.RoomId);

@@ -77,5 +77,16 @@ namespace ChessServer.Facade
                 gameManager.GameWithAnswer(ans, client);
             }
         }
+
+
+        public void GameWithComputer(string algo, int id)
+        {
+            var client = clientManager.GetClient(id);
+
+            if(client != null)
+            {
+                gameManager.GameWithComputer(client, algo);
+            }
+        }
     }
 }

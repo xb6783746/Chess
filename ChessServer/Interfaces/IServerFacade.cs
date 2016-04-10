@@ -17,6 +17,7 @@ namespace ChessServer.Interfaces
         void GetAlgoList(int id);
         void GameWith(string with, int id);
         void GameWithAnswer(bool ans, int id);
+        void GameWithComputer(string algo, int id);
         void RandomGame(int id);
     }
 }

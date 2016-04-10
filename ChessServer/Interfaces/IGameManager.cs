@@ -16,7 +16,7 @@ namespace ChessServer.Interfaces
         void GameWithAnswer(bool ans, IClient gamer);
         void WatchFor(IClient gamer, int game);
 
-        void GameWithComputer(IClient gamer, IClient alg);
+        void GameWithComputer(IClient gamer, string algName);
 
 
         event Action<int> GameOver;

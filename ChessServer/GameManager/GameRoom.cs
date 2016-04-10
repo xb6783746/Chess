@@ -35,6 +35,8 @@ namespace ChessServer.Managers
             game.GameOver += GameOver;
 
             Gamers.Add(first);
+
+            watchers = new List<IClient>(Gamers);
         }
         public GameRoom(IClient first, IClient second, IClientFacade facade,
             IChessFigureFactory figFactory, int roomid) : this(facade, roomid)
@@ -46,6 +48,8 @@ namespace ChessServer.Managers
 
             Gamers.Add(first);
             Gamers.Add(second);
+
+            watchers = new List<IClient>(Gamers);
         }
 
         private IGame game;

@@ -35,12 +35,13 @@ namespace ChessServer.Algorithms
 
         public StepInfo MakeStep()
         {
+            fig.Clear();
             List<FigureOnBoard> figures = game.Field.GetFiguresOnBoard().Where((x) => x.Figure.Color == color).ToList();
             List<Point> cells;
             foreach (var item in figures)
             {
                 cells = item.Figure.GetCells(item.Location, game.Field);
-                if (cells.Count != 0)
+                if (cells != null && cells.Count != 0)
                 {
                     fig.Add(item, cells);
                 }

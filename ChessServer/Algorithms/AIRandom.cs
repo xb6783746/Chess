@@ -14,7 +14,6 @@ namespace ChessServer.Algorithms
     {
         private FColor color;
         private IGame game;
-        private StepInfo step;
         private Dictionary<FigureOnBoard, List<Point>> fig;
         private int indexRandomFigure;
         private FigureOnBoard randomFigure;
@@ -30,6 +29,8 @@ namespace ChessServer.Algorithms
         {
             this.game = game;
             this.color = color;
+            rand = new Random();
+            fig = new Dictionary<FigureOnBoard, List<Point>>();
         }
 
         public StepInfo MakeStep()

@@ -13,6 +13,7 @@ namespace Log
         public Logger()
         {
             buffer = new StringBuilder(bufferSize);
+            lck = new object();
         }
 
         private static Lazy<Logger> _instance = new Lazy<Logger>(LazyThreadSafetyMode.PublicationOnly);
@@ -27,28 +28,35 @@ namespace Log
         private string logFile;
         private StringBuilder buffer;
         private int bufferSize = 100;
+        private object lck;
 
         public void SetLogFile(string path)
         {
             logFile = path;
+            using (File.Create(path)) ;
+            
         }
         public void Log(LogLevel level, string msg)
         {
-            buffer.Append(
-                DateTime.Now.ToString() + " " + level.ToString() + ": " + msg + "\n\r"
-                );
+            lock (lck)
+            {
+                buffer.Append(
+                    DateTime.Now.ToString() + " " + level.ToString() + ": " + msg + "\n\r"
+                    );
 
-            //if (buffer.Length > bufferSize)
-           // {
+                //if (buffer.Length > bufferSize)
+                // {
                 Flush();
                 buffer.Clear();
-           // }
+                // }
+            }
         }
         public void Flush()
         {
-            using (var stream = new StreamWriter(logFile))
+            using(FileStream stream = new FileStream(logFile, FileMode.Append))
+            using(var writer = new StreamWriter(stream))
             {
-                stream.WriteLine(buffer.ToString());
+                writer.WriteLine(buffer.ToString());
             }
         }
     }

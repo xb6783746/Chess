@@ -3,6 +3,7 @@ using GameTemplate.ChessEnums;
 using GameTemplate.ChessGame.ChessField;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
+using Log;
 using Network;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,8 @@ namespace ChessServer.Managers
         {
             game = new SimpleGame(first.Gamer, second.Gamer, new ChessField(figFactory));
 
+            Logger.Instance.Log(LogLevel.Info, first.Nick + " и " + second.Nick + " начали игру");
+
             game.Change += Update;
             game.GameOver += GameOver;
 
@@ -67,6 +70,13 @@ namespace ChessServer.Managers
         }
         public void CloseRoom(IClient disconnected)
         {
+            string msg = "";
+            foreach(var item in Gamers)
+            {
+                msg += item.Nick + " ";
+            }
+            Logger.Instance.Log(LogLevel.Info, "Комната с " + msg + " закрыта");
+
             game.StopGame();
 
             var clients = watchers.Where((x) => x != disconnected);
@@ -93,6 +103,13 @@ namespace ChessServer.Managers
         }
         private void GameOver(FColor color)
         {
+            string msg = "";
+            foreach (var item in Gamers)
+            {
+                msg += item.Nick + " ";
+            }
+            Logger.Instance.Log(LogLevel.Info, msg + " закончили игру, победили " + (color == FColor.White ? "белые" : "черные"));
+
             foreach (var item in watchers)
             {
                 clientFacade.GameOver(color, item.Id);

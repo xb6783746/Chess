@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ChessServer.Interfaces;
 using ChessServer.IdManager;
 using ChessServer.Clients;
+using Log;
 
 namespace ChessServer.Managers
 {
@@ -21,6 +22,7 @@ namespace ChessServer.Managers
             this.server = server;
 
             Connected += (x) => ConnectNotify();
+            Connected += (x) => Logger.Instance.Log(LogLevel.Info, x.Nick + " подключился");
 
             server.Connected += NewSocketConnect;
             server.Disconnected += Disconnect;
@@ -102,10 +104,13 @@ namespace ChessServer.Managers
                 withoutNick.Add(id, client);
             }
         }
+
         private void Disconnect(int id)
         {
             if (clients.ContainsKey(id))
             {
+                Logger.Instance.Log(LogLevel.Info, clients[id].Nick + " отключился");
+
                 Disconnected(clients[id]);
 
                 lock (lck)

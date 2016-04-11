@@ -16,7 +16,6 @@ namespace ChessServer
     {
         public SocketServer(IIDManager idManager, IParser parser)
         {
-            //this.clientManager = clientManager;
             this.idManager = idManager;
             this.parser = parser;
 
@@ -24,7 +23,6 @@ namespace ChessServer
             clients = new Dictionary<int, Socket>();
         }
 
-       // private IClientManager clientManager;
         private IIDManager idManager;
         private Socket socket;
         private Dictionary<int, Socket> clients;
@@ -42,7 +40,7 @@ namespace ChessServer
         }
         public void Stop()
         {
-            
+           
         }
         public void Send(byte[] msg, int id)
         {
@@ -84,13 +82,14 @@ namespace ChessServer
                 catch
                 {
 
-                    
+                    Logger.Instance.Log(LogLevel.Info, "Сервер остановлен");
                 }
             }
         }
-
         private void Listen(int id, Socket socket)
         {
+            Logger.Instance.Log(LogLevel.Info, "Новое подключение, id = " + id.ToString());
+
             byte[] arr = new byte[packetLenght];
             int len;
 
@@ -105,6 +104,8 @@ namespace ChessServer
             }
             catch
             {
+                Logger.Instance.Log(LogLevel.Info, "Сокет с id = " + id.ToString() + " отключился");
+
                 Disconnected(id);
 
                 lock (lck)

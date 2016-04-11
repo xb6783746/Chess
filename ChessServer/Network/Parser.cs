@@ -1,4 +1,5 @@
 ﻿using ChessServer.Interfaces;
+using Log;
 using Network;
 using System;
 using System.Collections.Generic;
@@ -28,11 +29,12 @@ namespace ChessServer.Network
         }
         public void Parse(byte[] msg, int id)
         {
+            Message mesg = null;
             try
             {
                 using (var stream = new MemoryStream(msg))
                 {
-                    var mesg = formatter.Deserialize(stream) as Message;
+                    mesg = formatter.Deserialize(stream) as Message;
 
                     var args = new object[mesg.Arguments.Length + 1];
                     mesg.Arguments.CopyTo(args, 0);
@@ -41,9 +43,20 @@ namespace ChessServer.Network
                     serverFacadeType.GetMethod(mesg.Method).Invoke(serverFacade, args);
                 }
             }
-            catch
+            catch(Exception e)
             {
+                string logMsg;
 
+                if (mesg != null)
+                {
+                    logMsg = "Произошла ошибка при обработке сообщения " + mesg.Method + "\n\r : " + e.Message;
+                }
+                else
+                {
+                    logMsg = "Произошла ошибка при десериализации сообщения";
+                }
+
+                Logger.Instance.Log( LogLevel.Error, logMsg);
             }
         }
 

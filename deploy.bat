@@ -18,8 +18,8 @@ copy LogInScreen\bin\Debug\LogInScreen.dll Game\Screens
 copy MainScreen\bin\Debug\MainScreen.dll Game\Screens
 copy WaitScreen\bin\Debug\WaitScreen.dll Game\Screens
 copy Rendering\bin\Debug\Rendering.dll Game\Screens
+copy Logger\bin\Debug\Logger.dll Game
 
 echo 127.0.0.1> Game\config.txt
 echo 8888>> Game\config.txt
 
-pause

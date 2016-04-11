@@ -1,4 +1,5 @@
 ﻿using ChessServer.Interfaces;
+using Log;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,7 @@ namespace ChessServer
 
         public void Start()
         {
+            Logger.Instance.Log(LogLevel.Info, "Сервер запущен");
             Accept();
         }
         public void Stop()

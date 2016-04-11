@@ -77,6 +77,10 @@
       <Project>{c5b11426-c04f-4882-8640-031fd9461faa}</Project>
       <Name>ChessCore</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Logger\Logger.csproj">
+      <Project>{98d162bc-4d1a-4852-9bdd-5712f74cfbf8}</Project>
+      <Name>Logger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Network\Network.csproj">
       <Project>{f16bf67b-f1ce-4425-8122-a11a27cc287a}</Project>
       <Name>Network</Name>

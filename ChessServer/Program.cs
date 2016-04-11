@@ -1,6 +1,7 @@
 ﻿using ChessServer.Chat;
 using ChessServer.Facade;
 using ChessServer.IdManager;
+using Log;
 using ChessServer.Managers;
 using ChessServer.Network;
 using GameTemplate.ChessGame.ChessField;
@@ -19,7 +20,8 @@ namespace ChessServer
     {
         static void Main(string[] args)
         {
-            
+            Logger.Instance.SetLogFile("log.txt");
+
             var idManager = new IDManager();
             var parser = new Parser();
             var server = new SocketServer(idManager, parser);

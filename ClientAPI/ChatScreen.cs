@@ -94,40 +94,13 @@ namespace ClientAPI
                 InvokeAdd(message.Message);
             }
         }  
+        public void Clear()
+        {
+            messages.Clear();
+            chatWindow.Items.Clear();
+        }
         public event Action<ChatMessage> Send = (x) => { };
 
-        //private void sendButton_Click(object sender, EventArgs e)
-        //{
-        //    if (messageBox.Text != "")
-        //    {
-        //        ChatMessage m, self;
-
-        //        if (messageBox.Text[0] == '/')
-        //        {
-        //            messageBox.Text = messageBox.Text.Substring(1);
-        //            string nick = messageBox.Text.Substring(0, messageBox.Text.IndexOf(' '));
-        //            m = new ChatMessage("", nick, ChatMessageType.Private, messageBox.Text.Substring(nick.Length));
-                   
-        //            self = m.Copy();
-        //            self.From = Nick + " -> " + nick;
-
-        //        }
-        //        else
-        //        {
-        //            m = new ChatMessage("", "", ChatMessageType.Public, messageBox.Text);     
-           
-        //            self = m.Copy();
-        //            self.From = Nick;
-                   
-        //        }
-        //        messageBox.Text = "";
-
-        //        Receive(self);
-
-        //        Send(m);
-               
-        //    }
-        //}
         private void sendButton_Click(object sender, EventArgs e)
         {
             if (messageBox.Text != "")

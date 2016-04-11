@@ -21,3 +21,5 @@ copy Rendering\bin\Debug\Rendering.dll Game\Screens
 
 echo 127.0.0.1> Game\config.txt
 echo 8888>> Game\config.txt
+
+pause

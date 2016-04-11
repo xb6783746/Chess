@@ -102,6 +102,7 @@ namespace GameScreen
             from = new Point();
             yourTurn = false;
             selected = false;
+            chatScreen1.Clear();
         }
         public void GameClosed(string msg)
         {

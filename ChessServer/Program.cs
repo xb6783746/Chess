@@ -4,7 +4,7 @@ using ChessServer.IdManager;
 using Log;
 using ChessServer.Managers;
 using ChessServer.Network;
-using GameTemplate.ChessGame.ChessField;
+using GameTemplate.ChessField;
 using GameTemplate.ChessGame.ChessFigures;
 using System;
 using System.Collections.Generic;

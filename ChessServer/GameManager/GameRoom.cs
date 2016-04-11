@@ -1,6 +1,6 @@
 ﻿using ChessServer.Interfaces;
 using GameTemplate.ChessEnums;
-using GameTemplate.ChessGame.ChessField;
+using GameTemplate.ChessField;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using Log;

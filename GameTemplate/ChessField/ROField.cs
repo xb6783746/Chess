@@ -15,11 +15,11 @@ namespace GameTemplate.ChessField
         public ROField(IChessFigure[,] board, Dictionary<IChessFigure, int> died)
         {
             this.board = board;
-            this.died = new Dictionary<IChessFigure, int>();
+            //this.died = new Dictionary<IChessFigure, int>();
         }
 
         private IChessFigure[,] board;
-        private Dictionary<IChessFigure, int> died;
+        //private Dictionary<IChessFigure, int> died;
 
         public IChessFigure this[Point location]
         {
@@ -51,9 +51,15 @@ namespace GameTemplate.ChessField
 
             return res.AsReadOnly();
         }
-        public IReadOnlyDictionary<IChessFigure, int> GetDiedFigures()
+        //public IReadOnlyDictionary<IChessFigure, int> GetDiedFigures()
+        //{
+        //    throw new NotImplementedException();
+        //}      
+
+
+        public IField Clone()
         {
-            throw new NotImplementedException();
-        }      
+            return new ChessField(this.GetFiguresOnBoard());
+        }
     }
 }

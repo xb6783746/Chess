@@ -1,7 +1,7 @@
 ﻿using ChessServer.IdManager;
 using ChessServer.Interfaces;
 using GameTemplate.ChessEnums;
-using GameTemplate.ChessGame.ChessField;
+using GameTemplate.ChessField;
 using GameTemplate.ChessGame.ChessFigures;
 using GameTemplate.Interfaces;
 using System;

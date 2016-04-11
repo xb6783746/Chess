@@ -23,9 +23,7 @@ namespace GameTemplate.Interfaces
         /// Получить все фигуры, находящиеся на доске
         /// </summary>
         IReadOnlyList<FigureOnBoard> GetFiguresOnBoard();
-        /// <summary>
-        /// Получить все вышедшие из игры фигуры
-        /// </summary>
-        IReadOnlyDictionary<IChessFigure, int> GetDiedFigures();
+
+        IField Clone();
     }
 }

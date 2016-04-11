@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameTemplate.ChessGame.ChessField
+namespace GameTemplate.ChessField
 {
     /// <summary>
     /// Поле для шахмат
@@ -25,8 +25,16 @@ namespace GameTemplate.ChessGame.ChessField
 
             field = new IChessFigure[8, 8];
             diedFigures = new Dictionary<IChessFigure, int>();
+            history = new Stack<Keeper>();
 
             Init();
+        }
+        public ChessField(IEnumerable<FigureOnBoard> figures)
+        {
+            foreach (var item in figures)
+            {
+                this[item.Location] = item.Figure;
+            }
         }
 
         public static IReadOnlyField Empty
@@ -41,6 +49,7 @@ namespace GameTemplate.ChessGame.ChessField
         [NonSerialized]
         private IChessFigureFactory factory;
         private Dictionary<IChessFigure, int> diedFigures;
+        private Stack<Keeper> history;
 
         public IChessFigure this[Point location]
         {
@@ -86,6 +95,14 @@ namespace GameTemplate.ChessGame.ChessField
 
             if (attacker.Step(from, to, this) && (attacked == null || attacker.Color != attacked.Color))
             {
+                history.Push(
+                    new Keeper(
+                        new StepInfo(from, to),
+                        attacker, 
+                        attacked
+                        )
+                    );
+                
                 this[to] = attacker;
                 this[from] = null;
 
@@ -142,12 +159,29 @@ namespace GameTemplate.ChessGame.ChessField
         private void Died(IChessFigure died)
         {
 
-            if (!diedFigures.ContainsKey(died))
-            {
-                diedFigures.Add(died, 0);
-            }
+            //if (!diedFigures.ContainsKey(died))
+            //{
+            //    diedFigures.Add(died, 0);
+            //}
 
-            diedFigures[died]++;
-        }   
+            //diedFigures[died]++;
+        }
+
+        public IField Clone()
+        {
+            return new ChessField(GetFiguresOnBoard());
+        }
+
+
+        public void CancelStep()
+        {
+            if (history.Count > 0)
+            {
+                var keeper = history.Pop();
+
+                this[keeper.Step.From] = keeper.Attacked;
+                this[keeper.Step.To] = keeper.Attacked;
+            }
+        }
     }
 }

@@ -28,6 +28,7 @@ namespace GameTemplate.Interfaces
         /// <param name="step">Информация о ходе</param>
         bool MakeStep(StepInfo step);
         IReadOnlyField GetReadOnlyField();
+        void CancelStep();
 
         /// <summary>
         /// Событие завершения игры

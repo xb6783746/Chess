@@ -12,7 +12,7 @@ using GameTemplate;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using Network;
-using GameTemplate.ChessGame.ChessField;
+using GameTemplate.ChessField;
 using GameTemplate.ChessEnums;
 
 namespace GameScreen

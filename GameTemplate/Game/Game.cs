@@ -23,9 +23,7 @@ namespace GameTemplate.Game
             gamerQueue.Enqueue(second);
             gamerQueue.Enqueue(first);
 
-            gamers = gamerQueue.ToArray();            
-
-            Turn = gamerQueue.Peek().Color;
+            gamers = gamerQueue.ToArray();                      
 
             this.field = field;
 
@@ -33,6 +31,8 @@ namespace GameTemplate.Game
 
             first.Init(this, FColor.Black);
             second.Init(this, FColor.White);
+
+            Turn = gamerQueue.Peek().Color;
 
             Task.Run(() => StartGame());
 

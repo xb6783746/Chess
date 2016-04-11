@@ -27,6 +27,20 @@ namespace GameScreen
             from = new Point();
             picture = new Bitmap(GameBox.Height, GameBox.Width);
         }
+
+        private IRender render;
+        private Point from;
+        private Bitmap picture;
+        private int cellSize;
+        private IReadOnlyField field;
+        private StepInfo step;
+        private FColor color;
+        private bool yourTurn;
+        private Point temp;
+        private bool selected;
+        private int boardSize = 7;
+
+
         public string Nick
         {
             get
@@ -39,17 +53,6 @@ namespace GameScreen
             }
         }
 
-        private IRender render;
-        private Point from;
-        private Bitmap picture;
-        private int cellSize;
-        private IReadOnlyField field;
-        private StepInfo step;
-        private FColor color;
-        private bool yourTurn;
-        private Point temp;
-        private int boardSize = 7;
-
         public void GameOver(FColor win)
         {
             string end = win == FColor.Black ? "черные" : "белые";
@@ -58,7 +61,7 @@ namespace GameScreen
         public void SetRender(IRender r)
         {
             render = r;
-            //render.Init(GameBox.Width, GameBox.Height);
+
         }
         public void StartGame(IReadOnlyField figures, FColor color)
         {
@@ -67,10 +70,6 @@ namespace GameScreen
             Color(color);
             yourTurn = (this.color == FColor.White);
 
-            //IfInvoke(() =>
-            //{
-            //Turn.Text = "Ход за белыми";
-            //});
             SetTurnLabel(FColor.White);
 
             field = figures;
@@ -100,7 +99,9 @@ namespace GameScreen
         }
         public void Disable()
         {
-
+            from = new Point();
+            yourTurn = false;
+            selected = false;
         }
         public void GameClosed(string msg)
         {
@@ -120,16 +121,17 @@ namespace GameScreen
         {
             if (yourTurn)
             {
-                if (e.Button == System.Windows.Forms.MouseButtons.Left)
+                if (e.Button == MouseButtons.Left)
                 {
                     temp = GetGamePoint(e.Location);
 
                     if (field[temp] != null)
                     {
-                        if (from.IsEmpty && field[temp].Color == this.color) // если пустой 1 клик
+                        if (!selected && field[temp].Color == this.color) // если пустой 1 клик
                         {
                             from = temp;
                             SelectFigure();
+                            selected = true;
                             return;
                         }
                         else
@@ -138,22 +140,24 @@ namespace GameScreen
                             {
                                 from = temp;
                                 SelectFigure();
+                                selected = true;
                                 return;
                             }
                         }
                     }
                     else
                     {
-                        if (!from.IsEmpty && !field[from].Step(from, temp, field)) // активной фигурой пытаемся пойти в пустоту
+                        if (selected && !field[from].Step(from, temp, field)) // активной фигурой пытаемся пойти в пустоту
                         {
                             UpdatePic();
                         }
                     }
 
-                    if (!from.IsEmpty)
+                    if (selected)
                     {
                         Step(new StepInfo(from, temp));
                         from = new Point();
+                        selected = false;
                     }
                 }
                 else
@@ -190,7 +194,10 @@ namespace GameScreen
         private void Color(FColor color)
         {
             this.color = color;
-            YourColor.Text += color == FColor.White ? "Белый" : "Черный";
+            IfInvoke(() =>
+            {
+                YourColor.Text ="Ваш цвет: "+ (color == FColor.White ? "Белый" : "Черный");
+            });
         }
         private void SetTurnLabel(FColor color)
         {

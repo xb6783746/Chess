@@ -34,10 +34,10 @@ namespace ChessClient.Controllers
         }
         public void StartGame(IReadOnlyField figures, FColor color)
         {
-            gameScreen = Activator.CreateInstance(screenType) as IGameScreen;
-            var render = Activator.CreateInstance(renderType) as IRender;
+            //gameScreen = Activator.CreateInstance(screenType) as IGameScreen;
+            //var render = Activator.CreateInstance(renderType) as IRender;
 
-            Init(gameScreen, render);
+            //Init(gameScreen, render);
 
             gameScreen.StartGame(figures, color);
         }

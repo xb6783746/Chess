@@ -31,6 +31,10 @@ namespace GameTemplate.ChessField
         }
         public ChessField(IEnumerable<FigureOnBoard> figures)
         {
+            field = new IChessFigure[8, 8];
+            diedFigures = new Dictionary<IChessFigure, int>();
+            history = new Stack<Keeper>();
+
             foreach (var item in figures)
             {
                 this[item.Location] = item.Figure;
@@ -179,7 +183,7 @@ namespace GameTemplate.ChessField
             {
                 var keeper = history.Pop();
 
-                this[keeper.Step.From] = keeper.Attacked;
+                this[keeper.Step.From] = keeper.Attacker;
                 this[keeper.Step.To] = keeper.Attacked;
             }
         }

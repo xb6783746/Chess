@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms\AIRandom.cs" />
+    <Compile Include="Algorithms\MiniMax.cs" />
+    <Compile Include="Algorithms\SimpleRatingFunc.cs" />
     <Compile Include="Chat\ChatManager.cs" />
     <Compile Include="Chat\ChatRoom.cs" />
     <Compile Include="ClientManager\ClientManager.cs" />
@@ -64,6 +66,7 @@
     <Compile Include="Interfaces\IParser.cs" />
     <Compile Include="Interfaces\IServer.cs" />
     <Compile Include="Interfaces\IServerFacade.cs" />
+    <Compile Include="Interfaces\IRatingFunc.cs" />
     <Compile Include="Network\Parser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -12,19 +12,25 @@ namespace ChessServer.Managers
     class AlgoRepo : IAlgoFactory
     {
 
-        private Dictionary<string, Type> algos;
+        private Dictionary<string, Func<IGamer>> algos;
 
         public AlgoRepo()
         {
-            algos = new Dictionary<string, Type>()
+            algos = new Dictionary<string, Func<IGamer>>()
             {
-                {"AIRandom", typeof(AIRandom)}
+                {"AIRandom", () => new AIRandom()},
+                {"MiniMax", () => new MiniMax(new SimpleRatingFunc())}
             };
         }
 
         public IGamer GetAlgo(string name)
         {
-            return Activator.CreateInstance(algos[name]) as IGamer;
+            if (algos.ContainsKey(name))
+            {
+                return algos[name]();
+            }
+
+            return null;
         }
 
         public List<string> AllNames()

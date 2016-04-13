@@ -19,21 +19,19 @@ namespace GameTemplate.ChessField
     [Serializable]
     public class ChessField :IField
     {
-        public ChessField(IChessFigureFactory factory)
+        protected ChessField()
+        {
+            field = new IChessFigure[8, 8];
+            history = new Stack<Keeper>();
+        }
+        public ChessField(IChessFigureFactory factory) :this()
         {
             this.factory = factory;
 
-            field = new IChessFigure[8, 8];
-            diedFigures = new Dictionary<IChessFigure, int>();
-            history = new Stack<Keeper>();
-
             Init();
         }
-        public ChessField(IEnumerable<FigureOnBoard> figures)
+        public ChessField(IEnumerable<FigureOnBoard> figures) :this()
         {
-            field = new IChessFigure[8, 8];
-            diedFigures = new Dictionary<IChessFigure, int>();
-            history = new Stack<Keeper>();
 
             foreach (var item in figures)
             {
@@ -50,9 +48,10 @@ namespace GameTemplate.ChessField
         }
 
         private IChessFigure[,] field;
+
         [NonSerialized]
         private IChessFigureFactory factory;
-        private Dictionary<IChessFigure, int> diedFigures;
+        [NonSerialized]
         private Stack<Keeper> history;
 
         public IChessFigure this[Point location]
@@ -88,10 +87,6 @@ namespace GameTemplate.ChessField
 
             return res.AsReadOnly();
         }
-        public IReadOnlyDictionary<IChessFigure, int> GetDiedFigures()
-        {
-            return diedFigures;
-        }
         public bool MakeStep(Point from, Point to)
         {
             IChessFigure attacker = this[from];
@@ -110,15 +105,10 @@ namespace GameTemplate.ChessField
                 this[to] = attacker;
                 this[from] = null;
 
-                if (attacked != null)
+                if (attacked != null && attacked.Type == ChessFType.King)
                 {
-                    Died(attacked);
-
-                    if (attacked.Type == ChessFType.King)
-                    {
-                        IsGameOver = true;
-                        GameOver(attacker.Color);
-                    }
+                    IsGameOver = true;
+                    GameOver(attacker.Color);
                 }
                
                 return true;
@@ -132,7 +122,21 @@ namespace GameTemplate.ChessField
         }
         public IReadOnlyField GetReadOnlyField()
         {
-            return new ROField(field, diedFigures);
+            return new ROField(field);
+        }
+        public IField Clone()
+        {
+            return new ChessField(GetFiguresOnBoard());
+        }
+        public void CancelStep()
+        {
+            if (history.Count > 0)
+            {
+                var keeper = history.Pop();
+
+                this[keeper.Step.From] = keeper.Attacker;
+                this[keeper.Step.To] = keeper.Attacked;
+            }
         }
 
         public event Action<FColor> GameOver = (x) => { };
@@ -159,33 +163,6 @@ namespace GameTemplate.ChessField
 
             field[4, 0] = factory.GetFigure(ChessFType.King, FColor.Black);
             field[4, 7] = factory.GetFigure(ChessFType.King, FColor.White);
-        }
-        private void Died(IChessFigure died)
-        {
-
-            //if (!diedFigures.ContainsKey(died))
-            //{
-            //    diedFigures.Add(died, 0);
-            //}
-
-            //diedFigures[died]++;
-        }
-
-        public IField Clone()
-        {
-            return new ChessField(GetFiguresOnBoard());
-        }
-
-
-        public void CancelStep()
-        {
-            if (history.Count > 0)
-            {
-                var keeper = history.Pop();
-
-                this[keeper.Step.From] = keeper.Attacker;
-                this[keeper.Step.To] = keeper.Attacked;
-            }
         }
     }
 }

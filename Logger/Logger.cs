@@ -33,7 +33,7 @@ namespace Log
         public void SetLogFile(string path)
         {
             logFile = path;
-            using (File.Create(path)) ;
+            using (File.Create(path)) { }
             
         }
         public void Log(LogLevel level, string msg)

@@ -12,14 +12,12 @@ namespace GameTemplate.ChessField
     [Serializable]
     public class ROField :IReadOnlyField
     {
-        public ROField(IChessFigure[,] board, Dictionary<IChessFigure, int> died)
+        public ROField(IChessFigure[,] board)
         {
             this.board = board;
-            //this.died = new Dictionary<IChessFigure, int>();
         }
 
         private IChessFigure[,] board;
-        //private Dictionary<IChessFigure, int> died;
 
         public IChessFigure this[Point location]
         {
@@ -50,11 +48,7 @@ namespace GameTemplate.ChessField
             }
 
             return res.AsReadOnly();
-        }
-        //public IReadOnlyDictionary<IChessFigure, int> GetDiedFigures()
-        //{
-        //    throw new NotImplementedException();
-        //}      
+        }    
 
 
         public IField Clone()

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ChessClient.Network
@@ -16,14 +17,27 @@ namespace ChessClient.Network
             this.clientFacade = clientFacade;
 
             this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            this.messages = new Queue<byte[]>();
         }
 
         private IParser parser;
+        private Queue<byte[]> messages;
+        private AutoResetEvent wait;
         private IClientFacade clientFacade;
         private Socket socket;
+        private object lck = new object();
 
         private int packetLenght = 5000;
 
+        public void SetParser(IParser parser)
+        {
+            this.parser = parser;
+        }
+        public bool IsRunning
+        {
+            get;
+            private set;
+        }
         public void Connect(IPAddress id, int port)
         {
             try
@@ -38,12 +52,10 @@ namespace ChessClient.Network
                 clientFacade.LoginResult(false, "Установить соединение не удалось");
             }
         }
-
         public void Stop()
         {
             socket.Close();
         }
-
         public void Send(byte[] arr)
         {
             socket.Send(arr);
@@ -59,9 +71,12 @@ namespace ChessClient.Network
                 {
                     len = socket.Receive(buffer);
 
-                    parser.Parse(buffer.Take(len).ToArray());
+                    var tmp = buffer.Take(len).ToArray();
 
-
+                    Task.Run(() =>
+                    {
+                        parser.Parse(tmp);
+                    });
                 }
             }
             catch
@@ -71,18 +86,25 @@ namespace ChessClient.Network
                 clientFacade.Disconnect();
             }
         }
-
-
-        public bool IsRunning
+        private void Execute()
         {
-            get;
-            private set;
-        }
+            byte[] mess;
 
+            while (IsRunning)
+            {
 
-        public void SetParser(IParser parser)
-        {
-            this.parser = parser;
+                while (messages.Count > 0)
+                {
+                    lock (lck)
+                    {
+                        mess = messages.Dequeue();
+                    }
+
+                    parser.Parse(mess);
+                }
+
+                wait.WaitOne();
+            }
         }
     }
 }

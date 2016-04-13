@@ -135,7 +135,7 @@ namespace GameTemplate.ChessField
             return new ROField(field, diedFigures);
         }
 
-        public event Action<FColor> GameOver;
+        public event Action<FColor> GameOver = (x) => { };
 
         private void Init()
         {

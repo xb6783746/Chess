@@ -33,7 +33,7 @@ namespace ChessServer.Algorithms
 
         private IRatingFunc rating;
         private IGame game;
-        private int maxRecurs = 0;
+        private int maxRecurs = 2;
 
         private FColor EnemyColor
         {
@@ -67,21 +67,17 @@ namespace ChessServer.Algorithms
         private StepInfo ChooseStep()
         {
             var field = this.game.Field.Clone();
-            try
-            {
-                return RatingField(field, 0).Step;
-            }
-            catch (Exception e)
-            {
-                return new StepInfo(new Point(), new Point());
-            }
+
+            return RatingField(field, 0).Step;
         }
 
         private StepRating RatingField(IField field, int level)
         {
             StepRating best = null;
 
-            var allSteps = GetAllSteps(this.Color, field);
+            FColor current = level % 2 == 0 ? this.Color : this.EnemyColor;
+
+            var allSteps = GetAllSteps(current, field);
 
             foreach (var step in allSteps)
             {
@@ -92,13 +88,16 @@ namespace ChessServer.Algorithms
                 if (level < maxRecurs)
                 {
                     newRating = RatingField(field, level + 1);
+                    newRating.Step = step;
                 }
                 else
                 {
-                    newRating = new StepRating(step, rating.Rating(field, EnemyColor));
+                    newRating = new StepRating(step, rating.Rating(field));
                 }
 
-                if (best == null || newRating.Rating < best.Rating)
+                if (best == null 
+                    || ( current == FColor.White && newRating.Rating > best.Rating) 
+                    || ( current == FColor.Black && newRating.Rating < best.Rating))
                 {
                     best = newRating;
                 }

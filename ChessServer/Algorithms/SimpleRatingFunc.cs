@@ -33,5 +33,16 @@ namespace ChessServer.Algorithms
 
             return figures.Sum((x) => price[x.Figure.Type]);
         }
+
+        public int Rating(IReadOnlyField field)
+        {
+            var whiteFigures = field.GetFiguresOnBoard().Where((x) => x.Figure.Color == FColor.White);
+            var blackFigures = field.GetFiguresOnBoard().Where((x) => x.Figure.Color == FColor.Black);
+
+            int whiteSum = whiteFigures.Sum((x) => price[x.Figure.Type] + x.Figure.GetCells(x.Location, field).Count * 10);
+            int blackSum = blackFigures.Sum((x) => price[x.Figure.Type] + x.Figure.GetCells(x.Location, field).Count * 10);
+
+            return whiteSum - blackSum;
+        }
     }
 }

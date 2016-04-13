@@ -12,5 +12,6 @@ namespace ChessServer.Interfaces
     interface IRatingFunc
     {
         int Rating(IReadOnlyField field, FColor color);
+        int Rating(IReadOnlyField field);
     }
 }

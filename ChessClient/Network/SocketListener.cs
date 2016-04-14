@@ -18,6 +18,7 @@ namespace ChessClient.Network
 
             this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             this.messages = new Queue<byte[]>();
+            this.wait = new AutoResetEvent(false);
 
             disposable = new List<IDisposable>()
             {
@@ -52,7 +53,8 @@ namespace ChessClient.Network
                 socket.Connect(new IPEndPoint(id, port));
 
                 IsRunning = true;
-                new Task(Listen).Start();
+                Task.Run(() => Execute());
+                Task.Run(() => Listen());
             }
             catch
             {
@@ -80,11 +82,13 @@ namespace ChessClient.Network
 
                     var tmp = buffer.Take(len).ToArray();
 
-                    Task.Run(() =>
-                    {
-                        parser.Parse(tmp);
-                    });
 
+                    lock (lck)
+                    {
+                        messages.Enqueue(tmp);
+                    }
+
+                    wait.Set();
                 }
             }
             catch

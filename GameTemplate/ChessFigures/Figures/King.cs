@@ -13,7 +13,7 @@ namespace GameTemplate.ChessFigures
     /// Класс Короля    
     /// </summary>
     [Serializable]
-    class King : IChessFigure
+    class King : AbstractFigure, IChessFigure
     {
         public King(FColor color)
         {
@@ -24,73 +24,52 @@ namespace GameTemplate.ChessFigures
         {
             get { return ChessFType.King; }
         }
-        public FColor Color
-        {
-            get { return color; }
-        }
-
-        private FColor color;
-        private Point temp;
 
         public bool Step(Point from, Point to, IReadOnlyField field)
         {
             return GetCells(from, field).Contains(to);
         }
-
         public List<Point> GetCells(Point location, IReadOnlyField field)
         {
-            List<Point> cells = GetAllCells(location, field);
-            //Point temp;
-            //for (int i = 0; i < cells.Count; i++)
-            //{
-            //    temp = new Point(cells[i].X, cells[i].Y);
-            //    if (field[temp] != null && field[temp].Color == color)
-            //    {
-            //        cells.Remove(temp);
-            //    }
-            //}
-
-            return cells;
+            return GetAllCells(location, field);
         }
 
         private List<Point> GetAllCells(Point location, IReadOnlyField field)
         {
             List<Point> cells = new List<Point>();
-            Straight(ref cells, location, 0, -1, field);
-            Straight(ref cells, location, 1, 0, field);
-            Straight(ref cells, location, 0, 1, field);
-            Straight(ref cells, location, -1, 0, field);
 
-            Obliquely(ref cells, location, 1, -1, field);
-            Obliquely(ref cells, location, 1, 1, field);
-            Obliquely(ref cells, location, -1, 1, field);
-            Obliquely(ref cells, location, -1, -1, field);
-            
+            //Cell(ref cells, location, 0, -1, field);
+            //Cell(ref cells, location, 0, 1, field);
+            //Cell(ref cells, location, 1, 0, field);
+            //Cell(ref cells, location, -1, 0, field);
+
+            //Cell(ref cells, location, 1, -1, field);
+            //Cell(ref cells, location, 1, 1, field);
+            //Cell(ref cells, location, -1, 1, field);
+            //Cell(ref cells, location, -1, -1, field);
+
+            for (int i = -1; i <= 1; i++)
+            {
+                for (int k = -1; k <= 1; k++)
+                {
+                    if (i == k && k == 0)
+                    {
+                        continue;
+                    }
+
+                    Cell(ref cells, location, i, k, field);
+                }
+            }
 
             return cells;
         }
-
-        private void Straight(ref List<Point> cells, Point start, int stepX, int stepY, IReadOnlyField field)
+        private void Cell(ref List<Point> cells, Point start, int stepX, int stepY, IReadOnlyField field)
         {
             temp = new Point(start.X + stepX, start.Y + stepY);
-            if (TestPoint(temp) && (field[temp] == null || ( field[temp] != null && field[temp].Color != this.color)))
-            {
-                cells.Add(temp);    
-            }
-        }
-        private void Obliquely(ref List<Point> cells, Point start, int stepX, int stepY, IReadOnlyField field)
-        {
-            temp = new Point(start.X + stepX, start.Y + stepY);
-            if (TestPoint(temp) && field[temp] != null && field[temp].Color != this.color)
+            if (TestPoint(temp) && (field[temp] == null || (field[temp] != null && field[temp].Color != this.color)))
             {
                 cells.Add(temp);
             }
-        }
-
-
-        private bool TestPoint(Point temp)
-        {
-            return temp.X >= 0 && temp.X < 8 && temp.Y >= 0 && temp.Y < 8;
         }
     }
 }

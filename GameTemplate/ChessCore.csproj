@@ -45,6 +45,7 @@
     <Compile Include="ChessField\ChessField.cs" />
     <Compile Include="ChessField\Keeper.cs" />
     <Compile Include="ChessField\ROField.cs" />
+    <Compile Include="ChessFigures\AbstractFigure.cs" />
     <Compile Include="ChessFigures\Figures\Bishop.cs" />
     <Compile Include="ChessFigures\ChessFiguresPool.cs" />
     <Compile Include="ChessFigures\Figures\King.cs" />

@@ -13,7 +13,7 @@ namespace GameTemplate.ChessFigures
     /// Класс коня
     /// </summary>
     [Serializable]
-    class Knight : IChessFigure
+    class Knight : AbstractFigure, IChessFigure
     {
         public Knight(FColor color)
         {
@@ -24,32 +24,24 @@ namespace GameTemplate.ChessFigures
         {
             get { return ChessFType.Knight; }
         }
-        public FColor Color
-        {
-            get { return color; }
-        }
-
-        private FColor color;
-        private Point temp;
 
         public bool Step(Point from, Point to, IReadOnlyField field)
         {
             return GetCells(from, field).Contains(to);
         }
-
         public List<Point> GetCells(Point location, IReadOnlyField field)
         {
             List<Point> cells = new List<Point>();
 
-            Cells(ref cells, location, -2, 1, field);
-            Cells(ref cells, location, -1, 2, field);
-            Cells(ref cells, location,  1, 2, field);
-            Cells(ref cells, location,  2, 1, field);
+            Cells(cells, location, -2, 1, field);
+            Cells(cells, location, -1, 2, field);
+            Cells(cells, location,  1, 2, field);
+            Cells(cells, location,  2, 1, field);
 
             return cells;
         }
 
-        private void Cells(ref List<Point> cells, Point start, int stepX, int stepY, IReadOnlyField field)
+        private void Cells(List<Point> cells, Point start, int stepX, int stepY, IReadOnlyField field)
         {
             temp = new Point(start.X + stepX, start.Y + stepY);
             if (TestPoint(temp) && (field[temp] == null || (field[temp] != null && field[temp].Color != this.color)))
@@ -63,11 +55,6 @@ namespace GameTemplate.ChessFigures
                 cells.Add(temp);
             }
 
-        }
-
-        private bool TestPoint(Point temp)
-        {
-            return temp.X >= 0 && temp.X < 8 && temp.Y >= 0 && temp.Y < 8;
         }
     }
 }

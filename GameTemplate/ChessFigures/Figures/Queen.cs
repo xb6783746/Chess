@@ -13,7 +13,7 @@ namespace GameTemplate.ChessFigures
     /// Класс Ферзя
     /// </summary>
     [Serializable]
-    class Queen : IChessFigure
+    class Queen : AbstractFigure, IChessFigure
     {
         public Queen(FColor color)
         {
@@ -24,14 +24,6 @@ namespace GameTemplate.ChessFigures
         {
             get { return ChessFType.Queen; }
         }
-        public FColor Color
-        {
-            get { return color; }
-        }
-
-        private FColor color;
-        private Point temp;
-
 
         public bool Step(Point from, Point to, IReadOnlyField field)
         {
@@ -41,20 +33,32 @@ namespace GameTemplate.ChessFigures
         {
             List<Point> cells = new List<Point>();
 
-            GetCells(ref cells, location,  1, -1, field);
-            GetCells(ref cells, location,  1,  1, field);
-            GetCells(ref cells, location, -1,  1, field);
-            GetCells(ref cells, location, -1, -1, field);
+            for (int i = -1; i <= 1; i++)
+            {
+                for (int k = -1; k <= 1; k++)
+                {
+                    if (i == k && k == 0)
+                    {
+                        continue;
+                    }
 
-            GetCells(ref cells, location,  0, -1, field);
-            GetCells(ref cells, location,  1,  0, field);
-            GetCells(ref cells, location,  0,  1, field);
-            GetCells(ref cells, location, -1,  0, field);
+                    GetCells(cells, location, i, k, field);
+                }
+            }
+
+            //GetCells(ref cells, location,  1, -1, field);
+            //GetCells(ref cells, location,  1,  1, field);
+            //GetCells(ref cells, location, -1,  1, field);
+            //GetCells(ref cells, location, -1, -1, field);
+
+            //GetCells(ref cells, location,  0, -1, field);
+            //GetCells(ref cells, location,  1,  0, field);
+            //GetCells(ref cells, location,  0,  1, field);
+            //GetCells(ref cells, location, -1,  0, field);
 
             return cells;
         }
-
-        private void GetCells(ref List<Point> cells, Point start, int stepX, int stepY, IReadOnlyField field)
+        private void GetCells(List<Point> cells, Point start, int stepX, int stepY, IReadOnlyField field)
         {
             temp = new Point(start.X + stepX, start.Y + stepY);
 
@@ -70,11 +74,6 @@ namespace GameTemplate.ChessFigures
             {
                 cells.Add(temp);
             }
-        }
-
-        private bool TestPoint(Point temp)
-        {
-            return temp.X >= 0 && temp.X < 8 && temp.Y < 8 && temp.Y >= 0;
         }
     }
 }

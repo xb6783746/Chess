@@ -13,25 +13,16 @@ namespace GameTemplate.ChessFigures
     /// Класс Ладьи
     /// </summary>
     [Serializable]
-    class Rook : IChessFigure
+    class Rook : AbstractFigure, IChessFigure
     {
         public Rook(FColor color)
         {
             this.color = color;
         }
-
-        public FColor Color
-        {
-            get { return color; }
-        }
         public ChessFType Type
         {
             get { return ChessFType.Rook; }
         }
-
-        private FColor color;
-        private Point temp;
-
 
         public bool Step(Point from, Point to, IReadOnlyField field)
         {
@@ -41,14 +32,14 @@ namespace GameTemplate.ChessFigures
         {
             List<Point> cells = new List<Point>();
 
-            GetCells(ref cells, location, 0, -1, field);
-            GetCells(ref cells, location, 1, 0, field);
-            GetCells(ref cells, location, 0, 1, field);
-            GetCells(ref cells, location, -1, 0, field);
+            GetCells(cells, location, 0, -1, field);
+            GetCells(cells, location, 0, 1, field);
+            GetCells(cells, location, 1, 0, field);
+            GetCells(cells, location, -1, 0, field);
 
             return cells;
         }
-        private void GetCells(ref List<Point> cells, Point start, int stepX, int stepY, IReadOnlyField field)
+        private void GetCells(List<Point> cells, Point start, int stepX, int stepY, IReadOnlyField field)
         {
             temp = new Point(start.X + stepX, start.Y + stepY);
 
@@ -64,11 +55,6 @@ namespace GameTemplate.ChessFigures
             {
                 cells.Add(temp);
             }
-        }
-        
-        private bool TestPoint(Point temp)
-        {
-            return temp.X >= 0 && temp.X < 8 && temp.Y < 8 && temp.Y >= 0;
         }
     }
 }

@@ -14,43 +14,49 @@ namespace GameTemplate.ChessFigures
     /// Класс Слона
     /// </summary>
     [Serializable]
-    class Bishop : IChessFigure
+    class Bishop : AbstractFigure, IChessFigure
     {
         public Bishop(FColor color)
         {
             this.color = color;
         }
 
-        public FColor Color
-        {
-            get { return color; }
-        }
         public ChessFType Type
         {
             get { return ChessFType.Bishop; }
         }
 
-        private FColor color;
-        private Point temp;
-
-
         public bool Step(Point from, Point to, IReadOnlyField field)
         {
             return GetCells(from, field).Contains(to);
         }
+
         public List<Point> GetCells(Point location, IReadOnlyField field)
         {
             List<Point> cells = new List<Point>();
 
-            Cells(ref cells, location, 1, 1, field);
-            Cells(ref cells, location, -1, 1, field);
-            Cells(ref cells, location, -1, -1, field);
-            Cells(ref cells, location, 1, -1, field);
+            //Cells(ref cells, location, 1, 1, field);
+            //Cells(ref cells, location, -1, 1, field);
+            //Cells(ref cells, location, -1, -1, field);
+            //Cells(ref cells, location, 1, -1, field);
+
+            for (int i = -1; i <= 1; i++)
+            {
+                for (int k = -1; k <= 1; k++)
+                {
+                    if (i == 0 || k == 0)
+                    {
+                        continue;
+                    }
+
+                    Cells(cells, location, i, k, field);
+                }
+            }
 
             return cells;
         }
 
-        private void Cells(ref List<Point> cells, Point start, int stepX, int stepY, IReadOnlyField field)
+        private void Cells(List<Point> cells, Point start, int stepX, int stepY, IReadOnlyField field)
         {
             temp = new Point(start.X + stepX, start.Y + stepY);
 
@@ -62,14 +68,11 @@ namespace GameTemplate.ChessFigures
                 temp.X += stepX;
                 temp.Y += stepY;
             }
+
             if (TestPoint(temp) && field[temp] != null && field[temp].Color != this.Color)
             {
                 cells.Add(temp);
             }
-        }
-        private bool TestPoint(Point temp)
-        {
-            return temp.X >= 0 && temp.X < 8 && temp.Y < 8 && temp.Y >= 0;
         }
 
     }

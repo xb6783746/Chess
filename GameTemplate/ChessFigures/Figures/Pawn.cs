@@ -13,24 +13,17 @@ namespace GameTemplate.ChessFigures
     /// Класс пешки
     /// </summary>
     [Serializable]
-    class Pawn : IChessFigure
+    class Pawn : AbstractFigure, IChessFigure
     {
         public Pawn(FColor color)
         {
             this.color = color;
         }
 
-        public FColor Color
-        {
-            get { return color; }
-        }
         public ChessFType Type
         {
             get { return ChessFType.Pawn; }
         }
-
-        private FColor color;
-        private Point temp;
 
         public bool Step(Point from, Point to, IReadOnlyField field)
         {
@@ -106,9 +99,7 @@ namespace GameTemplate.ChessFigures
                 cells.Add(temp);
             }
         }
-        private bool TestPoint(Point temp)
-        {
-            return temp.X >= 0 && temp.X < 8 && temp.Y < 8 && temp.Y >= 0;
-        }
+
+
     }
 }

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace GameTemplate.ChessFigures
 {
+    [Serializable]
     abstract class AbstractFigure
     {
         public FColor Color

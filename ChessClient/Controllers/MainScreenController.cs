@@ -14,10 +14,12 @@ namespace ChessClient.Controllers
 {
     class MainScreenController : BasicController, ISwitch, IMainScreenController
     {
-        public MainScreenController(IMainForm form, IServerFacade facade) :base(form, facade)
+        public MainScreenController(IMainForm form, IServer facade) :base(form, facade)
         {
-
+            LoadScreen();
         }
+
+        private IMainScreen mainScreen;
 
         public void Challenge(string from)
         {
@@ -32,12 +34,9 @@ namespace ChessClient.Controllers
             mainScreen.Nick = nick;
         }
 
-
-        private IMainScreen mainScreen;
-
         protected override void LoadScreen()
         {
-            var screen = GetScreenType("/Screens", typeof(IMainScreen));
+            var screen = GetType(screenDir, typeof(IMainScreen));
 
             mainScreen = Activator.CreateInstance(screen) as IMainScreen;
             this.screen = mainScreen;
@@ -50,6 +49,15 @@ namespace ChessClient.Controllers
             mainScreen.WatchForGamer += Watch;
             mainScreen.GetOnline += GetOnlineList;
             mainScreen.GelAlgos += GetAlgos;
+        }
+
+        public void SetOnlineList(string[] online)
+        {
+            mainScreen.SetOnlineList(online);
+        }
+        public void SetAlgoList(string[] algos)
+        {
+            mainScreen.SetAlgoList(algos);
         }
 
         private void ChangeNick(string nick)
@@ -83,15 +91,6 @@ namespace ChessClient.Controllers
         private void GetAlgos()
         {
             facade.GetAlgos();
-        }
-        public void SetOnlineList(string[] online)
-        {
-            mainScreen.SetOnlineList(online);   
-        }
-
-        public void SetAlgoList(string[] algos)
-        {
-            mainScreen.SetAlgoList(algos);
         }
     }
 }

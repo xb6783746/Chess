@@ -11,14 +11,13 @@ using System.Windows.Forms;
 
 namespace ChessClient.Controllers
 {
-    class BasicController :ISwitch
+    abstract class BasicController :ISwitch
     {
-        public BasicController(IMainForm mainForm, IServerFacade facade)
+        public BasicController(IMainForm mainForm, IServer facade)
         {
             this.mainForm = mainForm;
             this.facade = facade;
-
-            LoadScreen();
+            this.screenDir = "/Screens";
         }
 
         public virtual void Enable()
@@ -27,7 +26,6 @@ namespace ChessClient.Controllers
             mainForm.Screen = screen.GetScreen();
 
         }
-
         public virtual void Disable()
         {
             screen.Disable();
@@ -35,15 +33,16 @@ namespace ChessClient.Controllers
         }
 
         protected IMainForm mainForm;
-        protected IServerFacade facade;
+        protected IServer facade;
         protected IScreen screen;
+        protected string screenDir;
 
         protected virtual void LoadScreen()
         {
 
         }
 
-        protected Type GetScreenType(string dir, Type interfaceType)
+        protected Type GetType(string dir, Type interfaceType)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + dir;
             string[] files = Directory.GetFiles(path, "*.dll");

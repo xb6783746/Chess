@@ -23,3 +23,4 @@ copy Logger\bin\Debug\Logger.dll Game
 echo 127.0.0.1> Game\config.txt
 echo 8888>> Game\config.txt
 
+pause

@@ -4,20 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ClientAPI;
-using GameTemplate.ChessGame.ChessEnums;
+using GameTemplate.ChessEnums;
 using GameTemplate.Interfaces;
 using System.Drawing;
 using Rendering.Properties;
 using Rendering.Exceptions;
 using GameTemplate.Game;
-using GameTemplate.ChessEnums;
 
 namespace Rendering
 {
-    public class Render : IRender
+    public class Render : IRender, IDisposable
     {
         public Render()
         {
+
             try
             {
                 figurePictures = new Dictionary<Type, Image>()
@@ -51,6 +51,11 @@ namespace Rendering
             penRed = new Pen(Color.Red, 3.0f);
             penBlue = new Pen(Color.BlueViolet, 3.0f);
             penPurple = new Pen(Color.Purple, 3.0f);
+
+            disposable = new List<IDisposable>()
+            {
+                penBlue, penGreen, penPurple, penRed, tempField, back, tempCells
+            };
                      
         }
 
@@ -65,6 +70,8 @@ namespace Rendering
         private Bitmap tempField;
         private Bitmap tempCells;
         private FColor color;
+
+        private List<IDisposable> disposable;
 
         public void Init(int wh, int ht, FColor color)
         {
@@ -206,6 +213,16 @@ namespace Rendering
             return p;
         }
 
+
+        public void Dispose()
+        {
+            foreach (var item in disposable)
+            {
+                item.Dispose();
+            }
+
+            GC.SuppressFinalize(this);
+        }
     }
 
     public struct Type

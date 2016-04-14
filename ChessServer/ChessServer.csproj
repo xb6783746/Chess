@@ -51,7 +51,7 @@
     <Compile Include="Clients\Client.cs" />
     <Compile Include="Clients\RemoteGamer.cs" />
     <Compile Include="Facade\ClientFacade.cs" />
-    <Compile Include="Facade\ServerFacade.cs" />
+    <Compile Include="Facade\ServerProxy.cs" />
     <Compile Include="GameManager\AlgoRepo.cs" />
     <Compile Include="GameManager\GameManager.cs" />
     <Compile Include="GameManager\GameRoom.cs" />

@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GameTemplate.ChessGame.ChessEnums;
 using System.Drawing;
 using GameTemplate.Interfaces;
 using GameTemplate.Game;
 using GameTemplate.ChessEnums;
 
-namespace GameTemplate.ChessGame.ChessFigures
+namespace GameTemplate.ChessFigures
 {
     /// <summary>
     /// Класс Слона

@@ -25,7 +25,7 @@ namespace GameScreen
             cellSize = 600 / 8;
             chatScreen1.Send += (x) => Send(x);
             from = new Point();
-            picture = new Bitmap(GameBox.Height, GameBox.Width);
+            picture = new Bitmap(gameBox.Height, gameBox.Width);
         }
 
         private IRender render;
@@ -65,7 +65,7 @@ namespace GameScreen
         }
         public void StartGame(IReadOnlyField figures, FColor color)
         {
-            render.Init(GameBox.Width, GameBox.Height, color);
+            render.Init(gameBox.Width, gameBox.Height, color);
 
             Color(color);
             yourTurn = (this.color == FColor.White);
@@ -73,7 +73,7 @@ namespace GameScreen
             SetTurnLabel(FColor.White);
 
             field = figures;
-            GameBox.Image = render.UpdateField(figures.GetFiguresOnBoard());
+            gameBox.Image = render.UpdateField(figures.GetFiguresOnBoard());
         }
         public void UpdateField(ChessState state)
         {
@@ -172,7 +172,7 @@ namespace GameScreen
         }
         private void SelectFigure()
         {
-            GameBox.Image = render.DrawCells(field, from, field[from].GetCells(from, field));
+            gameBox.Image = render.DrawCells(field, from, field[from].GetCells(from, field));
         }
         private Point GetGamePoint(Point systemPoint)
         {
@@ -185,11 +185,11 @@ namespace GameScreen
 
         private void UpdatePic()
         {
-           GameBox.Image = render.UpdateField(field.GetFiguresOnBoard());
+           gameBox.Image = render.UpdateField(field.GetFiguresOnBoard());
         }
         private void UpdatePic(StepInfo step)
         {
-            GameBox.Image = render.UpdateField(field.GetFiguresOnBoard(), step);
+            gameBox.Image = render.UpdateField(field.GetFiguresOnBoard(), step);
         }
 
         private void Color(FColor color)

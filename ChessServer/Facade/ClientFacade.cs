@@ -34,6 +34,7 @@ namespace ChessServer.Facade
                 return _instance;
             }
         }
+
         public static void Init(IServer server)
         {
             _instance = new ClientFacade(server);
@@ -112,7 +113,7 @@ namespace ChessServer.Facade
                 }
                 catch(Exception e)
                 {
-
+                    //надо бы обработать
                 }
             }
         }

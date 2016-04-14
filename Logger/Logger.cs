@@ -53,7 +53,7 @@ namespace Log
         }
         public void Flush()
         {
-            using(FileStream stream = new FileStream(logFile, FileMode.Append))
+            FileStream stream = new FileStream(logFile, FileMode.Append);
             using(var writer = new StreamWriter(stream))
             {
                 writer.WriteLine(buffer.ToString());

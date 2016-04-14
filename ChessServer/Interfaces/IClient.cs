@@ -16,8 +16,5 @@ namespace ChessServer.Interfaces
         IGamer Gamer { get; }
 
         void Step(StepInfo step);
-
-        void Send(ChatMessage mesg);
-        void LoginResult(bool result, string message);
     }
 }

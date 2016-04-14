@@ -1,7 +1,6 @@
 ﻿using GameTemplate.ChessEnums;
 using GameTemplate.ChessField;
-using GameTemplate.ChessGame.ChessEnums;
-using GameTemplate.ChessGame.ChessFigures;
+using GameTemplate.ChessFigures;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
 using System;
@@ -23,12 +22,14 @@ namespace GameTemplate.ChessField
         {
             field = new IChessFigure[8, 8];
             history = new Stack<Keeper>();
+
+            readOnly = new ROField(this);
         }
         public ChessField(IChessFigureFactory factory) :this()
         {
             this.factory = factory;
 
-            Init();
+            Init(factory);
         }
         public ChessField(IEnumerable<FigureOnBoard> figures) :this()
         {
@@ -53,6 +54,7 @@ namespace GameTemplate.ChessField
         private IChessFigureFactory factory;
         [NonSerialized]
         private Stack<Keeper> history;
+        private IReadOnlyField readOnly;
 
         public IChessFigure this[Point location]
         {
@@ -89,21 +91,28 @@ namespace GameTemplate.ChessField
         }
         public bool MakeStep(Point from, Point to)
         {
-            IChessFigure attacker = this[from];
-            IChessFigure attacked = this[to];
+            return MakeStep(new StepInfo(from, to));
+        }
+        public bool MakeStep(StepInfo step)
+        {
 
-            if (attacker.Step(from, to, this) && (attacked == null || attacker.Color != attacked.Color))
+            IChessFigure attacker = this[step.From];
+            IChessFigure attacked = this[step.To];
+
+            if (attacker != null 
+                && attacker.Step(step.From, step.To, readOnly) 
+                && (attacked == null || attacker.Color != attacked.Color))
             {
                 history.Push(
                     new Keeper(
-                        new StepInfo(from, to),
+                        step,
                         attacker, 
                         attacked
                         )
                     );
-                
-                this[to] = attacker;
-                this[from] = null;
+
+                this[step.To] = attacker;
+                this[step.From] = null;
 
                 if (attacked != null && attacked.Type == ChessFType.King)
                 {
@@ -116,13 +125,9 @@ namespace GameTemplate.ChessField
 
             return false;
         }
-        public bool MakeStep(StepInfo step)
-        {
-           return MakeStep(step.From, step.To);
-        }
         public IReadOnlyField GetReadOnlyField()
         {
-            return new ROField(field);
+            return readOnly;
         }
         public IField Clone()
         {
@@ -139,9 +144,10 @@ namespace GameTemplate.ChessField
             }
         }
 
+        [field:NonSerialized]
         public event Action<FColor> GameOver = (x) => { };
 
-        private void Init()
+        private void Init(IChessFigureFactory factory)
         {
             for (int i = 0; i < field.GetLength(0); i++)
             {

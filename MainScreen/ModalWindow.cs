@@ -27,12 +27,12 @@ namespace MainScreen
 
         private string[] users;
 
-        public event Action<string> Select = (x) => { };
+        public event Action<string> Selected = (x) => { };
         public event Action Cancel = () => { };
 
         private void acceptButton_Click(object sender, EventArgs e)
         {
-            Select(inputBox.Text);
+            Selected(inputBox.Text);
         }
         private void cancelButton_Click(object sender, EventArgs e)
         {

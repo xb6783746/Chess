@@ -1,6 +1,6 @@
 ﻿using ChessServer.Interfaces;
 using GameTemplate.ChessEnums;
-using GameTemplate.ChessGame.ChessEnums;
+using GameTemplate.ChessEnums;
 using GameTemplate.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -36,13 +36,24 @@ namespace ChessServer.Algorithms
 
         public int Rating(IReadOnlyField field)
         {
-            var whiteFigures = field.GetFiguresOnBoard().Where((x) => x.Figure.Color == FColor.White);
-            var blackFigures = field.GetFiguresOnBoard().Where((x) => x.Figure.Color == FColor.Black);
+            return Rate(field, FColor.White) - Rate(field, FColor.Black);
+        }
 
-            int whiteSum = whiteFigures.Sum((x) => price[x.Figure.Type] + x.Figure.GetCells(x.Location, field).Count * 10);
-            int blackSum = blackFigures.Sum((x) => price[x.Figure.Type] + x.Figure.GetCells(x.Location, field).Count * 10);
+        private int Rate(IReadOnlyField field, FColor color)
+        {
+            int rating = 0;
 
-            return whiteSum - blackSum;
+            var figures = field.GetFiguresOnBoard().Where((x) => x.Figure.Color == color);
+            var king = figures.FirstOrDefault((x) => x.Figure.Type == ChessFType.King);
+
+            rating += figures.Where((x) => x.Figure.Type != ChessFType.King).Sum((x) => price[x.Figure.Type] * x.Figure.GetCells(x.Location, field).Count * 10);
+
+            if (king.Figure != null)
+            {
+                rating -= king.Figure.GetCells(king.Location, field).Count * 15;
+            }
+
+            return rating;
         }
     }
 }

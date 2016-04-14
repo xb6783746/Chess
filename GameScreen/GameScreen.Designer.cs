@@ -16,6 +16,15 @@
             if (disposing && (components != null))
             {
                 components.Dispose();
+
+                if(gameBox != null)
+                {
+                    gameBox.Dispose();
+                }
+                if (picture != null)
+                {
+                    picture.Dispose();
+                }
             }
             base.Dispose(disposing);
         }
@@ -28,8 +37,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.GameBox = new System.Windows.Forms.PictureBox();
-            this.ConcedeButton = new System.Windows.Forms.Button();
+            this.gameBox = new System.Windows.Forms.PictureBox();
+            this.concedeButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -49,30 +58,30 @@
             this.YourColor = new System.Windows.Forms.Label();
             this.Turn = new System.Windows.Forms.Label();
             this.chatScreen1 = new ClientAPI.ChatScreen();
-            ((System.ComponentModel.ISupportInitialize)(this.GameBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gameBox)).BeginInit();
             this.SuspendLayout();
             // 
             // GameBox
             // 
-            this.GameBox.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.GameBox.Location = new System.Drawing.Point(41, 16);
-            this.GameBox.Name = "GameBox";
-            this.GameBox.Size = new System.Drawing.Size(600, 600);
-            this.GameBox.TabIndex = 0;
-            this.GameBox.TabStop = false;
-            this.GameBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.GameBox_Click);
+            this.gameBox.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.gameBox.Location = new System.Drawing.Point(41, 16);
+            this.gameBox.Name = "GameBox";
+            this.gameBox.Size = new System.Drawing.Size(600, 600);
+            this.gameBox.TabIndex = 0;
+            this.gameBox.TabStop = false;
+            this.gameBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.GameBox_Click);
             // 
             // ConcedeButton
             // 
-            this.ConcedeButton.Enabled = false;
-            this.ConcedeButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ConcedeButton.Location = new System.Drawing.Point(867, 6);
-            this.ConcedeButton.Name = "ConcedeButton";
-            this.ConcedeButton.Size = new System.Drawing.Size(88, 34);
-            this.ConcedeButton.TabIndex = 6;
-            this.ConcedeButton.Text = "Cдаться";
-            this.ConcedeButton.UseVisualStyleBackColor = true;
-            this.ConcedeButton.Click += new System.EventHandler(this.Concede_Click);
+            this.concedeButton.Enabled = false;
+            this.concedeButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.concedeButton.Location = new System.Drawing.Point(867, 6);
+            this.concedeButton.Name = "ConcedeButton";
+            this.concedeButton.Size = new System.Drawing.Size(88, 34);
+            this.concedeButton.TabIndex = 6;
+            this.concedeButton.Text = "Cдаться";
+            this.concedeButton.UseVisualStyleBackColor = true;
+            this.concedeButton.Click += new System.EventHandler(this.Concede_Click);
             // 
             // label1
             // 
@@ -285,11 +294,11 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.ConcedeButton);
-            this.Controls.Add(this.GameBox);
+            this.Controls.Add(this.concedeButton);
+            this.Controls.Add(this.gameBox);
             this.Name = "GameScreen";
             this.Size = new System.Drawing.Size(1000, 675);
-            ((System.ComponentModel.ISupportInitialize)(this.GameBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gameBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -297,8 +306,8 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox GameBox;
-        private System.Windows.Forms.Button ConcedeButton;
+        private System.Windows.Forms.PictureBox gameBox;
+        private System.Windows.Forms.Button concedeButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

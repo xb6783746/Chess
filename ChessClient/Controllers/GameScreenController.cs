@@ -17,28 +17,26 @@ namespace ChessClient.Controllers
     class GameScreenController : BasicController, ISwitch, IGameScreenController
     {
 
-        public GameScreenController(IMainForm form, IServerFacade facade):base(form, facade)
+        public GameScreenController(IMainForm form, IServer facade):base(form, facade)
         {
-            nick = "";  
+            LoadScreen();
         }
 
         private IGameScreen gameScreen;
-        private string nick;
-
+        
         private Type screenType;
         private Type renderType;
 
+        public void GameClosed(string msg)
+        {
+            gameScreen.GameClosed(msg);
+        }
         public void Message(ChatMessage msg)
         {
             gameScreen.Receive(msg);
         }
         public void StartGame(IReadOnlyField figures, FColor color)
         {
-            //gameScreen = Activator.CreateInstance(screenType) as IGameScreen;
-            //var render = Activator.CreateInstance(renderType) as IRender;
-
-            //Init(gameScreen, render);
-
             gameScreen.StartGame(figures, color);
         }
         public void Step(ChessState state)
@@ -52,8 +50,8 @@ namespace ChessClient.Controllers
 
         protected override void LoadScreen()
         {
-            screenType = this.GetScreenType("/Screens", typeof(IGameScreen));
-            renderType = this.GetScreenType("/Screens", typeof(IRender));
+            screenType = this.GetType(screenDir, typeof(IGameScreen));
+            renderType = this.GetType(screenDir, typeof(IRender));
 
             var render = Activator.CreateInstance(renderType) as IRender;
             gameScreen = Activator.CreateInstance(screenType) as IGameScreen;
@@ -67,7 +65,6 @@ namespace ChessClient.Controllers
             this.screen = screen;
 
             gameScreen.SetRender(render);
-            gameScreen.Nick = nick;
 
             gameScreen.Send += Send;
             gameScreen.Step += Step;
@@ -87,25 +84,15 @@ namespace ChessClient.Controllers
             facade.Disconnect();
         }
 
-
-        public void GameClosed(string msg)
-        {
-            gameScreen.GameClosed(msg);
-        }
-
         public string Nick
         {
             get
             {
-                return nick;
+                return gameScreen.Nick;
             }
             set
             {
-                nick = value;
-                if (gameScreen != null)
-                {
-                    gameScreen.Nick = value;
-                }
+                gameScreen.Nick = value;
             }
         }
     }

@@ -1,5 +1,4 @@
-﻿using GameTemplate.ChessGame.ChessEnums;
-using GameTemplate.Interfaces;
+﻿using GameTemplate.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GameTemplate.ChessEnums;
 
-namespace GameTemplate.ChessGame.ChessFigures
+namespace GameTemplate.ChessFigures
 {
     /// <summary>
     /// Пул шахматных фигур

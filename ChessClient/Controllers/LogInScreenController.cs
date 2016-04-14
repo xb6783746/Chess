@@ -14,13 +14,14 @@ namespace ChessClient.Controllers
 {
     class LogInScreenController : BasicController, ISwitch, ILoginScreenController
     {
-        public LogInScreenController(IMainForm form, IServerFacade facade)
+        public LogInScreenController(IMainForm form, IServer facade)
             : base(form, facade)
         {
+            LoadScreen();
         }
 
         private ILoginScreen loginScreen;
-        private string config = "config.txt";
+        private const string config = "config.txt";
 
         public void Fail(string message)
         {
@@ -29,7 +30,7 @@ namespace ChessClient.Controllers
 
         protected override void LoadScreen()
         {
-            var screen = GetScreenType("/Screens", typeof(ILoginScreen));
+            var screen = GetType(screenDir, typeof(ILoginScreen));
 
             loginScreen = Activator.CreateInstance(screen) as ILoginScreen;
             this.screen = loginScreen;
@@ -40,19 +41,20 @@ namespace ChessClient.Controllers
 
         private void LogIn(string nick)
         {
+            IPAddress ip;
+            int port;
+
             try
             {
-                IPAddress ip;
-                int port;
-
                 LoadConfig(out ip, out port);
-
-                facade.LogIn(ip, port, nick);
             }
             catch
             {
                 loginScreen.Fail("Ошибка при загрузке конфигурационного файла");
+                return;
             }
+
+            facade.LogIn(ip, port, nick);
 
         }
 

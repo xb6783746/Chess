@@ -18,12 +18,11 @@ namespace GameTemplate.Interfaces
         /// <summary>
         /// Цвет игрока, который ходил в данный момент
         /// </summary>
-        FColor CurrentColor { get; }
+        FColor Turn { get; }
         /// <summary>
         /// Игровое поле
         /// </summary>
         IReadOnlyField Field { get; }
-        FColor Turn { get; }
         StepInfo LastStep { get; }
 
         void StopGame();

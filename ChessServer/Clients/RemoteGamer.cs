@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace ChessServer.Clients
 {
-    class RemoteGamer :IGamer
+    class RemoteGamer :IGamer, IDisposable
     {
         public RemoteGamer(int id)
         {
@@ -76,6 +76,11 @@ namespace ChessServer.Clients
             }
 
             isWait = false;          
+        }
+
+        public void Dispose()
+        {
+            this.wait.Dispose();
         }
     }
 }

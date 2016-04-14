@@ -31,7 +31,7 @@ namespace MainScreen
 
             chatScreen.Send += (x) => Send(x);
 
-            window.Select += UserSelect;
+            window.Selected += UserSelect;
             window.Cancel += Cancel;
         }
 

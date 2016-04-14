@@ -18,6 +18,15 @@ namespace WaitScreen
             if (disposing && (components != null))
             {
                 components.Dispose();
+
+                if (bitmap != null)
+                {
+                    bitmap.Dispose();
+                }
+                if (timer != null)
+                {
+                    timer.Dispose();
+                }
             }
             base.Dispose(disposing);
         }

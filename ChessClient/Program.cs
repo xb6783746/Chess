@@ -21,7 +21,7 @@ namespace ChessClient
             Application.SetCompatibleTextRenderingDefault(false);
 
             var mainForm = new MainForm();
-            var serverFacade = new Messanger();               
+            var serverFacade = new ServerProxy();               
             var screenManager = new ScreenManager(mainForm,  serverFacade);
             var clientFacade = new ClientFacade(screenManager);
            

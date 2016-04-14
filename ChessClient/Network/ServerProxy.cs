@@ -12,10 +12,10 @@ using System.Threading.Tasks;
 
 namespace ChessClient.Network
 {
-    class Messanger : IServerFacade, IParser
+    class ServerProxy : IServer, IParser
     {
-        public Messanger()
-        {        
+        public ServerProxy()
+        {
             formatter = new BinaryFormatter();
         }
 
@@ -88,46 +88,12 @@ namespace ChessClient.Network
         {
             throw new NotImplementedException();
         }
-
-        public void Parse(byte[] message)
-        {
-            lock(lck)
-            {
-                Message mesg;
-                try
-                {
-                    using (var stream = new MemoryStream(message))
-                    {
-                        mesg = formatter.Deserialize(stream) as Message;
-
-                        clientFacade.GetType().GetMethod(mesg.Method).Invoke(clientFacade, mesg.Arguments);
-                    }
-                }
-                catch(Exception e)
-                {
-
-                }
-            }
-        }
-
-        private void SendMessage(Message mesg)
-        {
-            using (MemoryStream stream = new MemoryStream())
-            {
-                formatter.Serialize(stream, mesg);
-
-                socketListener.Send(stream.GetBuffer());
-            }
-        }
-
         public void Disconnect()
         {
             Message m = new Message("Disconnect", null);
 
             SendMessage(m);
         }
-
-
         public void GetOnline()
         {
             Message m = new Message("GetOnline");
@@ -139,6 +105,35 @@ namespace ChessClient.Network
             Message m = new Message("GetAlgoList");
 
             SendMessage(m);
+        }
+
+        public void Parse(byte[] message)
+        {
+            Message mesg;
+            try
+            {
+                using (var stream = new MemoryStream(message))
+                {
+                    mesg = formatter.Deserialize(stream) as Message;
+
+                    clientFacade.GetType().GetMethod(mesg.Method).Invoke(clientFacade, mesg.Arguments);
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+
+        }
+
+        private void SendMessage(Message mesg)
+        {
+            using (MemoryStream stream = new MemoryStream())
+            {
+                formatter.Serialize(stream, mesg);
+
+                socketListener.Send(stream.GetBuffer());
+            }
         }
     }
 }

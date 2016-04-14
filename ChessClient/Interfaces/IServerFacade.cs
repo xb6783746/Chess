@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ChessClient.Interfaces
 {
-    public interface IServerFacade
+    public interface IServer
     {
         void LogIn(IPAddress ip, int port, string nick);
         void ChangeNick(string nick);

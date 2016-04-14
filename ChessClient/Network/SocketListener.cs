@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ChessClient.Network
 {
-    public class SocketListener : ISocketListener
+    public class SocketListener : ISocketListener, IDisposable
     {
         public SocketListener(IClientFacade clientFacade)
         {
@@ -18,6 +18,11 @@ namespace ChessClient.Network
 
             this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             this.messages = new Queue<byte[]>();
+
+            disposable = new List<IDisposable>()
+            {
+                wait, socket
+            };
         }
 
         private IParser parser;
@@ -26,6 +31,8 @@ namespace ChessClient.Network
         private IClientFacade clientFacade;
         private Socket socket;
         private object lck = new object();
+
+        private List<IDisposable> disposable;
 
         private int packetLenght = 5000;
 
@@ -77,6 +84,7 @@ namespace ChessClient.Network
                     {
                         parser.Parse(tmp);
                     });
+
                 }
             }
             catch
@@ -104,6 +112,14 @@ namespace ChessClient.Network
                 }
 
                 wait.WaitOne();
+            }
+        }
+
+        public void Dispose()
+        {
+            foreach (var item in disposable)
+            {
+                item.Dispose();
             }
         }
     }

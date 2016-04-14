@@ -1,5 +1,6 @@
 ﻿using ChessClient.Enums;
 using ChessClient.Interfaces;
+using ChessClient.Interfaces.IControllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace ChessClient.Controllers
 {
     class ScreenManager :IScreenManager
     {
-        public ScreenManager(IMainForm mainForm, IServerFacade facade)
+        public ScreenManager(IMainForm mainForm, IServer facade)
         {
             Init(mainForm, facade);
 
@@ -21,7 +22,7 @@ namespace ChessClient.Controllers
         private Dictionary<ScreenType, ISwitch> screens;
         private ISwitch current;
 
-        private void Init(IMainForm mainForm, IServerFacade facade)
+        private void Init(IMainForm mainForm, IServer facade)
         {
             screens = new Dictionary<ScreenType, ISwitch>();
 
@@ -51,17 +52,17 @@ namespace ChessClient.Controllers
             current.Enable();
         }
 
-        public Interfaces.IControllers.IGameScreenController GameController
+        public IGameScreenController GameController
         {
             get;
             private set;
         }
-        public Interfaces.IControllers.ILoginScreenController LoginController
+        public ILoginScreenController LoginController
         {
             get;
             private set;
         }
-        public Interfaces.IControllers.IMainScreenController MainController
+        public IMainScreenController MainController
         {
             get;
             private set;

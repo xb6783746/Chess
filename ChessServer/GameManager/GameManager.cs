@@ -2,7 +2,7 @@
 using ChessServer.Interfaces;
 using GameTemplate.ChessEnums;
 using GameTemplate.ChessField;
-using GameTemplate.ChessGame.ChessFigures;
+using GameTemplate.ChessFigures;
 using GameTemplate.Interfaces;
 using System;
 using System.Collections.Generic;

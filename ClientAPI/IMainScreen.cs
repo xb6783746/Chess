@@ -20,8 +20,6 @@ namespace ClientAPI
         bool Challenge(string from);
         void SetOnlineList(string[] online);
         void SetAlgoList(string[] algos);
-
-        string Nick { get; set; }
     }
 
     //public abstract class AbstractMainScreen : UserControl, IMessenger

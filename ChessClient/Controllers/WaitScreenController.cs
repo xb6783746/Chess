@@ -10,15 +10,16 @@ namespace ChessClient.Controllers
 {
     class WaitScreenController : BasicController, ISwitch
     {
-        public WaitScreenController(IMainForm mainForm, IServerFacade facade) :base(mainForm, facade)
-        {            
+        public WaitScreenController(IMainForm mainForm, IServer facade) :base(mainForm, facade)
+        {
+            LoadScreen();
         }
 
         private IWaitingScreen waitScreen;
 
         protected override void LoadScreen()
         {
-            var type = this.GetScreenType("/Screens", typeof(IWaitingScreen));
+            var type = this.GetType(screenDir, typeof(IWaitingScreen));
 
             waitScreen = Activator.CreateInstance(type) as IWaitingScreen;
 

@@ -8,54 +8,54 @@ using System.Threading.Tasks;
 
 namespace ChessServer.Chat
 {
-    class ChatRoom
-    {
-        public ChatRoom()
-        {
-            clients = new List<IClient>();
-        }
+    //class ChatRoom
+    //{
+    //    public ChatRoom()
+    //    {
+    //        clients = new List<IClient>();
+    //    }
 
-        private List<IClient> clients;
-        private object lck = new object();
+    //    private List<IClient> clients;
+    //    private object lck = new object();
 
-        public void Add(IClient client)
-        {
-            lock (lck)
-            {
-                clients.Add(client);
-            }
-        }
-        public void Remove(IClient client)
-        {
-            lock (lck)
-            {
-                clients.Remove(client);
-            }
-        }
+    //    public void Add(IClient client)
+    //    {
+    //        lock (lck)
+    //        {
+    //            clients.Add(client);
+    //        }
+    //    }
+    //    public void Remove(IClient client)
+    //    {
+    //        lock (lck)
+    //        {
+    //            clients.Remove(client);
+    //        }
+    //    }
 
-        public List<IClient> GetClients()
-        {
-            return clients;
-        }
-        public bool Contains(int id)
-        {
-            return clients.Exists((x) => x.Id == id);
-        }
+    //    public List<IClient> GetClients()
+    //    {
+    //        return clients;
+    //    }
+    //    public bool Contains(int id)
+    //    {
+    //        return clients.Exists((x) => x.Id == id);
+    //    }
 
-        public void Send(ChatMessage mesg, int id)
-        {
-            if (Contains(id))
-            {
+    //    public void Send(ChatMessage mesg, int id)
+    //    {
+    //        if (Contains(id))
+    //        {
 
-                var tmp = clients.Where((x) => x.Id != id);
-                mesg.From = clients.First((x) => x.Id == id).Nick;
+    //            var tmp = clients.Where((x) => x.Id != id);
+    //            mesg.From = clients.First((x) => x.Id == id).Nick;
 
-                foreach (var client in tmp)
-                {
-                    client.Send(mesg);
-                }
-            }
+    //            foreach (var client in tmp)
+    //            {
+    //                client.Send(mesg);
+    //            }
+    //        }
            
-        }
-    }
+    //    }
+    //}
 }

@@ -18,7 +18,6 @@ namespace ClientAPI
         public ChatScreen()
         {
             InitializeComponent();
-
             messages = new List<ChatMessage>();
             brushes = new Dictionary<ChatMessageType, Brush>()
             {

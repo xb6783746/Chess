@@ -11,8 +11,7 @@ using System.Threading.Tasks;
 
 namespace ChessServer
 {
-    [Serializable]
-    class SocketServer : IServer
+    class SocketServer : IServer, IDisposable
     {
         public SocketServer(IIDManager idManager, IParser parser)
         {
@@ -121,5 +120,15 @@ namespace ChessServer
         public event Action<int> Connected = (x) => { };
         public event Action<int> Disconnected = (x) => { };
 
+
+        public void Dispose()
+        {
+            foreach (var item in clients)
+            {
+                item.Value.Dispose();
+            }
+
+            socket.Dispose();
+        }
     }
 }

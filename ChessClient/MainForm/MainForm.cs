@@ -17,22 +17,9 @@ namespace ChessClient
         {
             InitializeComponent();
 
-            clearAction = () => Controls.Clear();
-            addAction = () =>
-            {
-                this.Width = control.Width;
-                this.Height = control.Height + 20;
-
-                //Position(control);
-
-                Controls.Add(control);
-                
-            };
         }
 
         private UserControl control;
-        private Action clearAction;
-        private Action addAction;
 
         public UserControl Screen
         {
@@ -43,12 +30,22 @@ namespace ChessClient
             set
             {
 
-                IfInvoke(clearAction);
+                IfInvoke(() =>
+                {
+                    Controls.Clear();
+                });
 
                 control = value;
+
                 if (control != null)
                 {
-                    IfInvoke(addAction);
+                    IfInvoke(() =>
+                    {
+                        this.Width = control.Width;
+                        this.Height = control.Height + 20;
+
+                        Controls.Add(control);
+                    });
                 }
 
             }
@@ -64,13 +61,6 @@ namespace ChessClient
             {
                 action();
             }
-        }
-        private void Position(Control control)
-        {
-            control.Location = new Point(
-                Width/2 - control.Width/2,
-                Height / 2 - control.Height / 2
-                );
         }
         
     }

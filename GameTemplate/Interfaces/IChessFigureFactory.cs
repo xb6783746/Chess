@@ -1,5 +1,4 @@
 ﻿using GameTemplate.ChessEnums;
-using GameTemplate.ChessGame.ChessEnums;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

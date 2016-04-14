@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ChessServer.Clients
 {
-    class Client :IClient
+    class Client :IClient, IDisposable
     {
         public Client(int id, IClientFacade facade)
         {
@@ -34,21 +34,17 @@ namespace ChessServer.Clients
         }
         public IGamer Gamer { get { return gamer; } }
 
-        public void Send(ChatMessage mesg)
-        {
-            clientFacade.Message(mesg, this.Id);
-        }
-
-
-        public void LoginResult(bool result, string message)
-        {
-            clientFacade.LoginResult(result, message, this.Id);
-        }
-
-
         public void Step(GameTemplate.Game.StepInfo step)
         {
             gamer.Step(step);
+        }
+
+        public void Dispose()
+        {
+            if (gamer != null)
+            {
+                gamer.Dispose();
+            }
         }
     }
 }

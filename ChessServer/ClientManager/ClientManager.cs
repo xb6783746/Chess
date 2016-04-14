@@ -61,7 +61,7 @@ namespace ChessServer.Managers
 
                     clients[id].Nick = nick;
 
-                    clients[id].LoginResult(true, nick);
+                    clientFacade.LoginResult(true, nick, id);
                     Connected(clients[id]);
                 }
 

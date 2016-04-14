@@ -32,7 +32,7 @@ namespace GameTemplate.Game
             first.Init(this, FColor.Black);
             second.Init(this, FColor.White);
 
-            Turn = gamerQueue.Peek().Color;
+            Turn = FColor.White;
 
             Task.Run(() => StartGame());
 
@@ -51,16 +51,8 @@ namespace GameTemplate.Game
         /// </summary>
         protected bool error;
 
-        private IGamer[] gamers;
+        protected IGamer[] gamers;
 
-        /// <summary>
-        /// Цвет игрока, который ходит в данный момент
-        /// </summary>
-        public FColor CurrentColor
-        {
-            get;
-            private set;
-        }
         /// <summary>
         /// Игровое поле
         /// </summary>
@@ -99,7 +91,6 @@ namespace GameTemplate.Game
         /// <param name="gamer">Игрок, ход которого обрабатывается</param>
         protected virtual void NextStep(IGamer gamer)
         {
-            CurrentColor = gamer.Color;
             StepInfo step;
             do
             {

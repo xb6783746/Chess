@@ -3,6 +3,7 @@ using ChessClient.Interfaces;
 using GameTemplate.ChessEnums;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
+using Log;
 using Network;
 using System;
 using System.Collections.Generic;
@@ -24,11 +25,11 @@ namespace ChessClient.Facade.States
         public event Action<Enums.ClientState> Switch;
         public void LoginResult(bool result, string message)
         {
-            throw new NotImplementedException();
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов LoginResult() из WaitFacadeState");
         }
         public void Message(ChatMessage msg)
         {
-            
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов Message() из WaitFacadeState");
         }
         public void Disconnected()
         {
@@ -46,15 +47,15 @@ namespace ChessClient.Facade.States
         }
         public void UpdateField(ChessState state)
         {
-            throw new NotImplementedException();
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов UpdateField() из WaitFacadeState");
         }
         public void GameOver(FColor win)
         {
-            throw new NotImplementedException();
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов GameOver() из WaitFacadeState");
         }
         public void Waiting()
         {
-            throw new NotImplementedException();
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов Waiting() из WaitFacadeState");
         }
 
 
@@ -66,7 +67,7 @@ namespace ChessClient.Facade.States
 
         public void GameClosed(string msg)
         {
-            throw new NotImplementedException();
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов GameClosed() из WaitFacadeState");
         }
 
 
@@ -90,7 +91,7 @@ namespace ChessClient.Facade.States
 
         public void SetAlgoList(string[] algos)
         {
-            throw new NotImplementedException();
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов SetAlgoList() из WaitFacadeState");
         }
     }
 }

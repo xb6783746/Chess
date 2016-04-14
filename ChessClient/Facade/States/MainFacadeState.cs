@@ -3,6 +3,7 @@ using ChessClient.Interfaces;
 using GameTemplate.ChessEnums;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
+using Log;
 using Network;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace ChessClient.Facade.States
 
         public void LoginResult(bool result, string message)
         {
-            throw new NotImplementedException();
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов LoginResult() из MainFacadeState");
         }
         public void Message(ChatMessage msg)
         {
@@ -47,11 +48,11 @@ namespace ChessClient.Facade.States
         }
         public void UpdateField(ChessState state)
         {
-            throw new NotImplementedException();
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов UpdateField() из MainFacadeState");
         }
         public void GameOver(FColor win)
         {
-            throw new NotImplementedException();
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов GameOver() из MainFacadeState");
         }
         public void Waiting()
         {
@@ -67,7 +68,7 @@ namespace ChessClient.Facade.States
 
         public void GameClosed(string msg)
         {
-            throw new NotImplementedException();
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов GameClosed() из MainFacadeState");
         }
 
 
@@ -85,7 +86,7 @@ namespace ChessClient.Facade.States
 
         public void StopWait()
         {
-            throw new NotImplementedException();
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов StopWait() из MainFacadeState");
         }
 
 

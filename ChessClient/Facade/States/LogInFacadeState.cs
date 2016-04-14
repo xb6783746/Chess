@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using ChessClient.Enums;
 using Network;
 using GameTemplate.ChessEnums;
+using Log;
 
 namespace ChessClient.Facade.States
 {
@@ -39,7 +40,7 @@ namespace ChessClient.Facade.States
         }
         public void Message(ChatMessage msg)
         {
-            throw new NotImplementedException();
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов Message() из LogInFacadeState");
         }
         public void Disconnected()
         {
@@ -47,23 +48,23 @@ namespace ChessClient.Facade.States
         }
         public void StartGame(IReadOnlyField figures, FColor color)
         {
-            throw new NotImplementedException();
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов StartGame() из LogInFacadeState");
         }
         public void Challenge(string from)
         {
-            throw new NotImplementedException();
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов Challenge() из LogInFacadeState");
         }
         public void UpdateField(ChessState state)
         {
-            throw new NotImplementedException();
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов UpdateField() из LogInFacadeState");
         }
         public void GameOver(FColor win)
         {
-            throw new NotImplementedException();
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов GameOver() из LogInFacadeState");
         }
         public void Waiting()
         {
-            throw new NotImplementedException();
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов Waiting() из LogInFacadeState");
         }
 
 
@@ -75,13 +76,13 @@ namespace ChessClient.Facade.States
 
         public void GameClosed(string msg)
         {
-            throw new NotImplementedException();
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов GameClosed() из LogInFacadeState");
         }
 
 
         public void GetListOnline(string[] online)
         {
-            
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов GetListOnline() из LogInFacadeState");
         }
 
 
@@ -93,13 +94,13 @@ namespace ChessClient.Facade.States
 
         public void StopWait()
         {
-            throw new NotImplementedException();
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов StopWait() из LogInFacadeState");
         }
 
 
         public void SetAlgoList(string[] algos)
         {
-            throw new NotImplementedException();
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов SetAlgoList() из LogInFacadeState");
         }
     }
 }

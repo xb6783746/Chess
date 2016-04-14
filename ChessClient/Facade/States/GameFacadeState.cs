@@ -3,6 +3,7 @@ using ChessClient.Interfaces;
 using GameTemplate.ChessEnums;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
+using Log;
 using Network;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace ChessClient.Facade.States
 
         public void LoginResult(bool result, string message)
         {
-            throw new NotImplementedException();
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов LoginResult() из GameFacadeState");
         }
         public void Message(ChatMessage msg)
         {
@@ -87,13 +88,13 @@ namespace ChessClient.Facade.States
 
         public void StopWait()
         {
-            throw new NotImplementedException();
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов StopWait() из GameFacadeState");
         }
 
 
         public void SetAlgoList(string[] algos)
         {
-            throw new NotImplementedException();
+            Logger.Instance.Log(LogLevel.Warning, "Непредвиденный вызов SetAlgoList() из GameFacadeState");
         }
     }
 }

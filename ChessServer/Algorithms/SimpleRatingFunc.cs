@@ -77,13 +77,17 @@ namespace ChessServer.Algorithms
             var figures = allFigures.Where((x) => x.Figure.Color == color);
             var otherFigures = allFigures.Where((x) => x.Figure.Color != color).ToList();
 
-            rating += figures.Sum(x => price[x.Figure.Type]);
+           // rating += figures.Sum(x => price[x.Figure.Type]);
 
             foreach (var fig in figures)
             {
                 if(otherFigures.Exists( x=> x.Figure.Step(x.Location, fig.Location, field)))
                 {
                     rating -= price[fig.Figure.Type];
+                }
+                else
+                {
+                    rating += price[fig.Figure.Type];
                 }
             }
 

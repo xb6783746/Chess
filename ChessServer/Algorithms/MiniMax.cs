@@ -56,14 +56,7 @@ namespace ChessServer.Algorithms
         }
         public StepInfo MakeStep()
         {
-            try
-            {
-                return ChooseStep();
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
+            return ChooseStep();
         }
         public void GameOver()
         {
@@ -74,81 +67,74 @@ namespace ChessServer.Algorithms
         private StepInfo ChooseStep()
         {
             var field = this.game.Field.Clone();
+            var steps = GetAllSteps(this.Color, field);
 
-            var taskList = new List<Task<StepRating>>();
-           // var tmp = new List<StepRating>();
+            var taskArr = new Task<StepRating>[steps.Count];
 
-            foreach (var step in GetAllSteps(this.Color, field))
+            for (int i = 0; i < taskArr.Length; i++)
             {
                 var clone = field.Clone();
-                var tmp = step;
+                var tmp = steps[i];
 
                 var newTask = new Task<StepRating>(() =>
                     {
                         clone.MakeStep(tmp);
 
-                        var res = RatingField(clone, 1);
-                        res.Step = tmp;
+                        int res = RatingField(clone, 1);
 
                         clone.CancelStep();
 
-                        return res;
+                        return new StepRating(tmp, res);
                     });
 
-                taskList.Add(newTask);
+                newTask.Start();
+
+                taskArr[i] = newTask;
             }
 
-            taskList.ForEach(x => x.Start());
-            taskList.ForEach(x => x.Wait());
+            Task.WaitAll(taskArr);
 
-            int maxRating = taskList.Max(x => x.Result.Rating);
+            int maxRating = taskArr.Max(x => x.Result.Rating);
 
-            return taskList.First(x => x.Result.Rating == maxRating).Result.Step;
+            return taskArr.First(x => x.Result.Rating == maxRating).Result.Step;
         }
 
-        private StepRating RatingField(IField field, int level)
+        private int RatingField(IField field, int level)
         {
-            try
+            int best = 0;
+            bool start = true;
+
+            FColor current = level % 2 == 0 ? this.Color : this.EnemyColor;
+
+            var allSteps = GetAllSteps(current, field);
+
+            foreach (var step in allSteps)
             {
-                StepRating best = null;
+                field.MakeStep(step);
 
-                FColor current = level % 2 == 0 ? this.Color : this.EnemyColor;
+                int newRating = 0;
 
-                var allSteps = GetAllSteps(current, field);
-
-                foreach (var step in allSteps)
+                if (level < maxRecurs)
                 {
-                    field.MakeStep(step);
-
-                    StepRating newRating = null;
-
-                    if (level < maxRecurs)
-                    {
-                        newRating = RatingField(field, level + 1);
-                        newRating.Step = step;
-                    }
-                    else
-                    {
-                        newRating = new StepRating(step, rating.Rating(field));
-                    }
-
-                    if (best == null
-                        || (current == FColor.White && newRating.Rating > best.Rating)
-                        || (current == FColor.Black && newRating.Rating < best.Rating))
-                    {
-                        best = newRating;
-                    }
-
-                    field.CancelStep();
+                    newRating = RatingField(field, level + 1);
+                }
+                else
+                {
+                    newRating = rating.Rating(field);
                 }
 
-                return best;
-            }
-            catch
-            {
-                throw;
+                if (start
+                    || (current == FColor.White && newRating > best)
+                    || (current == FColor.Black && newRating < best))
+                {
+                    best = newRating;
+                    start = false;
+                }
+
+                field.CancelStep();
             }
 
+            return best;
         }
         private List<StepInfo> GetAllSteps(FColor color, IField game)
         {

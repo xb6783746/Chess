@@ -27,7 +27,7 @@ namespace GameTemplate.ChessFigures
 
         public bool Step(Point from, Point to, IReadOnlyField field)
         {
-            return GetCells(from, field).Contains(to);
+             return GetCells(from, field).Contains(to);
         }
         public List<Point> GetCells(Point location, IReadOnlyField field)
         {
@@ -37,7 +37,7 @@ namespace GameTemplate.ChessFigures
         private List<Point> GetTurnOfWhite(Point location, IReadOnlyField field)
         {
             List<Point> cells = new List<Point>();
-            temp = new Point(location.X, location.Y - 1);
+            var temp = new Point(location.X, location.Y - 1);
 
             if (temp.Y >= 0)
             {
@@ -66,7 +66,7 @@ namespace GameTemplate.ChessFigures
         private List<Point> GetTurnOfBlack(Point location, IReadOnlyField field)
         {
             List<Point> cells = new List<Point>();
-            temp = new Point(location.X, location.Y + 1);
+            var temp = new Point(location.X, location.Y + 1);
             if (temp.Y < 8)
             {
                 do
@@ -93,7 +93,7 @@ namespace GameTemplate.ChessFigures
 
         private void EnemyFigure(ref List<Point> cells, Point location, IReadOnlyField field, int stepX, int stepY)
         {
-            temp = new Point(location.X + stepX, location.Y + stepY);
+            var temp = new Point(location.X + stepX, location.Y + stepY);
             if (TestPoint(temp) && field[temp] != null && field[temp].Color != this.color)
             {
                 cells.Add(temp);

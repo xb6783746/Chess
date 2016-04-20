@@ -1,6 +1,7 @@
 ﻿using ChessClient.Controllers;
 using ChessClient.Interfaces;
 using ChessClient.Network;
+using Log;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,15 +21,17 @@ namespace ChessClient
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            Logger.Instance.SetLogFile("clientlog.txt");
+
             var mainForm = new MainForm();
-            var serverFacade = new ServerProxy();               
-            var screenManager = new ScreenManager(mainForm,  serverFacade);
+            var serverProxy = new ServerProxy();               
+            var screenManager = new ScreenManager(mainForm,  serverProxy);
             var clientFacade = new ClientFacade(screenManager);
            
             var socketListener = new SocketListener(clientFacade);
 
-            serverFacade.Init(clientFacade, socketListener);
-            socketListener.SetParser(serverFacade);
+            serverProxy.Init(clientFacade, socketListener);
+            socketListener.SetParser(serverProxy);
                      
             Application.Run(mainForm);
         }       

@@ -43,7 +43,7 @@ namespace GameTemplate.ChessFigures
 
         private void Cells(List<Point> cells, Point start, int stepX, int stepY, IReadOnlyField field)
         {
-            temp = new Point(start.X + stepX, start.Y + stepY);
+            var temp = new Point(start.X + stepX, start.Y + stepY);
             if (TestPoint(temp) && (field[temp] == null || (field[temp] != null && field[temp].Color != this.color)))
             {
                 cells.Add(temp);

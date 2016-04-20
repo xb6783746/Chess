@@ -17,7 +17,7 @@ namespace GameTemplate.ChessFigures
         }
 
         protected FColor color;
-        protected Point temp;
+        //protected Point temp;
 
         protected bool TestPoint(Point temp)
         {

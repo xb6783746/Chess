@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessCore", "GameTemplate\ChessCore.csproj", "{C5B11426-C04F-4882-8640-031FD9461FAA}"
 EndProject
@@ -24,6 +24,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessClient", "ChessClient\ChessClient.csproj", "{0B6A719B-560F-4858-BA20-177FE46C3DB2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "Logger\Logger.csproj", "{98D162BC-4D1A-4852-9BDD-5712F74CFBF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AITurnScreen", "AITurnScreen\AITurnScreen.csproj", "{5E0B74B5-370A-46D6-A2D4-6FADCCFC7E36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{98D162BC-4D1A-4852-9BDD-5712F74CFBF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98D162BC-4D1A-4852-9BDD-5712F74CFBF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98D162BC-4D1A-4852-9BDD-5712F74CFBF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E0B74B5-370A-46D6-A2D4-6FADCCFC7E36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E0B74B5-370A-46D6-A2D4-6FADCCFC7E36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E0B74B5-370A-46D6-A2D4-6FADCCFC7E36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E0B74B5-370A-46D6-A2D4-6FADCCFC7E36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

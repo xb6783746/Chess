@@ -38,36 +38,6 @@ namespace ChessServer.Algorithms
             return Rate(field, FColor.White) - Rate(field, FColor.Black);
         }
 
-        //private int Rate(IReadOnlyField field, FColor color)
-        //{
-        //    int rating = 0;
-
-        //    var figures = field.GetFiguresOnBoard().Where((x) => x.Figure.Color == color);
-        //    var otherFigures = field.GetFiguresOnBoard().Where((x) => x.Figure.Color != color).ToList();
-
-        //    var king = figures.FirstOrDefault((x) => x.Figure.Type == ChessFType.King);
-
-        //    rating += figures.Where((x) => x.Figure.Type != ChessFType.King).Sum((x) => price[x.Figure.Type]);
-
-        //    if (king.Figure != null)
-        //    {
-        //        if (otherFigures.Exists(x => x.Figure.Step(x.Location, king.Location, field)))
-        //        {
-        //            return -100000;
-        //        }
-        //    }
-
-        //    foreach (var item in figures)
-        //    {
-        //        if (otherFigures.Exists(x => x.Figure.Step(x.Location, item.Location, field)))
-        //        {
-        //            rating -= price[item.Figure.Type];
-        //        }
-        //    }
-
-        //    return rating;
-        //}
-
         private int Rate(IReadOnlyField field, FColor color)
         {
             int rating = 0;
@@ -77,7 +47,6 @@ namespace ChessServer.Algorithms
             var figures = allFigures.Where((x) => x.Figure.Color == color);
             var otherFigures = allFigures.Where((x) => x.Figure.Color != color).ToList();
 
-           // rating += figures.Sum(x => price[x.Figure.Type]);
 
             foreach (var fig in figures)
             {

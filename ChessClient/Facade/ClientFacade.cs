@@ -74,6 +74,10 @@ namespace ChessClient.Controllers
         {
             current.StopWait();
         }
+        public void Debug(List<StepInfo> steps, IField field)
+        {
+
+        }
 
         private void Switch(ClientState state)
         {

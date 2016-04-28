@@ -1,4 +1,5 @@
-﻿using ChessServer.Interfaces;
+﻿using AITurnScreen;
+using ChessServer.Interfaces;
 using GameTemplate.ChessEnums;
 using GameTemplate.Game;
 using GameTemplate.Interfaces;
@@ -8,6 +9,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ChessServer.Algorithms
 {
@@ -15,13 +17,21 @@ namespace ChessServer.Algorithms
     {
         private class StepRating
         {
-            public StepRating(StepInfo step, int rating)
+            public StepRating(StepInfo step, int rating, StepRating next)
             {
                 this.Step = step;
                 this.Rating = rating;
+                //this.Field = field;
+                this.Next = next;
+            }
+            public StepRating()
+            {
+
             }
 
             public StepInfo Step { get; set; }
+           // public IReadOnlyField Field { get; set; }
+            public StepRating Next { get; set; }
             public int Rating { get; set; }
 
         }
@@ -34,6 +44,8 @@ namespace ChessServer.Algorithms
         private IRatingFunc rating;
         private IGame game;
         private int maxRecurs = 2;
+
+        private AITurnForm form;
 
         private FColor EnemyColor
         {
@@ -53,6 +65,15 @@ namespace ChessServer.Algorithms
         {
             this.game = game;
             this.Color = color;
+
+
+            form = new AITurnForm();
+            Task.Run(() => 
+                {
+                    Application.EnableVisualStyles();
+                    Application.Run(form);  
+                });
+            
         }
         public StepInfo MakeStep()
         {
@@ -60,7 +81,10 @@ namespace ChessServer.Algorithms
         }
         public void GameOver()
         {
-
+            if (form != null)
+            {
+                form.Close();
+            }
         }
 
 
@@ -80,11 +104,9 @@ namespace ChessServer.Algorithms
                     {
                         clone.MakeStep(tmp);
 
-                        int res = RatingField(clone, 1);
+                        var res = RatingField(clone, 1);
 
-                        clone.CancelStep();
-
-                        return new StepRating(tmp, res);
+                        return new StepRating(tmp, res.Rating, res);
                     });
 
                 newTask.Start();
@@ -96,12 +118,26 @@ namespace ChessServer.Algorithms
 
             int maxRating = taskArr.Max(x => x.Result.Rating);
 
-            return taskArr.First(x => x.Result.Rating == maxRating).Result.Step;
+            var result = taskArr.First(x => x.Result.Rating == maxRating).Result;
+
+
+            List<StepInfo> stepList = new List<StepInfo>();
+            var pointer = result;
+
+            while (pointer != null)
+            {
+                stepList.Add(pointer.Step);
+                pointer = pointer.Next;
+            }
+
+            form.Draw(stepList, field);
+
+            return stepList[0];
         }
 
-        private int RatingField(IField field, int level)
+        private StepRating RatingField(IField field, int level)
         {
-            int best = 0;
+            StepRating best = new StepRating();
             bool start = true;
 
             FColor current = level % 2 == 0 ? this.Color : this.EnemyColor;
@@ -112,7 +148,7 @@ namespace ChessServer.Algorithms
             {
                 field.MakeStep(step);
 
-                int newRating = 0;
+                StepRating newRating;
 
                 if (level < maxRecurs)
                 {
@@ -120,14 +156,19 @@ namespace ChessServer.Algorithms
                 }
                 else
                 {
-                    newRating = rating.Rating(field);
+                    newRating = new StepRating(step, rating.Rating(field), null);
                 }
 
                 if (start
-                    || (current == FColor.White && newRating > best)
-                    || (current == FColor.Black && newRating < best))
+                    || (current == FColor.White && newRating.Rating > best.Rating)
+                    || (current == FColor.Black && newRating.Rating < best.Rating))
                 {
-                    best = newRating;
+                    best.Rating = newRating.Rating;
+                    best.Step = step;
+                    if (level < maxRecurs)
+                    {
+                        best.Next = newRating;
+                    }
                     start = false;
                 }
 

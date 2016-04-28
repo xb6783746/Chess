@@ -54,6 +54,20 @@
       <DependentUpon>AITurnForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClientAPI\ClientAPI.csproj">
+      <Project>{60c609fd-bd7f-4b8e-9028-91052bc34fd4}</Project>
+      <Name>ClientAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameTemplate\ChessCore.csproj">
+      <Project>{c5b11426-c04f-4882-8640-031fd9461faa}</Project>
+      <Name>ChessCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rendering\Rendering.csproj">
+      <Project>{7d01cd0e-563b-4c14-9ad3-3d1d8b881e79}</Project>
+      <Name>Rendering</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

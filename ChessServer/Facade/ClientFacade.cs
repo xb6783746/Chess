@@ -100,6 +100,12 @@ namespace ChessServer.Facade
 
             SendMessage(m, id);
         }
+        public void Debug(List<StepInfo> steps, IField field, int id)
+        {
+            Message m = new Message("Debug", steps, field);
+
+            SendMessage(m, id);
+        }
 
         private void SendMessage(Message m, int id)
         {
